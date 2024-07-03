@@ -1,3 +1,5 @@
+import 'package:ceylontrailapp/screen/sign_in_screen.dart';
+import 'package:ceylontrailapp/screen/user_role_screen.dart';
 import 'package:ceylontrailapp/widgets/custom_scaffold_loading.dart';
 import 'package:ceylontrailapp/widgets/sign_up_button.dart';
 import 'package:ceylontrailapp/widgets/sign_in_button.dart';
@@ -47,12 +49,16 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [SignIn()],
+                  children: [SignIn(
+                    onTap: SignInScreen(),
+                  )],
                 ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [SignUp()],
+                  children: [SignUp(
+                    onTap: UserRoleScreen(),
+                  )],
                 ),
               ],
             ),
