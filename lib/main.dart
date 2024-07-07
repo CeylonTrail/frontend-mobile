@@ -1,6 +1,11 @@
+import 'package:ceylontrailapp/screen/forgot_password_screen.dart';
+import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
 import 'package:ceylontrailapp/screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:ceylontrailapp/screen/sign_in_screen.dart';
+import 'package:ceylontrailapp/screen/sign_up_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +17,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'CeylonTrail',
+        initialRoute: '/',
+        getPages: [
+          GetPage(name: '/', page: () => const WelcomeScreen()),
+          GetPage(name: '/sign_in', page: () => const SignInScreen()),
+          GetPage(name: '/sign_up', page: () => const SignUpScreen()),
+          GetPage(name: '/forgot_password', page: () => const ForgotPasswordScreen()),
+          GetPage(name: '/otp_verification', page: () => const OtpVerificationScreen())
+        ],
 
         theme: ThemeData(
           // This is the theme of your application.
@@ -41,3 +54,4 @@ class MyApp extends StatelessWidget {
         home: const WelcomeScreen());
   }
 }
+

@@ -23,11 +23,11 @@ class _SignInScreenState extends State<SignInScreen> {
         loadingScreen: Column(
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: SizedBox(height: size.height * 0.01),
         ),
         Expanded(
-            flex: 3,
+            flex: 5,
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -79,7 +79,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color: AppTheme.colors.secondary_light_3,
+                                        color:
+                                            AppTheme.colors.secondary_light_3,
                                         width: 2),
                                   ),
                                   focusedBorder: OutlineInputBorder(
@@ -117,7 +118,8 @@ class _SignInScreenState extends State<SignInScreen> {
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color: AppTheme.colors.secondary_light_3,
+                                        color:
+                                            AppTheme.colors.secondary_light_3,
                                         width: 2),
                                   ),
                                   focusedBorder: OutlineInputBorder(
@@ -134,9 +136,10 @@ class _SignInScreenState extends State<SignInScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: size.height * 0.03),
+                              SizedBox(height: size.height * 0.01),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,

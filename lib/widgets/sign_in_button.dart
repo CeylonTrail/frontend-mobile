@@ -4,20 +4,13 @@ import 'package:flutter/widgets.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({super.key, this.onTap});
-  final Widget? onTap;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (e) => onTap!,
-          ),
-        );
-      },
+      onTap: onTap,
       child: Center(
         child: Container(
           height: 66,
