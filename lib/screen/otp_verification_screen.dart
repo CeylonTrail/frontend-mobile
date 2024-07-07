@@ -19,98 +19,207 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     final size = MediaQuery.of(context).size;
     return CustomScaffoldLoading(
         loadingScreen: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: SizedBox(height: size.height * 0.01),
-            ),
-            Expanded(
-                flex: 1,
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppTheme.colors.white,
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(22),
-                        topRight: Radius.circular(22)),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Form(
-                        // key: _formForgotPasswordKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  const SizedBox(height: 15),
-                                  Text(
-                                    "OTP Verification",
-                                    style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        color: AppTheme.colors.primary,
-                                        fontSize: 32,
-                                      ),
+      children: [
+        Expanded(
+          flex: 1,
+          child: SizedBox(height: size.height * 0.01),
+        ),
+        Expanded(
+            flex: 1,
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppTheme.colors.white,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(22),
+                    topRight: Radius.circular(22)),
+              ),
+              child: SingleChildScrollView(
+                child: Form(
+                    // key: _formForgotPasswordKey,
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 15),
+                          Text(
+                            "OTP Verification",
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                color: AppTheme.colors.primary,
+                                fontSize: 32,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: size.height * 0.01),
+                          const Text(
+                            "Please check your email inbox for the OTP code",
+                            textAlign: TextAlign.start,
+                          ),
+                          SizedBox(height: size.height * 0.02),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              textAlign: TextAlign.start,
+                              'Enter the OTP Code',
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppTheme.colors.primary_dark_3),
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 64,
+                                height: 64,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      if (value.length == 1) {
+                                        FocusScope.of(context).nextFocus();
+                                      }
+                                    },
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                    maxLength: 1,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      counterText: '',
                                     ),
-                                  ),
-                                  SizedBox(height: size.height * 0.01),
-                                  const Text(
-                                    "Please check your email inbox for the OTP code",
-                                    textAlign: TextAlign.start,
-                                  ),
-                                  SizedBox(height: size.height * 0.02),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      textAlign: TextAlign.start,
-                                      'OTP Code',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppTheme.colors.primary_dark_3),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
                                     ),
-                                  ),
-                                  const SizedBox(height: 5),
-                                   Row(
-                                    children: [
-                                      Container(
-                                        height: 64,
-                                        width: 64,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey),
-                                          borderRadius: BorderRadius.circular(12), // Adjust the radius as needed
-                                        ),
-                                        child: TextField(
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(1),
-                                            FilteringTextInputFormatter.digitsOnly
-                                          ],
-                                          decoration: const InputDecoration(
-                                            border: InputBorder.none, // Remove the default TextField border
-                                          ),
-                                        ),
-                                      )
-
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(1),
+                                      FilteringTextInputFormatter.digitsOnly
                                     ],
                                   ),
-                                  SizedBox(height: size.height * 0.03),
-                                  const ResetPasswordButton(),
-                                ],
+                                ),
                               ),
-                            )
-                          ],
-                        )),
-                  ),
-                ))
-          ],
-        ));
+                              const SizedBox(width: 15),
+                              Container(
+                                width: 64,
+                                height: 64,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      if (value.length == 1) {
+                                        FocusScope.of(context).nextFocus();
+                                      }
+                                    },
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                    maxLength: 1,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                    ),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(1),
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 15),
+                              Container(
+                                width: 64,
+                                height: 64,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      if (value.length == 1) {
+                                        FocusScope.of(context).nextFocus();
+                                      }
+                                    },
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                    maxLength: 1,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                    ),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(1),
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 15),
+                              Container(
+                                width: 64,
+                                height: 64,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      if (value.length == 1) {
+                                        FocusScope.of(context).nextFocus();
+                                      }
+                                    },
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                    maxLength: 1,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                    ),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(1),
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                          const ResetPasswordButton(),
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+              ),
+            ))
+      ],
+    ));
   }
 }
