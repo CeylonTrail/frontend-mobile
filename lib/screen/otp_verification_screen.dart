@@ -1,9 +1,11 @@
+import 'package:ceylontrailapp/widgets/verify_otp_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../controllers/otp_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/custom_scaffold_loading.dart';
-import '../widgets/reset_password_button.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
@@ -13,6 +15,8 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+  final OTPController otpController = Get.put(OTPController());
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -20,11 +24,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
         loadingScreen: Column(
       children: [
         Expanded(
-          flex: 1,
+          flex: 2,
           child: SizedBox(height: size.height * 0.01),
         ),
         Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               width: double.infinity,
               decoration: BoxDecoration(
@@ -80,11 +84,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 width: 64,
                                 height: 64,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[200],
+                                  color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
-                                  child: TextField(
+                                  child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
@@ -113,11 +117,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 width: 64,
                                 height: 64,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[200],
+                                  color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
-                                  child: TextField(
+                                  child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
@@ -146,11 +150,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 width: 64,
                                 height: 64,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[200],
+                                  color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
-                                  child: TextField(
+                                  child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
@@ -179,11 +183,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 width: 64,
                                 height: 64,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey[200],
+                                  color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
-                                  child: TextField(
+                                  child: TextFormField(
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
@@ -209,15 +213,53 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               )
                             ],
                           ),
+                          SizedBox(height: size.height * 0.01),
+                          Center(
+                            child: Obx(
+                              () => Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  if (!otpController.showTimer.value)
+                                    const Text(
+                                      "Didn't get code? ",
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      if (!otpController.showTimer.value) {
+                                        otpController.startTimer();
+                                      }
+                                    },
+                                    child: otpController.showTimer.value
+                                        ? Text(
+                                            "Resend Code : in ${otpController.remainingTime.value}s",
+                                            style: TextStyle(
+                                              color: AppTheme.colors.black,
+                                              fontSize: 14,
+                                            ),
+                                          )
+                                        : Text(
+                                            "Resend Code",
+                                            style: TextStyle(
+                                              color: AppTheme.colors.primary,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                           SizedBox(height: size.height * 0.03),
-                          const ResetPasswordButton(),
+                          const VerifyOtpButton(),
                         ],
                       ),
                     )
                   ],
                 )),
               ),
-            ))
+            )
+        )
       ],
     ));
   }

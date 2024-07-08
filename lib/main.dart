@@ -1,5 +1,6 @@
 import 'package:ceylontrailapp/screen/forgot_password_screen.dart';
 import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
+import 'package:ceylontrailapp/screen/reset_password_screen.dart';
 import 'package:ceylontrailapp/screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/sign_in', page: () => const SignInScreen()),
           GetPage(name: '/sign_up', page: () => const SignUpScreen()),
           GetPage(name: '/forgot_password', page: () => const ForgotPasswordScreen()),
-          GetPage(name: '/otp_verification', page: () => const OtpVerificationScreen())
+          GetPage(name: '/otp_verification', page: () => const OtpVerificationScreen()),
+          GetPage(name: '/reset_password', page: () => const ResetPasswordScreen()),
         ],
 
         theme: ThemeData(
