@@ -3,19 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({super.key});
+  const SignIn({super.key, this.onTap});
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: (){},
+      onTap: onTap,
       child: Center(
         child: Container(
           height: 66,
           width: screenWidth - 40,
           decoration: BoxDecoration(
-            color: AppTheme.colors.white,
+            color: AppTheme.colors.primary,
             borderRadius: BorderRadius.circular(22),
           ),
           child: Center(
@@ -24,7 +25,7 @@ class SignIn extends StatelessWidget {
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w900,
-                  color: AppTheme.colors.primary),
+                  color: AppTheme.colors.white),
             ),
           ),
         ),

@@ -3,16 +3,14 @@ import 'package:ceylontrailapp/widgets/sign_up_button.dart';
 import 'package:ceylontrailapp/widgets/sign_in_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     Size size = MediaQuery.of(context).size;
-
     return CustomScaffoldLoading(
       loadingScreen: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,17 +40,21 @@ class WelcomeScreen extends StatelessWidget {
           Container(
             height: 200,
             alignment: Alignment.center,
-            child: const Column(
+            child:  Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [SignIn()],
+                  children: [SignIn(
+                   onTap: ()=> Get.toNamed('/forgot_password'),
+                  )],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [SignUp()],
+                  children: [SignUp(
+                    onTap: ()=> Get.toNamed('/otp_verification'),
+                  )],
                 ),
               ],
             ),

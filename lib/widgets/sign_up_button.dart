@@ -1,28 +1,20 @@
-import 'package:ceylontrailapp/screen/user_role_screen.dart';
-import 'package:ceylontrailapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class SignUp extends StatelessWidget {
-  const SignUp({super.key});
-
+  const SignUp({super.key, this.onTap});
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (e) => const UserRoleScreen(),
-          ),
-        );
-      },
+      onTap: onTap,
       child: Center(
         child: Container(
           height: 66,
           width: screenWidth - 40,
           decoration: BoxDecoration(
-            color: AppTheme.colors.primary,
+            color: AppTheme.colors.white,
             borderRadius: BorderRadius.circular(22),
           ),
           child: Center(
@@ -31,7 +23,8 @@ class SignUp extends StatelessWidget {
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w900,
-                  color: AppTheme.colors.white),
+                  color: AppTheme.colors.primary
+              ),
             ),
           ),
         ),
