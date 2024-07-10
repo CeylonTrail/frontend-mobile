@@ -4,5 +4,6 @@ class Assets {
 
   static const String iconsGoogleIcon = 'assets/icons/google_icon.svg';
   static const String imagesCeylontrailLoading = 'assets/images/ceylontrail_loading.jpg';
+  static const String imagesImg = 'assets/images/img.png';
 
 }
