@@ -2,7 +2,22 @@
 class Assets {
   Assets._();
 
+  static const String iconsBell = 'assets/icons/bell.svg';
+  static const String iconsChatBubble = 'assets/icons/chat-bubble.svg';
+  static const String iconsCheck = 'assets/icons/check.svg';
   static const String iconsGoogleIcon = 'assets/icons/google_icon.svg';
+  static const String iconsHeart = 'assets/icons/heart.svg';
+  static const String iconsHome = 'assets/icons/home.svg';
+  static const String iconsLogOut = 'assets/icons/log-out.svg';
+  static const String iconsMap = 'assets/icons/map.svg';
+  static const String iconsMenu = 'assets/icons/menu.svg';
+  static const String iconsMoreVertical = 'assets/icons/more-vertical.svg';
+  static const String iconsNavArrowLeft = 'assets/icons/nav-arrow-left.svg';
+  static const String iconsNavArrowRight = 'assets/icons/nav-arrow-right.svg';
+  static const String iconsPinAlt = 'assets/icons/pin-alt.svg';
+  static const String iconsSearch = 'assets/icons/search.svg';
+  static const String iconsShopAlt = 'assets/icons/shop-alt.svg';
+  static const String iconsWallet = 'assets/icons/wallet.svg';
   static const String imagesCeylontrailLoading = 'assets/images/ceylontrail_loading.jpg';
   static const String imagesImg = 'assets/images/img.png';
 
