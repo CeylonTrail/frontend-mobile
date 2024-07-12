@@ -3,6 +3,7 @@ import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/screen/onboarding_screen.dart';
 import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
 import 'package:ceylontrailapp/screen/reset_password_screen.dart';
+import 'package:ceylontrailapp/screen/splash_screen.dart';
 import 'package:ceylontrailapp/screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: const OnboardingScreen());
+        home: const SplashScreen());
   }
 }
 
