@@ -1,4 +1,8 @@
+import 'package:ceylontrailapp/screen/intro_screen_1.dart';
+import 'package:ceylontrailapp/screen/onboarding_screen.dart';
+import 'package:ceylontrailapp/screen/sign_in_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../theme/app_theme.dart';
 
@@ -9,7 +13,28 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (_) => const OnboardingScreen(),
+      ));
+    });
+  }
+
+  @override
+  void dispose() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+        overlays: SystemUiOverlay.values);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +49,8 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Image.asset('assets/images/ceylontrail_title.png', fit: BoxFit.fill),
+            Image.asset('assets/images/ceylontrail_title.png',
+                fit: BoxFit.fill),
           ],
         ),
       ),

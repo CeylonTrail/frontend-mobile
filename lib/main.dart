@@ -1,5 +1,6 @@
 import 'package:ceylontrailapp/screen/forgot_password_screen.dart';
 import 'package:ceylontrailapp/screen/home_screen.dart';
+import 'package:ceylontrailapp/screen/intro_screen_1.dart';
 import 'package:ceylontrailapp/screen/onboarding_screen.dart';
 import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
 import 'package:ceylontrailapp/screen/reset_password_screen.dart';

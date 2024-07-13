@@ -46,14 +46,14 @@ class WelcomeScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [SignIn(
-                   onTap: ()=> Get.toNamed('/forgot_password'),
+                   onTap: ()=> Get.toNamed('/sign_in'),
                   )],
                 ),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [SignUp(
-                    onTap: ()=> Get.toNamed('/otp_verification'),
+                    onTap: ()=> Get.toNamed('/sign_up'),
                   )],
                 ),
               ],
