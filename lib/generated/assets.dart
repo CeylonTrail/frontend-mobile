@@ -5,6 +5,7 @@ class Assets {
   static const String iconsBell = 'assets/icons/bell.svg';
   static const String iconsChatBubble = 'assets/icons/chat-bubble.svg';
   static const String iconsCheck = 'assets/icons/check.svg';
+  static const String iconsGoogleDocs = 'assets/icons/google-docs.svg';
   static const String iconsGoogleIcon = 'assets/icons/google_icon.svg';
   static const String iconsHeart = 'assets/icons/heart.svg';
   static const String iconsHome = 'assets/icons/home.svg';
@@ -15,10 +16,16 @@ class Assets {
   static const String iconsNavArrowLeft = 'assets/icons/nav-arrow-left.svg';
   static const String iconsNavArrowRight = 'assets/icons/nav-arrow-right.svg';
   static const String iconsPinAlt = 'assets/icons/pin-alt.svg';
+  static const String iconsPlus = 'assets/icons/plus.svg';
+  static const String iconsProfileCircled = 'assets/icons/profile-circled.svg';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsShopAlt = 'assets/icons/shop-alt.svg';
   static const String iconsWallet = 'assets/icons/wallet.svg';
   static const String imagesCeylontrailLoading = 'assets/images/ceylontrail_loading.jpg';
+  static const String imagesCeylontrailTitle = 'assets/images/ceylontrail_title.png';
   static const String imagesImg = 'assets/images/img.png';
+  static const String imagesIntroPage1 = 'assets/images/intro_page_1.png';
+  static const String imagesIntroPage2 = 'assets/images/intro_page_2.png';
+  static const String imagesIntroPage3 = 'assets/images/intro_page_3.png';
 
 }

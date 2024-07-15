@@ -1,6 +1,4 @@
-import 'package:ceylontrailapp/screen/intro_screen_1.dart';
 import 'package:ceylontrailapp/screen/onboarding_screen.dart';
-import 'package:ceylontrailapp/screen/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
