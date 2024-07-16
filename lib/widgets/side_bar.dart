@@ -25,7 +25,7 @@ class _SideBarState extends State<SideBar> {
       },
       child: Scaffold(
         body: Container(
-          width: 320,
+          width: double.infinity,
           height: double.infinity,
           color: AppTheme.colors.primary_dark_3,
           child: SafeArea(
@@ -57,8 +57,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/profile-circled.svg',
+                                    'assets/icons/bx-user-circle.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -87,8 +89,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/home.svg',
+                                    'assets/icons/bx-home.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -117,10 +121,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/search.svg',
+                                    'assets/icons/bx-search.svg',
                                     color: AppTheme.colors.white,
-                                    width: 32,
-                                    height: 32,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 9.5,
@@ -149,8 +153,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/chat-bubble.svg',
+                                    'assets/icons/bx-message-rounded.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -179,8 +185,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/bell.svg',
+                                    'assets/icons/bx-bell.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -209,8 +217,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/heart.svg',
+                                    'assets/icons/bx-heart.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -239,8 +249,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/google-docs.svg',
+                                    'assets/icons/bx-news.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -269,8 +281,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/shop-alt.svg',
+                                    'assets/icons/bx-store-alt.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -299,8 +313,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/voice.svg',
+                                    'assets/icons/bx-equalizer.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -321,36 +337,6 @@ class _SideBarState extends State<SideBar> {
                   ListTile(
                     leading: SizedBox(
                       height: double.infinity,
-                      width: 200,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/google-docs.svg',
-                                    color: AppTheme.colors.white,
-                                  )),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "News Feed",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: SizedBox(
-                      height: double.infinity,
                       width: 230,
                       child: Column(
                         children: [
@@ -359,8 +345,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/phone.svg',
+                                    'assets/icons/bx-phone.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
@@ -378,6 +366,13 @@ class _SideBarState extends State<SideBar> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Divider(
+                      color: AppTheme.colors.white,
+                      thickness: 1,
+                    ),
+                  ),
                   ListTile(
                     leading: SizedBox(
                       height: double.infinity,
@@ -389,8 +384,10 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/log-out.svg',
+                                    'assets/icons/bx-log-out-circle.svg',
                                     color: AppTheme.colors.white,
+                                    width: 28,
+                                    height: 28,
                                   )),
                               const SizedBox(
                                 width: 10,
