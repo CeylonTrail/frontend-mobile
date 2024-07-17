@@ -1,4 +1,3 @@
-import 'package:ceylontrailapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CommonButton1 extends StatelessWidget {
@@ -13,7 +12,7 @@ class CommonButton1 extends StatelessWidget {
     required this.textColor,
     required this.buttonColor,
     // required this.onTap,
-  }) : assert(textColor != null && buttonColor != null);
+  });
 
   @override
   Widget build(BuildContext context) {

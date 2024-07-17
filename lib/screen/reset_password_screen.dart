@@ -1,5 +1,4 @@
 import 'package:ceylontrailapp/widgets/custom_scaffold_loading.dart';
-import 'package:ceylontrailapp/widgets/user_sign_up_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
