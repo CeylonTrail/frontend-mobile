@@ -13,7 +13,7 @@ class ResetPasswordButton extends StatelessWidget {
       onTap: onTap,
       child: Center(
         child: Container(
-          height: 66,
+          height: 50,
           width: screenWidth - 40,
           decoration: BoxDecoration(
             color: AppTheme.colors.primary,
@@ -23,8 +23,8 @@ class ResetPasswordButton extends StatelessWidget {
             child: Text(
               "Reset Password",
               style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                   color: AppTheme.colors.white),
             ),
           ),

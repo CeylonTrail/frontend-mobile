@@ -1,3 +1,4 @@
+import 'package:ceylontrailapp/screen/forgot_password_screen.dart';
 import 'package:ceylontrailapp/widgets/custom_scaffold_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,7 +56,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   textStyle: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppTheme.colors.primary,
-                                    fontSize: 40,
+                                    fontSize: 36,
                                   ),
                                 ),
                               ),
@@ -164,6 +165,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                     ],
                                   ),
                                   GestureDetector(
+                                    onTap: () {
+                                      Get.to(const ForgotPasswordScreen());
+                                    },
                                     child: Text(
                                       "Forgot Password?",
                                       style: TextStyle(
@@ -183,7 +187,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   // Add your onPressed code here!
                                 },
                                 icon: SvgPicture.asset(
-                                  'assets/icons/google_icon.svg',
+                                  'assets/icons/google.svg',
                                   height: 24, // Adjust the size as needed
                                   width: 24,
                                 ),
@@ -196,7 +200,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                       horizontal: 24, vertical: 12),
                                   textStyle: const TextStyle(
                                     fontSize: 16,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(22),

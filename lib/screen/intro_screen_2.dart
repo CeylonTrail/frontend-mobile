@@ -13,7 +13,7 @@ class IntroScreen2 extends StatelessWidget {
           Image.asset('assets/images/intro_page_2.png', fit: BoxFit.fill),
           const SizedBox(height: 20,),
           const Padding(
-            padding:  EdgeInsets.all(8.0),
+            padding:  EdgeInsets.all(18.0),
             child:  Text(
               textAlign: TextAlign.center,
               "Gather Friends",
