@@ -9,6 +9,7 @@ import 'package:ceylontrailapp/widgets/plan_a_trip_button.dart';
 import 'package:ceylontrailapp/widgets/popular_destinations.dart';
 import 'package:ceylontrailapp/widgets/previous_trips.dart';
 import 'package:ceylontrailapp/widgets/recommended_trip_plans.dart';
+import 'package:ceylontrailapp/widgets/social_media_post.dart';
 import 'package:ceylontrailapp/widgets/weather_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                     RecommendedTripPlans(),
                     PopularDestinations(),
                     PreviousTrips(),
-
+                    SocialMediaPost()
                   ],
                 ),
               ),
