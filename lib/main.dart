@@ -2,9 +2,8 @@ import 'package:ceylontrailapp/screen/forgot_password_screen.dart';
 import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
 import 'package:ceylontrailapp/screen/reset_password_screen.dart';
+import 'package:ceylontrailapp/screen/splash_screen.dart';
 import 'package:ceylontrailapp/screen/welcome_screen.dart';
-import 'package:ceylontrailapp/widgets/bottom_nav_bar.dart';
-import 'package:ceylontrailapp/widgets/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
@@ -57,7 +56,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: const HomeScreen());
+        home: const SplashScreen());
   }
 }
 

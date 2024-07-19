@@ -15,12 +15,23 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: ClipOval(
-        child: Image.asset(
-          imagePath,
-          width: 40,
-          height: 40,
-          fit: BoxFit.cover,
+      leading: Container(
+        width: 46,
+        height: 46,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+            color: AppTheme.colors.white,
+            border:Border.all(
+              color: AppTheme.colors.white,
+              width: 1.5
+            )),
+        child: ClipOval(
+          child: Image.asset(
+            imagePath,
+            width: 42,
+            height: 42,
+            fit: BoxFit.cover,
+          ),
         ),
       ),
       title: Text(

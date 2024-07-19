@@ -32,12 +32,15 @@ class _SideBarState extends State<SideBar> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const InfoCard(
-                    imagePath: 'assets/images/img.png',
-                    name: 'Leonardo DiCaprio',
+                  const SizedBox(height: 10),
+                  const SizedBox(
+                    child: InfoCard(
+                      imagePath: 'assets/images/img.png',
+                      name: 'Leonardo DiCaprio',
+                    ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -58,7 +61,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-user-circle.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -90,7 +93,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-home.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -122,7 +125,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-search.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -154,7 +157,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-message-rounded.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -186,7 +189,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-bell.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -218,7 +221,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-heart.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -250,7 +253,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-news.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -282,7 +285,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-store-alt.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -313,8 +316,8 @@ class _SideBarState extends State<SideBar> {
                               IconButton(
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
-                                    'assets/icons/bx-equalizer.svg',
-                                    color: AppTheme.colors.white,
+                                    'assets/icons/bx-user-voice.svg',
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -346,7 +349,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-phone.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),
@@ -385,7 +388,7 @@ class _SideBarState extends State<SideBar> {
                                   onPressed: () {},
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-log-out-circle.svg',
-                                    color: AppTheme.colors.white,
+                                    // color: AppTheme.colors.white,
                                     width: 28,
                                     height: 28,
                                   )),

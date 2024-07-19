@@ -18,7 +18,7 @@ class AppbarScaffold extends StatelessWidget {
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(65.0),
           child: Container(
-            margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
+            margin: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
             child: AppBar(
               backgroundColor: AppTheme.colors.primary,
               leading: IconButton(

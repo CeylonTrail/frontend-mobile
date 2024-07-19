@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 class PlanATripButton extends StatelessWidget {
   // Define a constructor to potentially accept on click functionality
   const PlanATripButton({super.key, this.onPressed});
-
   // Define an optional onPressed callback function
   final VoidCallback? onPressed;
 

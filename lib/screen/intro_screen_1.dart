@@ -27,7 +27,7 @@ class IntroScreen1 extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(18.0),
             child: Text(
               textAlign: TextAlign.center,
               "Explore Sri Lanka like never before with personalized trip planning and local insights with CeylonTrail.",

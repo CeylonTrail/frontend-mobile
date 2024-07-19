@@ -53,7 +53,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   textStyle: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     color: AppTheme.colors.primary,
-                                    fontSize: 40,
+                                    fontSize: 36,
                                   ),
                                 ),
                               ),

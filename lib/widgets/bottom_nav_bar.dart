@@ -10,11 +10,10 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BottomNavBarController controller = Get.put(BottomNavBarController());
-
     return Container(
       height: 60,
       padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.only(left: 18, right: 18, bottom: 14),
+      margin: const EdgeInsets.only(left: 18, right: 18, bottom: 14, top: 10),
       decoration: BoxDecoration(
         color: AppTheme.colors.primary,
         borderRadius: const BorderRadius.all(Radius.circular(22)),
@@ -54,8 +53,8 @@ class BottomNavBar extends StatelessWidget {
               onPressed: () => controller.changeIndex(3),
               icon: SvgPicture.asset(
                 controller.selectedIndex.value == 3
-                    ? 'assets/icons/bxs-equalizer.svg'
-                    : 'assets/icons/bx-equalizer.svg',
+                    ? 'assets/icons/bxs-user-voice.svg'
+                    : 'assets/icons/bx-user-voice.svg',
               ),
             ),
             const SizedBox(width: 10),

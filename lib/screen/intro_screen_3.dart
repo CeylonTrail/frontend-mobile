@@ -13,7 +13,7 @@ class IntroScreen3 extends StatelessWidget {
           Image.asset('assets/images/intro_page_3.png', fit: BoxFit.fill),
           const SizedBox(height: 20,),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(18.0),
             child: Text(
               textAlign: TextAlign.center,
               "Start the Journey",
