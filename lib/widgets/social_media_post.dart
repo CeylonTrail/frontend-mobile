@@ -17,7 +17,8 @@ class SocialMediaPost extends StatelessWidget {
               width: size.width - 40,
               decoration: BoxDecoration(
                   color: AppTheme.colors.white,
-                  border: Border.all(color: AppTheme.colors.secondary, width: 2),
+                  border:
+                      Border.all(color: AppTheme.colors.secondary, width: 2),
                   borderRadius: BorderRadius.circular(50)),
               padding: EdgeInsets.all(8.0),
               // Add some padding if needed
@@ -31,7 +32,9 @@ class SocialMediaPost extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
