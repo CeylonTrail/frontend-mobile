@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../theme/app_theme.dart';
 
 class SocialMediaPost extends StatelessWidget {
@@ -7,45 +6,64 @@ class SocialMediaPost extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SizedBox(
       child: Row(
         children: [
-          ClipOval(
-            child: Image.asset(
-              'assets/images/img.png',
-              width: 42,
-              height: 42,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => PostPopup(),
-                );
-              },
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Write Something...",
-                  hintStyle: TextStyle(
-                    color: AppTheme.colors.secondary_light_3,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+              height: 60,
+              width: size.width - 40,
+              decoration: BoxDecoration(
+                  color: AppTheme.colors.white,
+                  border: Border.all(color: AppTheme.colors.secondary, width: 2),
+                  borderRadius: BorderRadius.circular(50)),
+              padding: EdgeInsets.all(8.0),
+              // Add some padding if needed
+              child: Row(
+                children: [
+                  ClipOval(
+                    child: Image.asset(
+                      'assets/images/img.png',
+                      width: 42,
+                      height: 42,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  border: InputBorder.none,
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                  SizedBox(width: 10,),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (context) => PostPopup(),
+                        );
+                      },
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Write Something...",
+                          hintStyle: TextStyle(
+                            color: AppTheme.colors.secondary_light_3,
+                          ),
+                          border: InputBorder.none,
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                        ),
+                        enabled:
+                            false, // Disable TextField to trigger GestureDetector
+                      ),
+                    ),
                   ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blue),
-                  ),
-                ),
-                enabled: false, // Disable TextField to trigger GestureDetector
+                ],
               ),
             ),
-          ),
-          SvgPicture.asset('assets/icons/bxs-photo-album.svg'),
+          )
         ],
       ),
     );
