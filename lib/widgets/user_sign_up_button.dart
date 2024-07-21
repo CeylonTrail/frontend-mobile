@@ -4,6 +4,7 @@ import '../theme/app_theme.dart';
 class UserSignUpButton extends StatelessWidget {
   const UserSignUpButton({super.key, this.onTap});
   final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -11,7 +12,7 @@ class UserSignUpButton extends StatelessWidget {
       onTap: onTap,
       child: Center(
         child: Container(
-          height: 66,
+          height: 50,
           width: screenWidth - 40,
           decoration: BoxDecoration(
             color: AppTheme.colors.primary,
@@ -21,8 +22,8 @@ class UserSignUpButton extends StatelessWidget {
             child: Text(
               "Sign Up",
               style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w900,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
                   color: AppTheme.colors.white
               ),
             ),
