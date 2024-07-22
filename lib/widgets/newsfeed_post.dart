@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
 import '../theme/app_theme.dart';
 
 class NewsfeedPost extends StatefulWidget {
@@ -73,33 +72,38 @@ class NewsfeedPostState extends State<NewsfeedPost> {
   Widget build(BuildContext context) {
     final double imageWidth = (MediaQuery.of(context).size.width - 40) / 2;
     return Card(
-      margin: const EdgeInsets.all(10),
+      color: AppTheme.colors.white,
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(16),
       ),
+      elevation: 4,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.username,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    Text(
-                      "${widget.date.day}/${widget.date.month}/${widget.date.year} at ${widget.date.hour}:${widget.date.minute}",
-                      style: TextStyle(
-                          color: AppTheme.colors.secondary, fontSize: 12),
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.username,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        "on ${widget.date.day}/${widget.date.month}/${widget.date.year} at ${widget.date.hour}:${widget.date.minute}",
+                        style: TextStyle(
+                            color: AppTheme.colors.secondary, fontSize: 12),
+                      ),
+                    ],
+                  ),
                 ),
                 IconButton(
                   icon: SvgPicture.asset(
@@ -108,18 +112,29 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                 ),
               ],
             ),
-            // const SizedBox(height: 5),
-            Text(widget.postText),
-            // const SizedBox(height: 5),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                widget.postText,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppTheme.colors.black,
+                  height: 1.5,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
             if (widget.imageUrls.isNotEmpty)
               GestureDetector(
                 onTap: () => _showAllImages(context),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Row(
                     children: [
                       Expanded(
                         child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
                           child: Image.network(
                             widget.imageUrls[0],
                             fit: BoxFit.cover,
@@ -128,12 +143,13 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 2),
+                      const SizedBox(width: 8),
                       if (widget.imageUrls.length > 1)
                         Expanded(
                           child: Stack(
                             children: [
                               ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
                                 child: Image.network(
                                   widget.imageUrls[1],
                                   fit: BoxFit.cover,
@@ -144,13 +160,18 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                               if (widget.imageUrls.length > 2)
                                 Positioned.fill(
                                   child: Container(
-                                    color: Colors.black.withOpacity(0.5),
+                                    decoration: BoxDecoration(
+                                      color: AppTheme.colors.black
+                                          .withOpacity(0.4),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
                                     child: Center(
                                       child: Text(
                                         '+${widget.imageUrls.length - 2}',
-                                        style: const TextStyle(
-                                          color: Colors.white,
+                                        style: TextStyle(
+                                          color: AppTheme.colors.white,
                                           fontSize: 20,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
@@ -163,52 +184,28 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                   ),
                 ),
               ),
-            // const SizedBox(height: 10),
+            const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      IconButton(
-                        icon: SvgPicture.asset(
-                          _isLiked
-                              ? 'assets/icons/bxs-heart.svg'
-                              : 'assets/icons/bx-heart-outline.svg',
-                        ),
-                        onPressed: _toggleLike,
-                      ),
-                      Text(
-                        '${_formatCount(_likeCount)} Likes',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ],
+                  _buildActionButton(
+                    icon: _isLiked
+                        ? 'assets/icons/bxs-heart.svg'
+                        : 'assets/icons/bx-heart-outline.svg',
+                    label: '${_formatCount(_likeCount)} Likes',
+                    onPressed: _toggleLike,
                   ),
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                            'assets/icons/bx-comment-detail.svg'),
-                      ),
-                      Text(
-                        '${_formatCount(widget.comments)} Comments',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ],
+                  _buildActionButton(
+                    icon: 'assets/icons/bx-comment-detail.svg',
+                    label: '${_formatCount(widget.comments)} Comments',
+                    onPressed: () {},
                   ),
-                  Column(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset('assets/icons/bx-share.svg'),
-                      ),
-                      Text(
-                        '${_formatCount(widget.shares)} Shares',
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ],
+                  _buildActionButton(
+                    icon: 'assets/icons/bx-share.svg',
+                    label: '${_formatCount(widget.shares)} Shares',
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -228,6 +225,34 @@ class NewsfeedPostState extends State<NewsfeedPost> {
       ),
     );
   }
+
+  Widget _buildActionButton({
+    required String icon,
+    required String label,
+    required VoidCallback onPressed,
+  }) {
+    return Column(
+      children: [
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            color: AppTheme.colors.secondary_light_1,
+            shape: BoxShape.circle,
+          ),
+          child: IconButton(
+            icon: SvgPicture.asset(icon),
+            onPressed: onPressed,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12),
+        ),
+      ],
+    );
+  }
 }
 
 class ImageScrollView extends StatelessWidget {
@@ -238,7 +263,9 @@ class ImageScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Images'),
+      ),
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: imageUrls.length,
