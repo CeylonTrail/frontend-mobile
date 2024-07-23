@@ -31,6 +31,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
   bool _isReportButtonVisible = false;
   bool _isLiked = false;
   int _likeCount = 0;
+  int _currentImageIndex = 0;
 
   @override
   void initState() {
@@ -51,26 +52,21 @@ class NewsfeedPostState extends State<NewsfeedPost> {
     });
   }
 
-  void _showAllImages(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ImageScrollView(imageUrls: widget.imageUrls),
-      ),
-    );
-  }
-
   String _formatCount(int count) {
-    if (count >= 1000) {
-      double result = count / 1000;
-      return '${result.toStringAsFixed(result.truncateToDouble() == result ? 0 : 1)}k';
+    if (count >= 1000000000) {
+      return '${(count / 1000000000).toStringAsFixed(1)}M';
+    } else if (count >= 1000000) {
+      return '${(count / 1000000).toStringAsFixed(1)}M';
+    }else if (count >= 1000) {
+      return '${(count / 1000).toStringAsFixed(1)}K';
+    } else {
+      return count.toString();
     }
-    return count.toString();
   }
 
   @override
   Widget build(BuildContext context) {
-    final double imageWidth = (MediaQuery.of(context).size.width - 40) / 2;
+    final double imageWidth = MediaQuery.of(context).size.width - 32;
     return Card(
       color: AppTheme.colors.white,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -96,7 +92,6 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
-                      const SizedBox(height: 4),
                       Text(
                         "on ${widget.date.day}/${widget.date.month}/${widget.date.year} at ${widget.date.hour}:${widget.date.minute}",
                         style: TextStyle(
@@ -107,7 +102,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                 ),
                 IconButton(
                   icon: SvgPicture.asset(
-                      'assets/icons/bx-dots-horizontal-rounded.svg'),
+                      'assets/icons/bx-dots-vertical-rounded.svg'),
                   onPressed: _toggleReportButton,
                 ),
               ],
@@ -119,92 +114,83 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                 widget.postText,
                 style: TextStyle(
                   fontSize: 14,
-                  color: AppTheme.colors.black,
+                  color: AppTheme.colors.primary_dark_3,
                   height: 1.5,
                 ),
               ),
             ),
             const SizedBox(height: 8),
             if (widget.imageUrls.isNotEmpty)
-              GestureDetector(
-                onTap: () => _showAllImages(context),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
+              SizedBox(
+                height: imageWidth,
+                width: imageWidth,
+                child: Stack(
+                  children: [
+                    PageView.builder(
+                      onPageChanged: (index) {
+                        setState(() {
+                          _currentImageIndex = index;
+                        });
+                      },
+                      itemCount: widget.imageUrls.length,
+                      itemBuilder: (context, index) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            widget.imageUrls[0],
+                            widget.imageUrls[index],
                             fit: BoxFit.cover,
                             width: imageWidth,
                             height: imageWidth,
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      if (widget.imageUrls.length > 1)
-                        Expanded(
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: Image.network(
-                                  widget.imageUrls[1],
-                                  fit: BoxFit.cover,
-                                  width: imageWidth,
-                                  height: imageWidth,
-                                ),
-                              ),
-                              if (widget.imageUrls.length > 2)
-                                Positioned.fill(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: AppTheme.colors.black
-                                          .withOpacity(0.4),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        '+${widget.imageUrls.length - 2}',
-                                        style: TextStyle(
-                                          color: AppTheme.colors.white,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                            ],
+                        );
+                      },
+                    ),
+                    Positioned(
+                      bottom: 8,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: AppTheme.colors.primary_dark_3.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            '${_currentImageIndex + 1}/${widget.imageUrls.length}',
+                            style: TextStyle(
+                              color: AppTheme.colors.white,
+                              fontSize: 10,
+                            ),
                           ),
                         ),
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   _buildActionButton(
                     icon: _isLiked
                         ? 'assets/icons/bxs-heart.svg'
                         : 'assets/icons/bx-heart-outline.svg',
-                    label: '${_formatCount(_likeCount)} Likes',
+                    label: _formatCount(_likeCount),
                     onPressed: _toggleLike,
                   ),
                   _buildActionButton(
                     icon: 'assets/icons/bx-comment-detail.svg',
-                    label: '${_formatCount(widget.comments)} Comments',
+                    label: _formatCount(widget.comments),
                     onPressed: () {},
                   ),
                   _buildActionButton(
                     icon: 'assets/icons/bx-share.svg',
-                    label: '${_formatCount(widget.shares)} Shares',
+                    label: _formatCount(widget.shares),
                     onPressed: () {},
                   ),
                 ],
@@ -231,92 +217,31 @@ class NewsfeedPostState extends State<NewsfeedPost> {
     required String label,
     required VoidCallback onPressed,
   }) {
-    return Column(
+    return Row(
       children: [
         Container(
-          width: 50,
+          width: 90,
           height: 50,
-          decoration: BoxDecoration(
-            color: AppTheme.colors.secondary_light_1,
-            shape: BoxShape.circle,
-          ),
-          child: IconButton(
-            icon: SvgPicture.asset(icon),
-            onPressed: onPressed,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: const TextStyle(fontSize: 12),
-        ),
-      ],
-    );
-  }
-}
-
-class ImageScrollView extends StatelessWidget {
-  final List<String> imageUrls;
-
-  const ImageScrollView({Key? key, required this.imageUrls}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Images'),
-      ),
-      body: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: imageUrls.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FullScreenImage(
-                    imageUrl: imageUrls[index],
-                  ),
+          child: SizedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                  icon: SvgPicture.asset(icon),
+                  onPressed: onPressed,
                 ),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.network(imageUrls[index]),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class FullScreenImage extends StatelessWidget {
-  final String imageUrl;
-
-  const FullScreenImage({super.key, required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Center(
-            child: Image.network(imageUrl),
-          ),
-          Positioned(
-            top: 40,
-            left: 10,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+                Text(
+                  label,
+                  style: const TextStyle(fontSize: 11),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+
+        ),
+        // const SizedBox(height: 4),
+
+      ],
     );
   }
 }
