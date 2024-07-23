@@ -74,6 +74,12 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
+                                validator: (value) {
+                                  if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                                    return "Enter a valid e-mail address";
+                                  }
+                                  return null;
+                                },
                                 decoration: InputDecoration(
                                   hintText: 'Enter E-mail',
                                   hintStyle: TextStyle(

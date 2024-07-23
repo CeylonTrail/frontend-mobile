@@ -23,7 +23,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BottomNavBarController controller = Get.put(BottomNavBarController());
-
     return BackButtonInterceptor(
       child: AppbarScaffold(
         homeScreen: Obx(() {
@@ -58,6 +57,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              // SizedBox(height: 10),
               NewsFeed(),
               Marketplace(),
               VoiceAssistant(),
