@@ -1,6 +1,6 @@
 import 'package:ceylontrailapp/widgets/newsfeed_post.dart';
 import 'package:flutter/material.dart';
-import '../widgets/social_media_post.dart';
+import '../widgets/add_new_post.dart';
 
 class NewsFeed extends StatefulWidget {
   const NewsFeed({super.key});
@@ -16,7 +16,7 @@ class _HomeScreenState extends State<NewsFeed> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SocialMediaPost(),
+          const AddNewPost(),
           NewsfeedPost(
             username: 'Leonardo DiCaprio',
             date: DateTime(2019, 5, 21, 17, 31),
