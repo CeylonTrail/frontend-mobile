@@ -93,7 +93,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       Text(
-                        "on ${widget.date.day}/${widget.date.month}/${widget.date.year} at ${widget.date.hour}:${widget.date.minute}",
+                        "on ${widget.date.year}/${widget.date.month}/${widget.date.day} at ${widget.date.hour}:${widget.date.minute}",
                         style: TextStyle(
                             color: AppTheme.colors.secondary, fontSize: 12),
                       ),
@@ -219,7 +219,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
   }) {
     return Row(
       children: [
-        Container(
+        SizedBox(
           width: 90,
           height: 50,
           child: SizedBox(

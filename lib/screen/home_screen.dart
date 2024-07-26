@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ceylontrailapp/screen/news_feed.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
+import '../theme/app_theme.dart';
 import '../widgets/back_button_interceptor.dart';
 
 
@@ -26,44 +27,46 @@ class HomeScreen extends StatelessWidget {
     return BackButtonInterceptor(
       child: AppbarScaffold(
         homeScreen: Obx(() {
-          return IndexedStack(
-            index: controller.selectedIndex.value,
-            children: const [
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        PlanATripButton(),
-                        FavoritesButton()
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        CurrentTripButton(),
-                        WeatherButton()
-                      ],
-                    ),
-                    SizedBox(height: 8),
-                    RecommendedTripPlans(),
-                    PopularDestinations(),
-                    PreviousTrips(),
+          return ColoredBox(
+            color: AppTheme.colors.white,
+            child: IndexedStack(
+              index: controller.selectedIndex.value,
+              children: const [
+                SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          PlanATripButton(),
+                          FavoritesButton()
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CurrentTripButton(),
+                          WeatherButton()
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      RecommendedTripPlans(),
+                      PopularDestinations(),
+                      PreviousTrips(),
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              // SizedBox(height: 10),
-              NewsFeed(),
-              Marketplace(),
-              VoiceAssistant(),
-              EmergencyServices(),
-              // Add other screens here
-            ],
+                // SizedBox(height: 10),
+                NewsFeed(),
+                Marketplace(),
+                VoiceAssistant(),
+                EmergencyServices(),
+                // Add other screens here
+              ],
+            ),
           );
         }),
         bottomNavBar: const BottomNavBar(),
