@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
 import '../widgets/sign_in_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../controllers/auth_controller.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -17,29 +18,39 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
+  late AuthController authController;
+
+  @override
+  void initState() {
+    super.initState();
+    authController = Get.put(AuthController());
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return CustomScaffoldLoading(
+    return Obx(() {
+      return CustomScaffoldLoading(
+        isLoading: authController.isLoading.value,
         loadingScreen: Column(
-      children: [
-        Expanded(
-          flex: 2,
-          child: SizedBox(height: size.height * 0.01),
-        ),
-        Expanded(
-            flex: 5,
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppTheme.colors.white,
-                borderRadius: const BorderRadius.only(
+          children: [
+            Expanded(
+              flex: 2,
+              child: SizedBox(height: size.height * 0.01),
+            ),
+            Expanded(
+              flex: 5,
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppTheme.colors.white,
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(22),
-                    topRight: Radius.circular(22)),
-              ),
-              child: SingleChildScrollView(
-                child: Form(
+                    topRight: Radius.circular(22),
+                  ),
+                ),
+                child: SingleChildScrollView(
+                  child: Form(
                     key: _formSignInKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,15 +78,19 @@ class _SignInScreenState extends State<SignInScreen> {
                                   textAlign: TextAlign.start,
                                   'E-mail',
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppTheme.colors.primary_dark_3),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppTheme.colors.primary_dark_3,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
+                                controller: authController.emailController,
                                 validator: (value) {
-                                  if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                                  if (value!.isEmpty ||
+                                      !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                          .hasMatch(value)) {
                                     return "Enter a valid e-mail address";
                                   }
                                   return null;
@@ -83,25 +98,28 @@ class _SignInScreenState extends State<SignInScreen> {
                                 decoration: InputDecoration(
                                   hintText: 'Enter E-mail',
                                   hintStyle: TextStyle(
-                                      color: AppTheme.colors.secondary_light_2),
+                                    color: AppTheme.colors.secondary_light_2,
+                                  ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color:
-                                            AppTheme.colors.secondary_light_3,
-                                        width: 2),
+                                      color: AppTheme.colors.secondary_light_3,
+                                      width: 2,
+                                    ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color: AppTheme.colors.primary_dark_3,
-                                        width: 2),
+                                      color: AppTheme.colors.primary_dark_3,
+                                      width: 2,
+                                    ),
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color: AppTheme.colors.primary_dark_3,
-                                        width: 2),
+                                      color: AppTheme.colors.primary_dark_3,
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -112,42 +130,47 @@ class _SignInScreenState extends State<SignInScreen> {
                                   textAlign: TextAlign.start,
                                   'Password',
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: AppTheme.colors.primary_dark_3),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppTheme.colors.primary_dark_3,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
+                                controller: authController.passwordController,
+                                obscureText: true,
                                 decoration: InputDecoration(
                                   hintText: 'Enter Password',
                                   hintStyle: TextStyle(
-                                      color: AppTheme.colors.secondary_light_2),
+                                    color: AppTheme.colors.secondary_light_2,
+                                  ),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color:
-                                            AppTheme.colors.secondary_light_3,
-                                        width: 2),
+                                      color: AppTheme.colors.secondary_light_3,
+                                      width: 2,
+                                    ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color: AppTheme.colors.primary_dark_3,
-                                        width: 2),
+                                      color: AppTheme.colors.primary_dark_3,
+                                      width: 2,
+                                    ),
                                   ),
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                     borderSide: BorderSide(
-                                        color: AppTheme.colors.primary_dark_3,
-                                        width: 2),
+                                      color: AppTheme.colors.primary_dark_3,
+                                      width: 2,
+                                    ),
                                   ),
                                 ),
                               ),
                               SizedBox(height: size.height * 0.01),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -167,7 +190,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                           color: AppTheme.colors.black,
                                           fontSize: 14,
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                   GestureDetector(
@@ -181,11 +204,18 @@ class _SignInScreenState extends State<SignInScreen> {
                                         fontSize: 14,
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                               SignIn(
-                                onTap: ()=> Get.toNamed('/home'),
+                                onTap: () {
+                                  if (_formSignInKey.currentState!.validate()) {
+                                    authController.login(
+                                      authController.emailController.text,
+                                      authController.passwordController.text,
+                                    );
+                                  }
+                                },
                               ),
                               SizedBox(height: size.height * 0.02),
                               ElevatedButton.icon(
@@ -199,11 +229,12 @@ class _SignInScreenState extends State<SignInScreen> {
                                 ),
                                 label: const Text("Sign In with Google"),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      AppTheme.colors.secondary_light_1,
+                                  backgroundColor: AppTheme.colors.secondary_light_1,
                                   foregroundColor: AppTheme.colors.black,
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 24, vertical: 12),
+                                    horizontal: 24,
+                                    vertical: 12,
+                                  ),
                                   textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.normal,
@@ -216,12 +247,16 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
-                    )),
+                    ),
+                  ),
+                ),
               ),
-            ))
-      ],
-    ));
+            ),
+          ],
+        ),
+      );
+    });
   }
 }

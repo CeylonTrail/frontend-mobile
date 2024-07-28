@@ -12,7 +12,7 @@ import 'package:ceylontrailapp/widgets/recommended_trip_plans.dart';
 import 'package:ceylontrailapp/widgets/weather_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ceylontrailapp/screen/news_feed.dart';
+import 'package:ceylontrailapp/screen/newsfeed.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/back_button_interceptor.dart';
