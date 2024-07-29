@@ -2,12 +2,9 @@ import 'package:ceylontrailapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-// Create a new stateless widget class
-class FavoritesButton extends StatelessWidget {
-  // Define a constructor to potentially accept on click functionality
-  const FavoritesButton({super.key, this.onPressed});
 
-  // Define an optional onPressed callback function
+class FavoritesButton extends StatelessWidget {
+  const FavoritesButton({super.key, this.onPressed});
   final VoidCallback? onPressed;
 
   @override

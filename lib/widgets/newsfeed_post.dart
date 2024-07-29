@@ -57,11 +57,18 @@ class NewsfeedPostState extends State<NewsfeedPost> {
       return '${(count / 1000000000).toStringAsFixed(1)}M';
     } else if (count >= 1000000) {
       return '${(count / 1000000).toStringAsFixed(1)}M';
-    }else if (count >= 1000) {
+    } else if (count >= 1000) {
       return '${(count / 1000).toStringAsFixed(1)}K';
     } else {
       return count.toString();
     }
+  }
+
+  void _openFullScreenImageViewer(int initialIndex) {
+    Get.to(() => FullScreenImageViewer(
+      imageUrls: widget.imageUrls,
+      initialIndex: initialIndex,
+    ));
   }
 
   @override
@@ -134,13 +141,16 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                       },
                       itemCount: widget.imageUrls.length,
                       itemBuilder: (context, index) {
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            widget.imageUrls[index],
-                            fit: BoxFit.cover,
-                            width: imageWidth,
-                            height: imageWidth,
+                        return GestureDetector(
+                          onTap: () => _openFullScreenImageViewer(index),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              widget.imageUrls[index],
+                              fit: BoxFit.cover,
+                              width: imageWidth,
+                              height: imageWidth,
+                            ),
                           ),
                         );
                       },
@@ -174,7 +184,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildActionButton(
                     icon: _isLiked
@@ -188,11 +198,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                     label: _formatCount(widget.comments),
                     onPressed: () {},
                   ),
-                  _buildActionButton(
-                    icon: 'assets/icons/bx-share.svg',
-                    label: _formatCount(widget.shares),
-                    onPressed: () {},
-                  ),
+
                 ],
               ),
             ),
@@ -203,7 +209,12 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                   onPressed: () {
                     // Add report functionality here
                   },
-                  child: const Text('Report'),
+                  child: Text(
+                    'Report',
+                    style: TextStyle(
+                      color: AppTheme.colors.primary_dark_3,
+                    ),
+                  ),
                 ),
               ),
           ],
@@ -217,31 +228,98 @@ class NewsfeedPostState extends State<NewsfeedPost> {
     required String label,
     required VoidCallback onPressed,
   }) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 90,
-          height: 50,
-          child: SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                  icon: SvgPicture.asset(icon),
-                  onPressed: onPressed,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: InkWell(
+        onTap: onPressed,
+        child: SizedBox(
+          width: 75,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                icon,
+                width: 20,
+                height: 20,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                label,
+                style: TextStyle(
+                  color: AppTheme.colors.primary_dark_3,
                 ),
-                Text(
-                  label,
-                  style: const TextStyle(fontSize: 11),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FullScreenImageViewer extends StatefulWidget {
+  final List<String> imageUrls;
+  final int initialIndex;
+
+  const FullScreenImageViewer({
+    super.key,
+    required this.imageUrls,
+    required this.initialIndex,
+  });
+
+  @override
+  FullScreenImageViewerState createState() => FullScreenImageViewerState();
+}
+
+class FullScreenImageViewerState extends State<FullScreenImageViewer> {
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialIndex;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+          PageView.builder(
+            itemCount: widget.imageUrls.length,
+            controller: PageController(initialPage: _currentIndex),
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Center(
+                  child: Image.network(
+                    widget.imageUrls[index],
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ],
+              );
+            },
+          ),
+          Positioned(
+            top: 40,
+            left: 16,
+            child: IconButton(
+              icon: SvgPicture.asset('assets/icons/bx-arrow-white.svg'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
           ),
-
-        ),
-        // const SizedBox(height: 4),
-
-      ],
+        ],
+      ),
     );
   }
 }
