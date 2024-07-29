@@ -198,11 +198,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                     label: _formatCount(widget.comments),
                     onPressed: () {},
                   ),
-                  _buildActionButton(
-                    icon: 'assets/icons/bx-share.svg',
-                    label: _formatCount(widget.shares),
-                    onPressed: () {},
-                  ),
+
                 ],
               ),
             ),

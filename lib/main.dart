@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/otp_verification', page: () => const OtpVerificationScreen()),
         GetPage(name: '/reset_password', page: () => const ResetPasswordScreen()),
         GetPage(name: '/home', page: () => const HomeScreen()),
+        GetPage(name: '/myprofile', page: () => const HomeScreen()),
       ],
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

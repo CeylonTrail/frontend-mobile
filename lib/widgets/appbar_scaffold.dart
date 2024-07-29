@@ -6,7 +6,6 @@ import '../theme/app_theme.dart';
 
 class AppbarScaffold extends StatefulWidget {
   const AppbarScaffold({super.key, required this.homeScreen, this.bottomNavBar});
-
   final Widget homeScreen;
   final Widget? bottomNavBar;
 

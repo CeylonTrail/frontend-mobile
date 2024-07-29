@@ -1,6 +1,10 @@
+import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/theme/app_theme.dart';
+import 'package:ceylontrailapp/widgets/popular_destinations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import '../screen/custom_profile_appbar.dart';
 import 'info_card.dart';
 
 class SideBar extends StatefulWidget {
@@ -33,10 +37,15 @@ class _SideBarState extends State<SideBar> {
               child: Column(
                 children: [
                   const SizedBox(height: 10),
-                  const SizedBox(
-                    child: InfoCard(
-                      imagePath: 'assets/images/img.png',
-                      name: 'Leonardo DiCaprio',
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => const CustomAppbar(homeScreen: PopularDestinations(),bottomNavBar: BottomAppBar(),));
+                    },
+                    child: const SizedBox(
+                      child: InfoCard(
+                        imagePath: 'assets/images/img.png',
+                        name: 'Leonardo DiCaprio',
+                      ),
                     ),
                   ),
                   const SizedBox(
@@ -55,27 +64,32 @@ class _SideBarState extends State<SideBar> {
                       width: 200,
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/bx-user-circle.svg',
-                                    // color: AppTheme.colors.white,
-                                    width: 28,
-                                    height: 28,
-                                  )),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "Profile",
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.white,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ],
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => const CustomAppbar(homeScreen: HomeScreen(),bottomNavBar: BottomAppBar(),));
+                            },
+                            child: Row(
+                              children: [
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: SvgPicture.asset(
+                                      'assets/icons/bx-user-circle.svg',
+                                      // color: AppTheme.colors.white,
+                                      width: 28,
+                                      height: 28,
+                                    )),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Profile",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: AppTheme.colors.white,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
