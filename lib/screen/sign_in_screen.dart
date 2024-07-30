@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_theme.dart';
 import '../widgets/sign_in_button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../controllers/auth_controller.dart';
+import '../controllers/login_controller.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -14,16 +14,22 @@ class SignInScreen extends StatefulWidget {
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
-
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
-  late AuthController authController;
+  bool _obscurePassword = true; // Track password visibility
+  late LoginController loginController;
 
   @override
   void initState() {
     super.initState();
-    authController = Get.put(AuthController());
+    loginController = Get.put(LoginController());
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
   }
 
   @override
@@ -31,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
     final size = MediaQuery.of(context).size;
     return Obx(() {
       return CustomScaffoldLoading(
-        isLoading: authController.isLoading.value,
+        isLoading: loginController.isLoading.value,
         loadingScreen: Column(
           children: [
             Expanded(
@@ -86,7 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
-                                controller: authController.emailController,
+                                controller: loginController.emailController,
                                 validator: (value) {
                                   if (value!.isEmpty ||
                                       !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
@@ -138,8 +144,8 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                               const SizedBox(height: 5),
                               TextFormField(
-                                controller: authController.passwordController,
-                                obscureText: true,
+                                controller: loginController.passwordController,
+                                obscureText: _obscurePassword, // Toggle password visibility
                                 decoration: InputDecoration(
                                   hintText: 'Enter Password',
                                   hintStyle: TextStyle(
@@ -166,7 +172,21 @@ class _SignInScreenState extends State<SignInScreen> {
                                       width: 2,
                                     ),
                                   ),
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        _obscurePassword
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: AppTheme.colors.secondary_light_3,
+                                      ),
+                                      onPressed: _togglePasswordVisibility,
+                                    ),
+                                  ),
+
                                 ),
+
                               ),
                               SizedBox(height: size.height * 0.01),
                               Row(
@@ -210,9 +230,9 @@ class _SignInScreenState extends State<SignInScreen> {
                               SignIn(
                                 onTap: () {
                                   if (_formSignInKey.currentState!.validate()) {
-                                    authController.login(
-                                      authController.emailController.text,
-                                      authController.passwordController.text,
+                                    loginController.login(
+                                      loginController.emailController.text,
+                                      loginController.passwordController.text,
                                     );
                                   }
                                 },
