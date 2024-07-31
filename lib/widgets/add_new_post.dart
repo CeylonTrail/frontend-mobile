@@ -17,9 +17,9 @@ class AddNewPost extends StatelessWidget {
         height: 80,
         width: size.width - 20,
         decoration: BoxDecoration(
-          color: AppTheme.colors.secondary_light_2,
+          color: AppTheme.colors.secondary_light_1,
           borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: AppTheme.colors.primary, width: 2),
+          border: Border.all(color: AppTheme.colors.secondary_dark_2, width: 2),
           // boxShadow: [
           //   BoxShadow(
           //     color: Colors.grey.withOpacity(0.5),
@@ -37,7 +37,7 @@ class AddNewPost extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(shape: BoxShape.circle,
                   border: Border.all(
-                    color: AppTheme.colors.primary,
+                    color: AppTheme.colors.secondary_dark_2,
                     width: 1.5
                   )
                 ),
@@ -61,7 +61,7 @@ class AddNewPost extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: AppTheme.colors.white,
                       borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: AppTheme.colors.primary,
+                      border: Border.all(color: AppTheme.colors.secondary_dark_2,
                       width: 1)
                     ),
                     alignment: Alignment.centerLeft,

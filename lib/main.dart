@@ -10,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:ceylontrailapp/screen/sign_in_screen.dart';
 import 'package:ceylontrailapp/screen/sign_up_screen.dart';
 
+import 'controllers/newsfeed_controller.dart';
+
 void main() {
   // Set the status bar and navigation bar color
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -18,7 +20,7 @@ void main() {
     systemNavigationBarColor: Colors.white, // Set the navigation bar color
     systemNavigationBarIconBrightness: Brightness.dark, // Set the navigation bar icons to dark
   ));
-
+  Get.put(NewsfeedController());
   runApp(const MyApp());
 }
 

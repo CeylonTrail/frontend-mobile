@@ -24,14 +24,14 @@ class NewsFeed extends StatelessWidget {
                 children: [
                   const AddNewPost(),
                   ...newsfeedController.posts.map((post) => NewsfeedPost(
-                        username: '${post.firstname} ${post.lastname}',
-                        date: post.datetime,
-                        postText: post.description,
-                        imageUrls: post.images,
-                        likes: post.likes,
-                        comments: post.comments,
-                        shares: post.shares,
-                      )),
+                    username: post.user?.username ?? '',
+                    date: post.createdAt ?? DateTime.now(),  // Use createdAt directly
+                    postText: post.content ?? '',
+                    imageUrls: const [],  // Update this if your post contains images
+                    likes: post.likes.length,
+                    comments: post.comments.length,
+                    shares: 0,  // Update this if your post contains shares data
+                  )),
                 ],
               ),
             ),

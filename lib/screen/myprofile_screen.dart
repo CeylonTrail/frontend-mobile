@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
 import '../theme/app_theme.dart';
-import '../widgets/custom_profile_appbar.dart';
+import '../widgets/custom_my_profile_appbar.dart';
 import '../widgets/profile_full_screen_image_view.dart';
 
 class MyProfileScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class MyProfileScreenState extends State<MyProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppbar(
+    return CustomMyProfileAppbar(
       content: Obx(() {
         return ColoredBox(
           color: AppTheme.colors.white,
@@ -182,7 +182,6 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-
                                 onPressed: () {
                                   setState(() {
                                     selectedIndex = 0;

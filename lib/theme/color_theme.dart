@@ -15,6 +15,7 @@ class AppColors {
   final secondary_dark = const Color(0xff294d61);
   final warning = const Color(0xffd22c3c);
   final warning_light = const Color(0xfffc3a4e);
+  final secondary_dark_2 = const Color(0xff009dff);
 
   const AppColors();
 }

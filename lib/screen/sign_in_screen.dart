@@ -14,17 +14,12 @@ class SignInScreen extends StatefulWidget {
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
+
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
   bool _obscurePassword = true; // Track password visibility
-  late LoginController loginController;
-
-  @override
-  void initState() {
-    super.initState();
-    loginController = Get.put(LoginController());
-  }
+  final LoginController loginController = Get.put(LoginController());
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -184,9 +179,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                       onPressed: _togglePasswordVisibility,
                                     ),
                                   ),
-
                                 ),
-
                               ),
                               SizedBox(height: size.height * 0.01),
                               Row(

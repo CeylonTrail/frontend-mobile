@@ -1,37 +1,34 @@
 import 'package:get/get.dart';
+import '../models/newsfeed_post_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/social_media_post.dart';
 
 class NewsfeedController extends GetxController {
-  var posts = <SocialMediaPost>[].obs;
+  var posts = <Datum>[].obs;
   var isLoading = true.obs;
 
   @override
   void onInit() {
-    super.onInit();
     fetchPosts();
+    super.onInit();
   }
 
   Future<void> fetchPosts() async {
-    const url = 'https://dummyjson.com/c/a39c-6551-4027-bf44'; // Replace with your backend API URL
     try {
-      final response = await http.get(Uri.parse(url));
+      isLoading(true);
+      final response = await http.get(Uri.parse('http://localhost:8083/api/v1/post'));
       if (response.statusCode == 200) {
-        List<dynamic> data = jsonDecode(response.body);
-        var fetchedPosts = data.map((json) => SocialMediaPost.fromJson(json)).toList();
-        posts.assignAll(fetchedPosts);
-        isLoading.value = false;
-        print('Post Loading Successful');
+        var jsonResponse = json.decode(response.body);
+        var socialMediaPost = SocialMediaPost.fromJson(jsonResponse);
+        posts.value = socialMediaPost.data;
       } else {
-        // Handle error
-        print('Failed to load posts');
-        isLoading.value = false;
+        // Handle the error
+        Get.snackbar('Error', 'Failed to load posts');
       }
     } catch (e) {
-      // Handle exception
-      print('Error: $e');
-      isLoading.value = false;
+      Get.snackbar('Error', e.toString());
+    } finally {
+      isLoading(false);
     }
   }
 }

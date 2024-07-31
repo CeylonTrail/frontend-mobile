@@ -5,7 +5,7 @@ import 'package:ceylontrailapp/widgets/popular_destinations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'custom_profile_appbar.dart';
+import 'custom_my_profile_appbar.dart';
 import 'info_card.dart';
 
 class SideBar extends StatefulWidget {
