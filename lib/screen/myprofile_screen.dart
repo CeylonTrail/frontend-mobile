@@ -324,15 +324,17 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                           children: List.generate(5, (index) {
                             return Container(
                               margin: const EdgeInsets.all(10.0),
-                              color: AppTheme.colors.primary_dark_3,
-                              height: 150.0,
+                              color: AppTheme.colors.white,
                               width: double.infinity,
                               child: Center(
-                                child: Text(
-                                  'Photo $index',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    color: AppTheme.colors.white,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    'assets/images/$index.jpg',
+                                    fit: BoxFit.fill,
+                                    // errorBuilder: (context, error, stackTrace) {
+                                    //   return Center(child: Text('Image not found', style: TextStyle(color: Colors.red)));
+                                    // },
                                   ),
                                 ),
                               ),
@@ -340,6 +342,7 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                           }),
                         ),
                       ),
+
                       // Trips Tab
                       SingleChildScrollView(
                         scrollDirection: Axis.vertical,
