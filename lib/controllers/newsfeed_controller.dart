@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import '../models/newsfeed_post_model.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../models/post_model.dart';
 
 class NewsfeedController extends GetxController {
-  var posts = <Datum>[].obs;
   var isLoading = true.obs;
+  var posts = <Post>[].obs;
 
   @override
   void onInit() {
@@ -13,20 +13,28 @@ class NewsfeedController extends GetxController {
     super.onInit();
   }
 
-  Future<void> fetchPosts() async {
+  void fetchPosts() async {
     try {
       isLoading(true);
-      final response = await http.get(Uri.parse('http://localhost:8083/api/v1/post'));
+      var response = await http.get(Uri.parse('http://localhost:8083/api/v1/post/community-feed')); // Use your local IP address instead of localhost
+      print('Status Code: ${response.statusCode}');
+      print('Response Body: ${response.body}');
+
       if (response.statusCode == 200) {
-        var jsonResponse = json.decode(response.body);
-        var socialMediaPost = SocialMediaPost.fromJson(jsonResponse);
-        posts.value = socialMediaPost.data;
+        var jsonData = json.decode(response.body);
+        PostResponse apiResponse = PostResponse.fromJson(jsonData);
+
+        if (apiResponse.code == 200) { // Check the code field from the response body
+          print('Posts data fetched successfully');
+          posts.value = apiResponse.data;
+        } else {
+          print('Failed to load posts: ${apiResponse.message}');
+        }
       } else {
-        // Handle the error
-        Get.snackbar('Error', 'Failed to load posts');
+        print('Failed to load posts: ${response.statusCode}');
       }
     } catch (e) {
-      Get.snackbar('Error', e.toString());
+      print('Error fetching posts: $e');
     } finally {
       isLoading(false);
     }

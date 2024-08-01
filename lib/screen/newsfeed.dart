@@ -20,18 +20,17 @@ class NewsFeed extends StatelessWidget {
             color: AppTheme.colors.white,
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const AddNewPost(),
-                  ...newsfeedController.posts.map((post) => NewsfeedPost(
-                    username: post.user?.username ?? '',
-                    date: post.createdAt ?? DateTime.now(),  // Use createdAt directly
-                    postText: post.content ?? '',
-                    imageUrls: const [],  // Update this if your post contains images
-                    likes: post.likes.length,
-                    comments: post.comments.length,
-                    shares: 0,  // Update this if your post contains shares data
-                  )),
+                  ListView.builder(
+                    shrinkWrap: true, // Use shrinkWrap to make it fit inside SingleChildScrollView
+                    physics: const NeverScrollableScrollPhysics(), // Disable scrolling
+                    itemCount: newsfeedController.posts.length,
+                    itemBuilder: (context, index) {
+                      final post = newsfeedController.posts[index];
+                      return NewsfeedPost(post: post);
+                    },
+                  ),
                 ],
               ),
             ),

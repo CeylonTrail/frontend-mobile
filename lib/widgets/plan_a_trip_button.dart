@@ -1,6 +1,9 @@
+import 'package:ceylontrailapp/screen/myprofile_screen.dart';
+import 'package:ceylontrailapp/screen/trip_screen_1.dart';
 import 'package:ceylontrailapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 // Create a new stateless widget class
 class PlanATripButton extends StatelessWidget {
@@ -13,7 +16,9 @@ class PlanATripButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // Return a TextButton with rounded corners
     return TextButton(
-      onPressed: onPressed,
+      onPressed: (){
+        Get.to(()=>  TripScreen1());
+      },
       style: TextButton.styleFrom(
         backgroundColor: AppTheme.colors.primary_dark_3,
         shape: RoundedRectangleBorder(

@@ -1,12 +1,12 @@
-import 'package:ceylontrailapp/screen/home_screen.dart';
-import 'package:ceylontrailapp/screen/myprofile_screen.dart';
-import 'package:ceylontrailapp/theme/app_theme.dart';
-import 'package:ceylontrailapp/widgets/popular_destinations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'custom_my_profile_appbar.dart';
-import 'info_card.dart';
+import '../screen/home_screen.dart';
+import '../screen/myprofile_screen.dart';
+import '../screen/sign_in_screen.dart';
+import '../theme/app_theme.dart';
+import '../widgets/custom_my_profile_appbar.dart';
+import '../widgets/info_card.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({super.key});
@@ -22,7 +22,11 @@ class _SideBarState extends State<SideBar> {
 
   void _navigateToProfile() {
     _closeSideBar();
-    Get.to(() => const MyProfileScreen());
+    print('Navigating to MyProfileScreen');
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MyProfileScreen()),
+    );
   }
 
   @override
@@ -67,26 +71,25 @@ class _SideBarState extends State<SideBar> {
                       child: Column(
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              _closeSideBar();
-                              Get.to(() => const MyProfileScreen());
-                            },
+                            onTap: _navigateToProfile,
                             child: Row(
                               children: [
                                 IconButton(
-                                    onPressed: () {},
-                                    icon: SvgPicture.asset(
-                                      'assets/icons/bx-user-circle.svg',
-                                      width: 28,
-                                      height: 28,
-                                    )),
+                                  onPressed: () {},
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/bx-user-circle.svg',
+                                    width: 28,
+                                    height: 28,
+                                  ),
+                                ),
                                 const SizedBox(width: 10),
                                 Text(
                                   "Profile",
                                   style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.white,
-                                      fontWeight: FontWeight.w500),
+                                    fontSize: 16,
+                                    color: AppTheme.colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ],
                             ),
@@ -104,22 +107,27 @@ class _SideBarState extends State<SideBar> {
                           Row(
                             children: [
                               IconButton(
-                                  onPressed: () {
-                                    _closeSideBar();
-                                    Get.to(() => const HomeScreen());
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/bx-home.svg',
-                                    width: 28,
-                                    height: 28,
-                                  )),
+                                onPressed: () {
+                                  _closeSideBar();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                                  );
+                                },
+                                icon: SvgPicture.asset(
+                                  'assets/icons/bx-home.svg',
+                                  width: 28,
+                                  height: 28,
+                                ),
+                              ),
                               const SizedBox(width: 10),
                               Text(
                                 "Home",
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.white,
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 16,
+                                  color: AppTheme.colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
@@ -137,22 +145,24 @@ class _SideBarState extends State<SideBar> {
                           Row(
                             children: [
                               IconButton(
-                                  onPressed: () {
-                                    _closeSideBar();
-                                    // Get.to(() => const SearchScreen());
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/bx-search.svg',
-                                    width: 28,
-                                    height: 28,
-                                  )),
+                                onPressed: () {
+                                  _closeSideBar();
+                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
+                                },
+                                icon: SvgPicture.asset(
+                                  'assets/icons/bx-search.svg',
+                                  width: 28,
+                                  height: 28,
+                                ),
+                              ),
                               const SizedBox(width: 9.5),
                               Text(
                                 "Search",
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.white,
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 16,
+                                  color: AppTheme.colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
@@ -171,22 +181,24 @@ class _SideBarState extends State<SideBar> {
                           Row(
                             children: [
                               IconButton(
-                                  onPressed: () {
-                                    _closeSideBar();
-                                    // Get.to(() => const EmergencyServicesScreen());
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/bx-phone.svg',
-                                    width: 28,
-                                    height: 28,
-                                  )),
+                                onPressed: () {
+                                  _closeSideBar();
+                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => EmergencyServicesScreen()));
+                                },
+                                icon: SvgPicture.asset(
+                                  'assets/icons/bx-phone.svg',
+                                  width: 28,
+                                  height: 28,
+                                ),
+                              ),
                               const SizedBox(width: 10),
                               Text(
                                 "Emergency Services",
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.white,
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 16,
+                                  color: AppTheme.colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
@@ -210,22 +222,24 @@ class _SideBarState extends State<SideBar> {
                           Row(
                             children: [
                               IconButton(
-                                  onPressed: () {
-                                    _closeSideBar();
-                                    // Get.offAll(() => const LoginScreen());
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/bx-log-out-circle.svg',
-                                    width: 28,
-                                    height: 28,
-                                  )),
+                                onPressed: () {
+                                  _closeSideBar();
+                                 Get.to(()=> const SignInScreen());
+                                },
+                                icon: SvgPicture.asset(
+                                  'assets/icons/bx-log-out-circle.svg',
+                                  width: 28,
+                                  height: 28,
+                                ),
+                              ),
                               const SizedBox(width: 10),
                               Text(
                                 "Log Out",
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.white,
-                                    fontWeight: FontWeight.w500),
+                                  fontSize: 16,
+                                  color: AppTheme.colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),

@@ -1,9 +1,13 @@
-import 'package:ceylontrailapp/screen/home_screen.dart';
+import 'dart:convert';
+import 'package:ceylontrailapp/controllers/newsfeed_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../models/login_response_model.dart';
+import '../screen/home_screen.dart';
+
 
 class LoginController extends GetxController {
   var isLoading = false.obs;
@@ -18,7 +22,7 @@ class LoginController extends GetxController {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost:8083/api/v1/auth/login'),
+        Uri.parse('http://192.168.56.1:8083/api/v1/auth/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -38,16 +42,24 @@ class LoginController extends GetxController {
           // Save token and user data
           // Navigate to home screen
           _showMessage('Success', 'Login successful', Colors.green);
+          print('login successful');
+
+          // Fetch posts after successful login
+          Get.find<NewsfeedController>().fetchPosts();
+
           Get.to(() => const HomeScreen());
         } else {
           loginError.value = loginResponse.message;
           _showMessage('Error', loginResponse.message, Colors.red);
+          // Get.to(() => const HomeScreen());
         }
       } else {
+        // Get.to(() => const HomeScreen());
         loginError.value = 'Invalid email or password';
         _showMessage('Error', 'Invalid email or password', Colors.red);
       }
     } catch (e) {
+      // Get.to(() => const HomeScreen());
       isLoading.value = false;
       loginError.value = 'An error occurred. Please try again later.';
       _showMessage('Error', 'An error occurred. Please try again later.', Colors.red);

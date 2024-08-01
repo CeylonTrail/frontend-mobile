@@ -22,8 +22,8 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(
-          statusBarColor: Colors.white, // Ensures status bar background is white
-          statusBarIconBrightness: Brightness.dark, // Sets icons to dark color
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
         ),
       );
     });
@@ -34,7 +34,9 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
-      drawer: const Drawer(child: SideBar()),
+      drawer: const Drawer(
+        child: SideBar(), // Ensure SideBar is functioning correctly
+      ),
       body: ColoredBox(
         color: AppTheme.colors.white,
         child: Column(
@@ -47,7 +49,7 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: AppTheme.colors.primary// Explicitly setting to white
+                    color: AppTheme.colors.primary,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -55,7 +57,7 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'),
+                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'), // Use default icon to test
                           onPressed: () {
                             _scaffoldKey.currentState?.openDrawer();
                           },

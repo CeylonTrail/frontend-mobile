@@ -3,6 +3,8 @@ import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
 import 'package:ceylontrailapp/screen/reset_password_screen.dart';
 import 'package:ceylontrailapp/screen/splash_screen.dart';
+import 'package:ceylontrailapp/screen/trip_screen_1.dart';
+import 'package:ceylontrailapp/screen/trip_screen_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,7 +22,6 @@ void main() {
     systemNavigationBarColor: Colors.white, // Set the navigation bar color
     systemNavigationBarIconBrightness: Brightness.dark, // Set the navigation bar icons to dark
   ));
-  Get.put(NewsfeedController());
   runApp(const MyApp());
 }
 
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(NewsfeedController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'CeylonTrail',
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: const SplashScreen(),
+      home:  const SplashScreen(),
     );
   }
 }
