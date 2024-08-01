@@ -1,11 +1,10 @@
-// my_profile_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/newsfeed_controller.dart'; // Import the controller
+import '../controllers/newsfeed_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/custom_my_profile_appbar.dart';
 import '../widgets/profile_full_screen_image_view.dart';
-import '../widgets/newsfeed_post.dart'; // Import your NewsfeedPost widget
+import '../widgets/newsfeed_post.dart';
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen({super.key});
