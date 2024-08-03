@@ -93,7 +93,10 @@ class _TripAppbar2State extends State<TripAppbar2> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: widget.onEditModeToggle, // Call the callback here
+                        onTap: () {
+                          widget.onEditModeToggle(); // Call the callback here
+                          Get.offNamed('/home'); // Navigate to the home screen
+                        }, // Call the callback here
                         child: Container(
                           alignment: Alignment.center,
                           width: 82,

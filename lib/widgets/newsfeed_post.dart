@@ -54,7 +54,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
 
   // void _openFullScreenImageViewer(int initialIndex) {
   //   Get.to(() => FullScreenImageViewer(
-  //     imageUrls: [], // Add logic for handling imageUrls if needed
+  //     imageUrls: widget.post.images, // Pass the actual image URLs
   //     initialIndex: initialIndex,
   //   ));
   // }
@@ -115,7 +115,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
               ),
             ),
             const SizedBox(height: 8),
-            if (widget.post.likes.isNotEmpty)
+            if (widget.post.images.isNotEmpty)
               SizedBox(
                 height: imageWidth,
                 width: imageWidth,
@@ -127,14 +127,14 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                           _currentImageIndex = index;
                         });
                       },
-                      itemCount: widget.post.likes.length,
+                      itemCount: widget.post.images.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           // onTap: () => _openFullScreenImageViewer(index),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              '', // Add logic for handling imageUrls if needed
+                              widget.post.images[index], // Use the actual image URLs
                               fit: BoxFit.cover,
                               width: imageWidth,
                               height: imageWidth,
@@ -156,7 +156,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            '${_currentImageIndex + 1}/${widget.post.likes.length}',
+                            '${_currentImageIndex + 1}/${widget.post.images.length}', // Corrected the count display
                             style: TextStyle(
                               color: AppTheme.colors.white,
                               fontSize: 10,
@@ -186,11 +186,11 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                     label: _formatCount(widget.post.comments.length),
                     onPressed: () {},
                   ),
-                  _buildActionButton(
-                    icon: 'assets/icons/bx-share.svg',
-                    label: _formatCount(0),
-                    onPressed: () {},
-                  ),
+                  // _buildActionButton(
+                  //   icon: 'assets/icons/bx-share.svg',
+                  //   label: _formatCount(0),
+                  //   onPressed: () {},
+                  // ),
                 ],
               ),
             ),

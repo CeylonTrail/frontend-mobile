@@ -14,6 +14,35 @@ class InformationScreen extends StatefulWidget {
 class _InformationScreenState extends State<InformationScreen> {
   bool isEditMode = false;
 
+  // Controllers for the text fields
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controllers with initial values
+    _firstNameController.text = 'Leonardo';
+    _lastNameController.text = 'DiCaprio';
+    _usernameController.text = '@leonardox';
+    _emailController.text = 'thiran@gmail.com';
+    _passwordController.text = 'Thiran123';
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controllers
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   void toggleEditMode() {
     setState(() {
       isEditMode = !isEditMode;
@@ -32,9 +61,9 @@ class _InformationScreenState extends State<InformationScreen> {
             _buildSectionTitle("General Information"),
             _buildInfoContainer(
               children: [
-                _buildTextFormField("First Name", isEditable: isEditMode),
-                _buildTextFormField("Last Name", isEditable: isEditMode),
-                _buildTextFormField("Username", isEditable: isEditMode),
+                _buildTextFormField("First Name", _firstNameController, isEditable: isEditMode),
+                _buildTextFormField("Last Name", _lastNameController, isEditable: isEditMode),
+                _buildTextFormField("Username", _usernameController, isEditable: isEditMode),
                 const SizedBox(height: 10), // Add this line
               ],
             ),
@@ -42,8 +71,8 @@ class _InformationScreenState extends State<InformationScreen> {
             _buildSectionTitle("Security Information"),
             _buildInfoContainer(
               children: [
-                _buildTextFormField("E-mail", isEditable: false),
-                _buildTextFormField("Password", isEditable: false, obscureText: true),
+                _buildTextFormField("E-mail", _emailController, isEditable: false),
+                _buildTextFormField("Password", _passwordController, isEditable: false, obscureText: true),
                 _buildChangePasswordLink(),
                 const SizedBox(height: 10),
               ],
@@ -85,7 +114,7 @@ class _InformationScreenState extends State<InformationScreen> {
     );
   }
 
-  Widget _buildTextFormField(String label, {bool isEditable = true, bool obscureText = false}) {
+  Widget _buildTextFormField(String label, TextEditingController controller, {bool isEditable = true, bool obscureText = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
@@ -103,6 +132,7 @@ class _InformationScreenState extends State<InformationScreen> {
           ),
           const SizedBox(height: 5),
           TextFormField(
+            controller: controller,
             enabled: isEditable,
             obscureText: obscureText,
             decoration: InputDecoration(

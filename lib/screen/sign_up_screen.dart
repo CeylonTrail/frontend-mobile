@@ -16,6 +16,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool rememberPassword = true;
+   bool _obscurePassword = true;
+  bool _obscurePasswordConfirm = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
+  void _togglePasswordVisibilityConfirm() {
+    setState(() {
+      _obscurePasswordConfirm = !_obscurePasswordConfirm;
+    });
+  }
+
 
   @override
   void dispose() {
@@ -240,9 +255,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(height: 5),
                             TextFormField(
                               controller: _passwordController,
+                              obscureText: _obscurePassword,
                               validator: (value) {
-                                if (value!.isEmpty || !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$').hasMatch(value)) {
-                                  return "Password must be 8-12 characters, with \nat least one lowercase, one uppercase, \none digit, and one special character";
+                                if (value!.isEmpty || value.length < 6) {
+                                  return "Password must be longer than 6 characters";
                                 }
                                 return null;
                               },
@@ -272,6 +288,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     width: 2,
                                   ),
                                 ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: AppTheme.colors.secondary_light_3,
+                                    ),
+                                    onPressed: _togglePasswordVisibility,
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(height: size.height * 0.03),
@@ -289,6 +317,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             const SizedBox(height: 5),
                             TextFormField(
+                              obscureText: _obscurePasswordConfirm,
                               controller: _confirmPasswordController,
                               validator: (value) {
                                 if (value != _passwordController.text) {
@@ -320,6 +349,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderSide: BorderSide(
                                     color: AppTheme.colors.primary_dark_3,
                                     width: 2,
+                                  ),
+                                ),
+                                suffixIcon: Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      _obscurePasswordConfirm
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: AppTheme.colors.secondary_light_3,
+                                    ),
+                                    onPressed: _togglePasswordVisibilityConfirm,
                                   ),
                                 ),
                               ),

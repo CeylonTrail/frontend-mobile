@@ -39,9 +39,7 @@ class LoginController extends GetxController {
         final loginResponse = LoginResponse.fromJson(responseData);
 
         if (loginResponse.code == 200) {
-          // Save token and user data
-          // Navigate to home screen
-          _showMessage('Success', 'Login successful', Colors.green);
+          _showMessage('Success', 'Login successful', Colors.white, Colors.green);
           print('login successful');
 
           // Fetch posts after successful login
@@ -50,24 +48,24 @@ class LoginController extends GetxController {
           Get.to(() => const HomeScreen());
         } else {
           loginError.value = loginResponse.message;
-          _showMessage('Error', loginResponse.message, Colors.red);
-          // Get.to(() => const HomeScreen());
+          _showMessage('Error', loginResponse.message, Colors.white, Colors.red);
+
         }
       } else {
-        // Get.to(() => const HomeScreen());
+
         loginError.value = 'Invalid email or password';
-        _showMessage('Error', 'Invalid email or password', Colors.red);
+        _showMessage('Error', 'Invalid email or password', Colors.white, Colors.red);
       }
     } catch (e) {
-      // Get.to(() => const HomeScreen());
+
       isLoading.value = false;
       loginError.value = 'An error occurred. Please try again later.';
-      _showMessage('Error', 'An error occurred. Please try again later.', Colors.red);
+      _showMessage('Error', 'An error occurred. Please try again later.', Colors.white, Colors.red);
     }
   }
 }
 
-void _showMessage(String title, String message, Color colorText) {
+void _showMessage(String title, String message, Color colorText, Color background) {
   Get.snackbar(
     title,
     message,
@@ -75,7 +73,7 @@ void _showMessage(String title, String message, Color colorText) {
     snackPosition: SnackPosition.BOTTOM,
     borderRadius: 10,
     margin: const EdgeInsets.all(10),
-    backgroundColor: Colors.black.withOpacity(0.7), // Semi-transparent background color
+    backgroundColor: background, // Semi-transparent background color
     duration: const Duration(seconds: 2), // Duration to show the snackbar
   );
 }
