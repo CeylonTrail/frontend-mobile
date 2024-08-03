@@ -17,33 +17,37 @@ class AddNewPost extends StatelessWidget {
         height: 80,
         width: size.width - 20,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [AppTheme.colors.secondary, AppTheme.colors.primary_dark_3],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+          color: AppTheme.colors.secondary_light_1,
           borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: AppTheme.colors.white, width: 2),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: const Offset(0, 5), // changes position of shadow
-            ),
-          ],
+          border: Border.all(color: AppTheme.colors.secondary_dark_2, width: 2),
+          // boxShadow: [
+          //   BoxShadow(
+          //     color: Colors.grey.withOpacity(0.5),
+          //     spreadRadius: 1,
+          //     blurRadius: 1,
+          //     offset: const Offset(0, 5), // changes position of shadow
+          //   ),
+          // ],
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ClipOval(
-                child: Image.asset(
-                  'assets/images/img.png',
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
+              Container(
+                decoration: BoxDecoration(shape: BoxShape.circle,
+                  border: Border.all(
+                    color: AppTheme.colors.secondary_dark_2,
+                    width: 1.5
+                  )
+                ),
+                child: ClipOval(
+                  child: Image.asset(
+                    'assets/images/img.png',
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -51,17 +55,26 @@ class AddNewPost extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context)
-                        .push(SlideFromTopRoute(page: PostPopup()));
+                        .push(SlideFromTopRoute(page: const PostPopup()));
                   },
                   child: Container(
+                    decoration: BoxDecoration(
+                      color: AppTheme.colors.white,
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(color: AppTheme.colors.secondary_dark_2,
+                      width: 1)
+                    ),
                     alignment: Alignment.centerLeft,
                     height: 50,
-                    child: Text(
-                      "Create a new post...",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: AppTheme.colors.white,
-                        fontWeight: FontWeight.bold,
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 8),
+                      child: Text(
+                        "Add a new post...",
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ),

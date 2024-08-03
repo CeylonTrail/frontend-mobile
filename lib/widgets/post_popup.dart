@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../theme/app_theme.dart';
+import '../widgets/post_image_full_screen_view.dart';
 
 class PostPopup extends StatefulWidget {
   const PostPopup({super.key});
@@ -12,184 +13,323 @@ class PostPopup extends StatefulWidget {
 }
 
 class PostPopupState extends State<PostPopup> {
-  late final TextEditingController
-      _controller; // Step 1: Declare the Controller
+  late final TextEditingController _controller;
   final List<File> _photos = [];
   final ImagePicker _picker = ImagePicker();
+  String _selectedPrivacyOption = 'Public'; // Default selected option
+
+  final List<Map<String, dynamic>> _dropdownItems = [
+    {'icon': Icons.public, 'text': 'Public'},
+    {'icon': Icons.people, 'text': 'Followers'},
+    {'icon': Icons.lock, 'text': 'Only Me'},
+  ];
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(); // Step 2: Initialize the Controller
+    _controller = TextEditingController();
   }
 
   @override
   void dispose() {
-    _controller.dispose(); // Step 4: Dispose the Controller
+    _controller.dispose();
     super.dispose();
   }
 
-  Future<void> _pickImage() async {
-    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _photos.add(File(pickedFile.path));
-      });
-    }
+  Future<void> _pickImages() async {
+    final pickedFiles = await _picker.pickMultiImage();
+    setState(() {
+      _photos.addAll(pickedFiles.map((pickedFile) => File(pickedFile.path)));
+    });
   }
 
   void _viewPhoto(File photo) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => FullScreenImage(photo: photo),
+        builder: (context) => PostImageFullScreenView(photo: photo),
       ),
     );
   }
 
+  void _removePhoto(File photo) {
+    setState(() {
+      _photos.remove(photo);
+    });
+  }
+
+  Future<bool> _onWillPop() async {
+    final shouldDiscard = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Discard post?'),
+          content: const Text('Are you sure you want to discard this post?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+    return shouldDiscard ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "New Post",
-          style: TextStyle(color: AppTheme.colors.white),
-        ),
-        leading: IconButton(
-          icon: SvgPicture.asset('assets/icons/bx-arrow-back.svg'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [AppTheme.colors.primary, AppTheme.colors.primary_dark_3],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+    return GestureDetector(
+      onPanUpdate: (details) {
+        if (details.delta.dx > 0) {
+          // User swiped from left to right (back gesture)
+          // You can ignore this gesture to prevent going back
+        }
+      },
+      child: Scaffold(
+        backgroundColor: AppTheme.colors.white,
+        appBar: AppBar(
+          title: Text(
+            "Create a new Post",
+            style: TextStyle(color: AppTheme.colors.primary_dark_3),
+          ),
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              color: AppTheme.colors.white,
             ),
           ),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: AppTheme.colors.primary_dark_3),
+            onPressed: () async {
+              if (await _onWillPop()) {
+                Navigator.of(context).pop();
+              }
+            },
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: AppTheme.colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                controller: _controller, // Step 3: Assign the Controller
-                decoration: InputDecoration(
-                  hintText: "Add a new Post...",
-                  hintStyle: TextStyle(
-                    color: AppTheme.colors.secondary_light_3,
-                  ),
-                  border: InputBorder.none,
-                ),
-                maxLines: null,
-              ),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton.icon(
-              onPressed: _pickImage,
-              icon: const Icon(Icons.photo_library),
-              label: const Text("Add Photo"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.colors.primary, // Background color
-                foregroundColor: Colors.white, // Text color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            if (_photos.isNotEmpty)
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: _photos.map((photo) {
-                    return GestureDetector(
-                      onTap: () => _viewPhoto(photo),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: Image.file(
-                            photo,
-                            width: 100,
-                            height: 100,
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppTheme.colors.primary_dark_3,
+                            width: 1.5,
+                          ),
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/img.png',
+                            width: 50,
+                            height: 50,
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                    );
-                  }).toList(),
-                ),
+                      const SizedBox(width: 10),
+                      Text(
+                        'Leonardo DiCaprio',
+                        style: TextStyle(
+                          color: AppTheme.colors.primary_dark_3,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      String postContent = _controller.text;
+                      print("Post Content: $postContent");
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      backgroundColor: AppTheme.colors.secondary_dark_2,
+                      foregroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                    ),
+                    child: const Text(
+                      "Post",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            const Spacer(),
-            ElevatedButton(
-              onPressed: () {
-                // Handle post submission
-                String postContent =
-                    _controller.text; // Access text input from the controller
-                print(
-                    "Post Content: $postContent"); // Example of using the input
-              },
-              child: const Text("Post"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppTheme.colors.primary, // Background color
-                foregroundColor: Colors.white, // Text color
-                shape: RoundedRectangleBorder(
+              const SizedBox(height: 10),
+              Container(
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(15),
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: TextField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      hintText: "Add a new Post...",
+                      hintStyle: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      border: InputBorder.none,
+                    ),
+                    maxLines: null,
+                  ),
+                ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class FullScreenImage extends StatelessWidget {
-  final File photo;
-
-  const FullScreenImage({super.key, required this.photo});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [AppTheme.colors.primary, AppTheme.colors.primary_dark_3],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    height: 45,
+                    child: ElevatedButton.icon(
+                      onPressed: _pickImages,
+                      icon: SvgPicture.asset(
+                        'assets/icons/gallery-photos.svg',
+                        height: 24,
+                        width: 24,
+                      ),
+                      label: const Text("Add Photos"),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        backgroundColor: AppTheme.colors.secondary_dark_2,
+                        foregroundColor: AppTheme.colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: Container(
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: AppTheme.colors.secondary_light_1,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: DropdownButton<String>(
+                        isExpanded: true,
+                        underline: const SizedBox(),
+                        value: _selectedPrivacyOption,
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedPrivacyOption = newValue!;
+                          });
+                        },
+                        items: _dropdownItems.map((item) {
+                          return DropdownMenuItem<String>(
+                            value: item['text'],
+                            child: Row(
+                              children: <Widget>[
+                                Icon(item['icon'],
+                                    color: AppTheme.colors.secondary_dark),
+                                const SizedBox(width: 10),
+                                Text(
+                                  item['text'],
+                                  style: TextStyle(
+                                    color: AppTheme.colors.secondary_dark,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                        style: TextStyle(
+                          color: AppTheme.colors.secondary_dark,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              if (_photos.isNotEmpty)
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: _photos.map((photo) {
+                      return Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          GestureDetector(
+                            onTap: () => _viewPhoto(photo),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey[400]!,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.file(
+                                    photo,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              onTap: () => _removePhoto(photo),
+                              child: Container(
+                                padding: const EdgeInsets.all(4.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(22),
+                                ),
+                                child: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                  size: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              const Spacer(),
+            ],
           ),
         ),
-      ),
-      body: Center(
-        child: Image.file(photo),
       ),
     );
   }

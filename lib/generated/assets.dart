@@ -20,6 +20,7 @@ class Assets {
   static const String iconsBxMessageRounded = 'assets/icons/bx-message-rounded.svg';
   static const String iconsBxNews = 'assets/icons/bx-news.svg';
   static const String iconsBxPhone = 'assets/icons/bx-phone.svg';
+  static const String iconsBxPlusCircle = 'assets/icons/bx-plus-circle.svg';
   static const String iconsBxSearch = 'assets/icons/bx-search.svg';
   static const String iconsBxSearchAlt2 = 'assets/icons/bx-search-alt-2.svg';
   static const String iconsBxShare = 'assets/icons/bx-share.svg';
@@ -27,11 +28,15 @@ class Assets {
   static const String iconsBxTrip = 'assets/icons/bx-trip.svg';
   static const String iconsBxUserCircle = 'assets/icons/bx-user-circle.svg';
   static const String iconsBxUserVoice = 'assets/icons/bx-user-voice.svg';
+  static const String iconsBxWorld = 'assets/icons/bx-world.svg';
+  static const String iconsBxX = 'assets/icons/bx-x.svg';
   static const String iconsBxsBell = 'assets/icons/bxs-bell.svg';
   static const String iconsBxsCloud = 'assets/icons/bxs-cloud.svg';
   static const String iconsBxsEqualizer = 'assets/icons/bxs-equalizer.svg';
+  static const String iconsBxsGroup = 'assets/icons/bxs-group.svg';
   static const String iconsBxsHeart = 'assets/icons/bxs-heart.svg';
   static const String iconsBxsHome = 'assets/icons/bxs-home.svg';
+  static const String iconsBxsLockAlt = 'assets/icons/bxs-lock-alt.svg';
   static const String iconsBxsMessageRounded = 'assets/icons/bxs-message-rounded.svg';
   static const String iconsBxsNews = 'assets/icons/bxs-news.svg';
   static const String iconsBxsPhone = 'assets/icons/bxs-phone.svg';
@@ -45,10 +50,16 @@ class Assets {
   static const String iconsGoogle = 'assets/icons/google.svg';
   static const String iconsPhotoGallery = 'assets/icons/photo-gallery.svg';
   static const String iconsSoundWave = 'assets/icons/sound-wave.svg';
+  static const String images1 = 'assets/images/1.jpg';
+  static const String images3 = 'assets/images/3.jpg';
+  static const String images4 = 'assets/images/4.jpg';
+  static const String images5 = 'assets/images/5.jpg';
+  static const String images9ArchBridge = 'assets/images/9_arch_bridge.jpg';
   static const String imagesAmbuluwawa = 'assets/images/ambuluwawa.jpg';
   static const String imagesCeylontrailLoading = 'assets/images/ceylontrail_loading.jpg';
   static const String imagesCeylontrailTitle = 'assets/images/ceylontrail_title.png';
   static const String imagesElla9 = 'assets/images/ella-9.jpg';
+  static const String imagesEllaRock = 'assets/images/ella_rock.jpg';
   static const String imagesGalle = 'assets/images/galle.jpg';
   static const String imagesImg = 'assets/images/img.png';
   static const String imagesIntroPage1 = 'assets/images/intro_page_1.png';
@@ -58,5 +69,8 @@ class Assets {
   static const String imagesLeo2 = 'assets/images/leo_2.jpg';
   static const String imagesLeo3 = 'assets/images/leo_3.jpg';
   static const String imagesLeo4 = 'assets/images/leo_4.avif';
+  static const String imagesLittleAdamsPeak = 'assets/images/little_adams_peak.jpg';
+  static const String imagesRavanaCave = 'assets/images/ravana_cave.jpg';
+  static const String imagesRavanaFalls = 'assets/images/ravana_falls.jpg';
 
 }

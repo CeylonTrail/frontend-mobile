@@ -6,6 +6,7 @@ class BottomNavBarController extends GetxController {
   void changeIndex(int index) {
     selectedIndex.value = index;
   }
+
   void onBackButtonPressed() {
     // Set the index to 0 (home screen) when back button is pressed
     selectedIndex.value = 0;

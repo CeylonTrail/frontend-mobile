@@ -1,26 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import '../theme/app_theme.dart';
+import '../models/post_model.dart';
 
 class NewsfeedPost extends StatefulWidget {
-  final String username;
-  final DateTime date;
-  final String postText;
-  final List<String> imageUrls;
-  final int likes;
-  final int comments;
-  final int shares;
+  final Post post;
 
   const NewsfeedPost({
     super.key,
-    required this.username,
-    required this.date,
-    required this.postText,
-    required this.imageUrls,
-    required this.likes,
-    required this.comments,
-    required this.shares,
+    required this.post,
   });
 
   @override
@@ -36,7 +24,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
   @override
   void initState() {
     super.initState();
-    _likeCount = widget.likes;
+    _likeCount = widget.post.likes.length;
   }
 
   void _toggleReportButton() {
@@ -64,12 +52,12 @@ class NewsfeedPostState extends State<NewsfeedPost> {
     }
   }
 
-  void _openFullScreenImageViewer(int initialIndex) {
-    Get.to(() => FullScreenImageViewer(
-      imageUrls: widget.imageUrls,
-      initialIndex: initialIndex,
-    ));
-  }
+  // void _openFullScreenImageViewer(int initialIndex) {
+  //   Get.to(() => FullScreenImageViewer(
+  //     imageUrls: widget.post.images, // Pass the actual image URLs
+  //     initialIndex: initialIndex,
+  //   ));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,12 +83,12 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.username,
+                        widget.post.user.username,
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       Text(
-                        "on ${widget.date.year}/${widget.date.month}/${widget.date.day} at ${widget.date.hour}:${widget.date.minute}",
+                        "on ${widget.post.createdAt.year}/${widget.post.createdAt.month}/${widget.post.createdAt.day} at ${widget.post.createdAt.hour}:${widget.post.createdAt.minute}",
                         style: TextStyle(
                             color: AppTheme.colors.secondary, fontSize: 12),
                       ),
@@ -118,7 +106,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                widget.postText,
+                widget.post.content,
                 style: TextStyle(
                   fontSize: 14,
                   color: AppTheme.colors.primary_dark_3,
@@ -127,7 +115,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
               ),
             ),
             const SizedBox(height: 8),
-            if (widget.imageUrls.isNotEmpty)
+            if (widget.post.images.isNotEmpty)
               SizedBox(
                 height: imageWidth,
                 width: imageWidth,
@@ -139,14 +127,14 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                           _currentImageIndex = index;
                         });
                       },
-                      itemCount: widget.imageUrls.length,
+                      itemCount: widget.post.images.length,
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () => _openFullScreenImageViewer(index),
+                          // onTap: () => _openFullScreenImageViewer(index),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              widget.imageUrls[index],
+                              widget.post.images[index], // Use the actual image URLs
                               fit: BoxFit.cover,
                               width: imageWidth,
                               height: imageWidth,
@@ -168,7 +156,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            '${_currentImageIndex + 1}/${widget.imageUrls.length}',
+                            '${_currentImageIndex + 1}/${widget.post.images.length}', // Corrected the count display
                             style: TextStyle(
                               color: AppTheme.colors.white,
                               fontSize: 10,
@@ -182,7 +170,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
               ),
             const SizedBox(height: 16),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -195,24 +183,28 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                   ),
                   _buildActionButton(
                     icon: 'assets/icons/bx-comment-detail.svg',
-                    label: _formatCount(widget.comments),
+                    label: _formatCount(widget.post.comments.length),
                     onPressed: () {},
                   ),
-
+                  // _buildActionButton(
+                  //   icon: 'assets/icons/bx-share.svg',
+                  //   label: _formatCount(0),
+                  //   onPressed: () {},
+                  // ),
                 ],
               ),
             ),
+            const SizedBox(height: 8),
             if (_isReportButtonVisible)
-              Align(
-                alignment: Alignment.topRight,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: TextButton(
-                  onPressed: () {
-                    // Add report functionality here
-                  },
+                  onPressed: () {},
                   child: Text(
-                    'Report',
+                    "Report Post",
                     style: TextStyle(
-                      color: AppTheme.colors.primary_dark_3,
+                      color: AppTheme.colors.primary,
+                      fontSize: 12,
                     ),
                   ),
                 ),
@@ -252,73 +244,6 @@ class NewsfeedPostState extends State<NewsfeedPost> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class FullScreenImageViewer extends StatefulWidget {
-  final List<String> imageUrls;
-  final int initialIndex;
-
-  const FullScreenImageViewer({
-    super.key,
-    required this.imageUrls,
-    required this.initialIndex,
-  });
-
-  @override
-  FullScreenImageViewerState createState() => FullScreenImageViewerState();
-}
-
-class FullScreenImageViewerState extends State<FullScreenImageViewer> {
-  late int _currentIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentIndex = widget.initialIndex;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          PageView.builder(
-            itemCount: widget.imageUrls.length,
-            controller: PageController(initialPage: _currentIndex),
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Center(
-                  child: Image.network(
-                    widget.imageUrls[index],
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              );
-            },
-          ),
-          Positioned(
-            top: 40,
-            left: 16,
-            child: IconButton(
-              icon: SvgPicture.asset('assets/icons/bx-arrow-white.svg'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-        ],
       ),
     );
   }

@@ -17,7 +17,6 @@ import '../controllers/bottom_nav_bar_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/back_button_interceptor.dart';
 
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -55,16 +54,13 @@ class HomeScreen extends StatelessWidget {
                       RecommendedTripPlans(),
                       PopularDestinations(),
                       PreviousTrips(),
-
                     ],
                   ),
                 ),
-                // SizedBox(height: 10),
                 NewsFeed(),
                 Marketplace(),
                 VoiceAssistant(),
                 EmergencyServices(),
-                // Add other screens here
               ],
             ),
           );

@@ -5,6 +5,7 @@ class UserSignUpButton extends StatelessWidget {
   const UserSignUpButton({super.key, this.onTap});
   final VoidCallback? onTap;
 
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
