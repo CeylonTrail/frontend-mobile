@@ -1,7 +1,8 @@
-import 'package:ceylontrailapp/widgets/trip_appbar_1.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import '../theme/app_theme.dart';
+import '../widgets/trip_appbar_1.dart';
+import 'trip_screen_2.dart';
 
 class TripScreen1 extends StatefulWidget {
   const TripScreen1({super.key});
@@ -11,7 +12,9 @@ class TripScreen1 extends StatefulWidget {
 }
 
 class TripScreen1State extends State<TripScreen1> {
+  final PageController _pageController = PageController();
   bool isEditMode = false;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void toggleEditMode() {
     setState(() {
@@ -19,10 +22,36 @@ class TripScreen1State extends State<TripScreen1> {
     });
   }
 
+  void _onNextPressed() {
+    if (_formKey.currentState?.validate() ?? false) {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return TripAppbar1(
-      content: SingleChildScrollView(
+      content: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          _buildFirstPage(),
+          const TripScreen2(),
+        ],
+      ),
+      isEditMode: isEditMode,
+      onEditModeToggle: toggleEditMode,
+      onNextPressed: _onNextPressed,
+    );
+  }
+
+  Widget _buildFirstPage() {
+    return Form(
+      key: _formKey,
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
           child: Column(
@@ -68,6 +97,15 @@ class TripScreen1State extends State<TripScreen1> {
                     ),
                   ),
                 ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a destination';
+                  }
+                  if (RegExp(r'[0-9]').hasMatch(value)) {
+                    return 'Destination cannot contain numbers';
+                  }
+                  return null;
+                },
               ),
 
               const SizedBox(height: 15),
@@ -115,7 +153,7 @@ class TripScreen1State extends State<TripScreen1> {
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a number';
+                    return 'Please enter the number of days';
                   }
                   // Check if the value is a valid number
                   final number = num.tryParse(value);
@@ -132,7 +170,7 @@ class TripScreen1State extends State<TripScreen1> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   textAlign: TextAlign.start,
-                  'Trip description',
+                  'Trip description (Optional)',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -153,17 +191,17 @@ class TripScreen1State extends State<TripScreen1> {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextField(
-                    // controller: _controller,
                     decoration: InputDecoration(
                       hintText: "Trip description...",
                       hintStyle: TextStyle(
                         color: AppTheme.colors.secondary_light_2,
                         fontSize: 16,
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.w600,
                       ),
                       border: InputBorder.none,
                     ),
-                    maxLines: null,
+                    minLines: 1,
+                    maxLines: 5,
                   ),
                 ),
               ),
@@ -174,7 +212,7 @@ class TripScreen1State extends State<TripScreen1> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   textAlign: TextAlign.start,
-                  'Add travel buddies',
+                  'Add Travel Buddies?',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -185,7 +223,7 @@ class TripScreen1State extends State<TripScreen1> {
               const SizedBox(height: 5),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: 'Ex:- @leonardox',
+                  hintText: 'Ex:- @leodicap',
                   hintStyle: TextStyle(
                     color: AppTheme.colors.secondary_light_2,
                   ),
@@ -216,8 +254,6 @@ class TripScreen1State extends State<TripScreen1> {
           ),
         ),
       ),
-      isEditMode: isEditMode,
-      onEditModeToggle: toggleEditMode,
     );
   }
 }
