@@ -26,6 +26,7 @@ class TripAppbar1 extends StatefulWidget {
 
 class _TripAppbar1State extends State<TripAppbar1> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _isNextMode = true;
 
   @override
   void initState() {
@@ -71,14 +72,14 @@ class _TripAppbar1State extends State<TripAppbar1> {
         ),
         actions: <Widget>[
           TextButton(
-            onPressed: () => Get.back(result: false),
+            onPressed: () => Navigator.pop(context, false),
             child: Text(
               'No',
               style: TextStyle(color: AppTheme.colors.secondary_dark_2),
             ),
           ),
           TextButton(
-            onPressed: () => Get.back(result: true),
+            onPressed: () => Navigator.pop(context, true),
             child: Text(
               'Yes',
               style: TextStyle(color: AppTheme.colors.primary),
@@ -89,7 +90,18 @@ class _TripAppbar1State extends State<TripAppbar1> {
     );
 
     if (result == true) {
-      Get.back();
+      Navigator.pop(context);
+    }
+  }
+
+  void _handleNextPressed() {
+    if (_isNextMode) {
+      widget.onNextPressed();
+      setState(() {
+        _isNextMode = false;
+      });
+    } else {
+      widget.onEditModeToggle();
     }
   }
 
@@ -98,88 +110,90 @@ class _TripAppbar1State extends State<TripAppbar1> {
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
-      body: Column(
-        children: [
-          const SizedBox(height: 36),
-          SizedBox(
-            height: 65,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: AppTheme.colors.white,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        _showDiscardDialog();
-                      },
-                      child: Container(
-                        width: 80,
-                        height: 45,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 10.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppTheme.colors.primary,
-                          borderRadius: BorderRadius.circular(22.0),
-                        ),
-                        child: Text(
-                          'Back',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: AppTheme.colors.white,
-                            fontWeight: FontWeight.bold,
+      body: ColoredBox(
+        color: AppTheme.colors.white,
+        child: Column(
+          children: [
+            const SizedBox(height: 36),
+            SizedBox(
+              height: 65,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: AppTheme.colors.white,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          _showDiscardDialog();
+                        },
+                        child: Container(
+                          width: 80,
+                          height: 45,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 10.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppTheme.colors.primary,
+                            borderRadius: BorderRadius.circular(22.0),
+                          ),
+                          child: Text(
+                            'Back',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: AppTheme.colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Text(
-                      'Plan a Trip',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: AppTheme.colors.primary_dark_3,
+                      Text(
+                        'Plan a Trip',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: AppTheme.colors.primary_dark_3,
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: widget.onNextPressed,
-                      child: Container(
-                        alignment: Alignment.center,
-                        width: 82,
-                        height: 45,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 10.0,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppTheme.colors.primary,
-                          borderRadius: BorderRadius.circular(22.0),
-                        ),
-                        child: Text(
-                          'Next',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: AppTheme.colors.white,
-                            fontWeight: FontWeight.bold,
+                      GestureDetector(
+                        onTap: _handleNextPressed,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 82,
+                          height: 45,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 10.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppTheme.colors.primary,
+                            borderRadius: BorderRadius.circular(22.0),
+                          ),
+                          child: Text(
+                            _isNextMode ? 'Next' : 'Save',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: AppTheme.colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 8),
-          Expanded(
-            child: widget.content,
-          ),
-        ],
+            Expanded(
+              child: widget.content,
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: widget.bottomNavBar,
     );
