@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../theme/app_theme.dart';
 import '../widgets/trip_appbar_1.dart';
 import 'trip_screen_2.dart';
+import 'trip_screen_3.dart';  // Import the third screen
 
 class TripScreen1 extends StatefulWidget {
   const TripScreen1({super.key});
@@ -15,6 +16,7 @@ class TripScreen1State extends State<TripScreen1> {
   final PageController _pageController = PageController();
   bool isEditMode = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  int _currentPageIndex = 0;
 
   void toggleEditMode() {
     setState(() {
@@ -28,6 +30,9 @@ class TripScreen1State extends State<TripScreen1> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
+      setState(() {
+        _currentPageIndex += 1;
+      });
     }
   }
 
@@ -40,11 +45,18 @@ class TripScreen1State extends State<TripScreen1> {
         children: [
           _buildFirstPage(),
           const TripScreen2(),
+          const TripScreen3(),  // Add the third screen here
         ],
+        onPageChanged: (index) {
+          setState(() {
+            _currentPageIndex = index;
+          });
+        },
       ),
       isEditMode: isEditMode,
       onEditModeToggle: toggleEditMode,
       onNextPressed: _onNextPressed,
+      currentPageIndex: _currentPageIndex,
     );
   }
 
@@ -109,9 +121,7 @@ class TripScreen1State extends State<TripScreen1> {
                     return null;
                   },
                 ),
-
                 const SizedBox(height: 15),
-
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -165,9 +175,7 @@ class TripScreen1State extends State<TripScreen1> {
                     return null; // Return null if validation passes
                   },
                 ),
-
                 const SizedBox(height: 15),
-
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -185,7 +193,8 @@ class TripScreen1State extends State<TripScreen1> {
                   height: 100,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppTheme.colors.primary_dark_3, width: 2),
+                    border: Border.all(
+                        color: AppTheme.colors.primary_dark_3, width: 2),
                     color: AppTheme.colors.white,
                     borderRadius: BorderRadius.circular(15),
                   ),
@@ -207,14 +216,12 @@ class TripScreen1State extends State<TripScreen1> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 15),
-
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
                     textAlign: TextAlign.start,
-                    'Add Travel Buddies?',
+                    'Add Travel Buddies (Optional)',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
