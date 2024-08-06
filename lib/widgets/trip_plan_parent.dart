@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/trip_appbar_1.dart';
+import '../widgets/trip_appbar.dart';
 import '../screen/trip_screen_1.dart';
 import '../screen/trip_screen_2.dart';
 import '../screen/trip_screen_3.dart';
@@ -46,7 +46,7 @@ class TripPlanParentState extends State<TripPlanParent> {
     return Scaffold(
       body: Column(
         children: [
-          TripAppbar1(
+          TripAppbar(
             pageController: _pageController,
             content: PageView(
               controller: _pageController,

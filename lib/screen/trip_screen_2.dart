@@ -1,4 +1,7 @@
+import 'package:ceylontrailapp/widgets/added_places.dart';
+import 'package:ceylontrailapp/widgets/visiting_places.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_theme.dart';
 
 class TripScreen2 extends StatelessWidget {
@@ -6,199 +9,96 @@ class TripScreen2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                textAlign: TextAlign.start,
-                'Transportation',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppTheme.colors.primary_dark_3,
-                ),
-              ),
-            ),
-            const SizedBox(height: 5),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Ex:- By Train',
-                hintStyle: TextStyle(
-                  color: AppTheme.colors.secondary_light_2,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.secondary_light_3,
-                    width: 2,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Row(
+                    children: [
+                      Text(
+                          'Places near ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: AppTheme.colors.primary_dark_3,
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                      Text(
+                        'Ella',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: AppTheme.colors.secondary_dark_2,
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
+                Divider(
+                  color: AppTheme.colors.black,
+                  thickness: 1,
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
-                ),
-              ),
-            ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: EdgeInsets.only(bottom: 20.0),
+                    child: Row(
+                      children: [
+                        VisitingPlaces(),
+                        VisitingPlaces(),
+                        VisitingPlaces(),
+                        VisitingPlaces(),
 
-            const SizedBox(height: 15),
 
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                textAlign: TextAlign.start,
-                'Accommodation',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppTheme.colors.primary_dark_3,
-                ),
-              ),
-            ),
-            const SizedBox(height: 5),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Ex:- Hotel XYZ',
-                hintStyle: TextStyle(
-                  color: AppTheme.colors.secondary_light_2,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.secondary_light_3,
-                    width: 2,
+                      ],
+                    ),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
-                ),
-              ),
-            ),
 
-            const SizedBox(height: 15),
+                Divider(
+                  color: AppTheme.colors.black,
+                  thickness: 1,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    'Added places',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: AppTheme.colors.primary_dark_3,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                SizedBox(
+                  height: size.height * 0.54,
+                  width: double.infinity,
+                  child: const SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        AddedPlaces(),
+                        AddedPlaces(),
+                        AddedPlaces(),
+                        AddedPlaces()
 
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                textAlign: TextAlign.start,
-                'Activities',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppTheme.colors.primary_dark_3,
-                ),
-              ),
-            ),
-            const SizedBox(height: 5),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Ex:- Hiking, Sightseeing',
-                hintStyle: TextStyle(
-                  color: AppTheme.colors.secondary_light_2,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.secondary_light_3,
-                    width: 2,
+                      ],
+                    ),
                   ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                textAlign: TextAlign.start,
-                'Budget',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppTheme.colors.primary_dark_3,
-                ),
-              ),
-            ),
-            const SizedBox(height: 5),
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Ex:- Rs1000',
-                hintStyle: TextStyle(
-                  color: AppTheme.colors.secondary_light_2,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.secondary_light_3,
-                    width: 2,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  borderSide: BorderSide(
-                    color: AppTheme.colors.primary_dark_3,
-                    width: 2,
-                  ),
-                ),
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter the budget';
-                }
-                // Check if the value is a valid number
-                final number = num.tryParse(value);
-                if (number == null) {
-                  return 'Please enter a valid number';
-                }
-                return null; // Return null if validation passes
-              },
-            ),
+                )
+              ],
+            )
           ],
         ),
       ),

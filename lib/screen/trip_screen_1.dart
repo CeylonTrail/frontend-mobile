@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/app_theme.dart';
-import '../widgets/trip_appbar_1.dart';
+import '../widgets/trip_appbar.dart';
 import 'trip_screen_2.dart';
-import 'trip_screen_3.dart';  // Import the third screen
+import 'trip_screen_3.dart';
 
 class TripScreen1 extends StatefulWidget {
   const TripScreen1({super.key});
@@ -38,7 +38,7 @@ class TripScreen1State extends State<TripScreen1> {
 
   @override
   Widget build(BuildContext context) {
-    return TripAppbar1(
+    return TripAppbar(
       content: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
@@ -56,7 +56,7 @@ class TripScreen1State extends State<TripScreen1> {
       isEditMode: isEditMode,
       onEditModeToggle: toggleEditMode,
       onNextPressed: _onNextPressed,
-      currentPageIndex: _currentPageIndex,
+      currentPageIndex: _currentPageIndex, pageController: _pageController,
     );
   }
 
