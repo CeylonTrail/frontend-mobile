@@ -1,7 +1,5 @@
-import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/widgets/custom_info_appbar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../theme/app_theme.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -13,6 +11,10 @@ class InformationScreen extends StatefulWidget {
 
 class _InformationScreenState extends State<InformationScreen> {
   bool isEditMode = false;
+  bool isChangePasswordMode = false;
+  bool isCurrentPasswordVisible = false;
+  bool isNewPasswordVisible = false;
+  bool isConfirmNewPasswordVisible = false;
 
   // Controllers for the text fields
   final TextEditingController _firstNameController = TextEditingController();
@@ -20,6 +22,9 @@ class _InformationScreenState extends State<InformationScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _currentPasswordController = TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+  final TextEditingController _confirmNewPasswordController = TextEditingController();
 
   @override
   void initState() {
@@ -40,12 +45,36 @@ class _InformationScreenState extends State<InformationScreen> {
     _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _currentPasswordController.dispose();
+    _newPasswordController.dispose();
+    _confirmNewPasswordController.dispose();
     super.dispose();
   }
 
   void toggleEditMode() {
     setState(() {
       isEditMode = !isEditMode;
+      if (!isEditMode) {
+        isChangePasswordMode = false;
+      }
+    });
+  }
+
+  void toggleChangePasswordMode() {
+    setState(() {
+      isChangePasswordMode = !isChangePasswordMode;
+    });
+  }
+
+  void togglePasswordVisibility(int index) {
+    setState(() {
+      if (index == 0) {
+        isCurrentPasswordVisible = !isCurrentPasswordVisible;
+      } else if (index == 1) {
+        isNewPasswordVisible = !isNewPasswordVisible;
+      } else if (index == 2) {
+        isConfirmNewPasswordVisible = !isConfirmNewPasswordVisible;
+      }
     });
   }
 
@@ -73,10 +102,21 @@ class _InformationScreenState extends State<InformationScreen> {
               children: [
                 _buildTextFormField("E-mail", _emailController, isEditable: false),
                 _buildTextFormField("Password", _passwordController, isEditable: false, obscureText: true),
-                _buildChangePasswordLink(),
+                if (isEditMode) _buildChangePasswordLink(),
                 const SizedBox(height: 10),
               ],
             ),
+            if (isChangePasswordMode) ...[
+              _buildSectionTitle("Change Password"),
+              _buildInfoContainer(
+                children: [
+                  _buildTextFormFieldWithVisibility("Current Password", _currentPasswordController, isEditable: true, obscureText: !isCurrentPasswordVisible, index: 0),
+                  _buildTextFormFieldWithVisibility("New Password", _newPasswordController, isEditable: true, obscureText: !isNewPasswordVisible, index: 1, hintText: "Enter new password"),
+                  _buildTextFormFieldWithVisibility("Confirm New Password", _confirmNewPasswordController, isEditable: true, obscureText: !isConfirmNewPasswordVisible, index: 2, hintText: "Confirm new password"),
+                  const SizedBox(height: 10),
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -158,6 +198,58 @@ class _InformationScreenState extends State<InformationScreen> {
     );
   }
 
+  Widget _buildTextFormFieldWithVisibility(String label, TextEditingController controller, {bool isEditable = true, bool obscureText = false, required int index, String? hintText}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Column(
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              label,
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: AppTheme.colors.primary_dark_3,
+              ),
+            ),
+          ),
+          const SizedBox(height: 5),
+          TextFormField(
+            controller: controller,
+            enabled: isEditable,
+            obscureText: obscureText,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: AppTheme.colors.white,
+              hintText: hintText,
+              hintStyle: TextStyle(color: AppTheme.colors.secondary_light_2),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(color: AppTheme.colors.secondary_light_3, width: 2),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(color: AppTheme.colors.primary_dark_3, width: 2),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+                borderSide: BorderSide(color: AppTheme.colors.primary_dark_3, width: 2),
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  obscureText ? Icons.visibility_off : Icons.visibility,
+                  color: AppTheme.colors.secondary_light_3,
+                ),
+                onPressed: () => togglePasswordVisibility(index),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildChangePasswordLink() {
     return Padding(
       padding: const EdgeInsets.only(right: 20.0),
@@ -165,9 +257,7 @@ class _InformationScreenState extends State<InformationScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           GestureDetector(
-            onTap: () {
-              Get.to(() => HomeScreen());
-            },
+            onTap: toggleChangePasswordMode,
             child: Text(
               'Change Password',
               style: TextStyle(

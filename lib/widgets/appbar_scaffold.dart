@@ -5,14 +5,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../theme/app_theme.dart';
 
 class AppbarScaffold extends StatefulWidget {
-  const AppbarScaffold({super.key, required this.homeScreen, this.bottomNavBar});
+  const AppbarScaffold({
+    super.key,
+    required this.homeScreen,
+    required this.currentIndex,
+    this.bottomNavBar,
+  });
+
   final Widget homeScreen;
+  final int currentIndex;
   final Widget? bottomNavBar;
 
   @override
   AppbarScaffoldState createState() => AppbarScaffoldState();
 }
-
 class AppbarScaffoldState extends State<AppbarScaffold> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,6 +37,8 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    bool showSearchIcon = widget.currentIndex == 1 || widget.currentIndex == 2;
+
     return Scaffold(
       key: _scaffoldKey,
       extendBodyBehindAppBar: true,
@@ -64,12 +72,13 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                         ),
                         Row(
                           children: [
-                            IconButton(
-                              icon: SvgPicture.asset('assets/icons/bx-search.svg'),
-                              onPressed: () {
-                                // Handle search icon press
-                              },
-                            ),
+                            if (showSearchIcon)
+                              IconButton(
+                                icon: SvgPicture.asset('assets/icons/bx-search.svg'),
+                                onPressed: () {
+                                  // Handle search icon press
+                                },
+                              ),
                             IconButton(
                               icon: SvgPicture.asset('assets/icons/bx-message-rounded.svg'),
                               onPressed: () {

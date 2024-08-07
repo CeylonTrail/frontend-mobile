@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import '../theme/app_theme.dart';
 
 class PopularDestinations extends StatelessWidget {
@@ -25,6 +23,16 @@ class PopularDestinations extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {},
+                  style: ButtonStyle(
+                    overlayColor: WidgetStateProperty.resolveWith<Color?>(
+                          (Set<WidgetState> states) {
+                        if (states.contains(WidgetState.pressed)) {
+                          return Colors.white; // Change this to your desired color and opacity
+                        }
+                        return null; // Defer to the default overlay color
+                      },
+                    ),
+                  ),
                   child: Text(
                     "View All",
                     style: TextStyle(

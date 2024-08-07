@@ -21,7 +21,7 @@ class ResetPasswordButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              "Reset Password",
+              "Send OTP",
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
