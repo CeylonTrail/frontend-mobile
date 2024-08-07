@@ -81,21 +81,22 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: 64,
-                                height: 64,
+                                width: 48,
+                                height: 48,
                                 decoration: BoxDecoration(
                                   color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
                                   child: TextFormField(
+                                    cursorHeight: 33,
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
                                       }
                                     },
                                     textAlign: TextAlign.center,
-                                    keyboardType: TextInputType.number,
+                                    keyboardType: TextInputType.text,
                                     maxLength: 1,
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
@@ -112,23 +113,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 15),
+                              const SizedBox(width: 4),
                               Container(
-                                width: 64,
-                                height: 64,
+                                width: 48,
+                                height: 48,
                                 decoration: BoxDecoration(
                                   color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
                                   child: TextFormField(
+                                    cursorHeight: 33,
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
                                       }
                                     },
                                     textAlign: TextAlign.center,
-                                    keyboardType: TextInputType.number,
+                                    keyboardType: TextInputType.text,
                                     maxLength: 1,
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
@@ -145,23 +147,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 15),
+                              const SizedBox(width: 4),
                               Container(
-                                width: 64,
-                                height: 64,
+                                width: 48,
+                                height: 48,
                                 decoration: BoxDecoration(
                                   color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
                                   child: TextFormField(
+                                    cursorHeight: 33,
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
                                       }
                                     },
                                     textAlign: TextAlign.center,
-                                    keyboardType: TextInputType.number,
+                                    keyboardType: TextInputType.text,
                                     maxLength: 1,
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
@@ -178,23 +181,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 15),
+                              const SizedBox(width: 4),
                               Container(
-                                width: 64,
-                                height: 64,
+                                width: 48,
+                                height: 48,
                                 decoration: BoxDecoration(
                                   color: AppTheme.colors.secondary_light_1,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Center(
                                   child: TextFormField(
+                                    cursorHeight: 33,
                                     onChanged: (value) {
                                       if (value.length == 1) {
                                         FocusScope.of(context).nextFocus();
                                       }
                                     },
                                     textAlign: TextAlign.center,
-                                    keyboardType: TextInputType.number,
+                                    keyboardType: TextInputType.text,
                                     maxLength: 1,
                                     decoration: const InputDecoration(
                                       border: InputBorder.none,
@@ -210,7 +214,76 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
+                              const SizedBox(width: 4),
+                              Container(
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.colors.secondary_light_1,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: TextFormField(
+                                    cursorHeight: 33,
+                                    onChanged: (value) {
+                                      if (value.length == 1) {
+                                        FocusScope.of(context).nextFocus();
+                                      }
+                                    },
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.text,
+                                    maxLength: 1,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                    ),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(1),
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 4),
+                              Container(
+                                width: 48,
+                                height: 48,
+                                decoration: BoxDecoration(
+                                  color: AppTheme.colors.secondary_light_1,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: TextFormField(
+                                    cursorHeight: 33,
+                                    onChanged: (value) {
+                                      if (value.length == 1) {
+                                        FocusScope.of(context).nextFocus();
+                                      }
+                                    },
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.text,
+                                    maxLength: 1,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      counterText: '',
+                                    ),
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                    inputFormatters: [
+                                      LengthLimitingTextInputFormatter(1),
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 4),
                             ],
                           ),
                           SizedBox(height: size.height * 0.01),

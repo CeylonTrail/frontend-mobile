@@ -22,6 +22,16 @@ class RecommendedTripPlans extends StatelessWidget {
                       fontWeight: FontWeight.w900),
                 ),
                 TextButton(
+                  style: ButtonStyle(
+                    overlayColor: WidgetStateProperty.resolveWith<Color?>(
+                          (Set<WidgetState> states) {
+                        if (states.contains(WidgetState.pressed)) {
+                          return Colors.white; // Change this to your desired color and opacity
+                        }
+                        return null; // Defer to the default overlay color
+                      },
+                    ),
+                  ),
                   onPressed: () {},
                   child: Text(
                     "View All",

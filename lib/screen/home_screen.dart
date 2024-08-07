@@ -24,9 +24,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final BottomNavBarController controller = Get.put(BottomNavBarController());
     return BackButtonInterceptor(
-      child: AppbarScaffold(
-        homeScreen: Obx(() {
-          return ColoredBox(
+      child: Obx(() {
+        return AppbarScaffold(
+          homeScreen: ColoredBox(
             color: AppTheme.colors.white,
             child: IndexedStack(
               index: controller.selectedIndex.value,
@@ -63,10 +63,11 @@ class HomeScreen extends StatelessWidget {
                 EmergencyServices(),
               ],
             ),
-          );
-        }),
-        bottomNavBar: const BottomNavBar(),
-      ),
+          ),
+          currentIndex: controller.selectedIndex.value,
+          bottomNavBar: const BottomNavBar(),
+        );
+      }),
     );
   }
 }
