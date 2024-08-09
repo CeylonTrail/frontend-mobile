@@ -16,6 +16,7 @@ import 'package:ceylontrailapp/screen/newsfeed.dart';
 import '../controllers/bottom_nav_bar_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/back_button_interceptor.dart';
+import '../widgets/bot_scaffold.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -23,46 +24,49 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BottomNavBarController controller = Get.put(BottomNavBarController());
+
     return BackButtonInterceptor(
       child: Obx(() {
-        return AppbarScaffold(
-          homeScreen: ColoredBox(
-            color: AppTheme.colors.white,
-            child: IndexedStack(
-              index: controller.selectedIndex.value,
-              children: const [
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          PlanATripButton(),
-                          FavoritesButton()
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CurrentTripButton(),
-                          WeatherButton()
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      RecommendedTripPlans(),
-                      PopularDestinations(),
-                      PreviousTrips(),
-                    ],
+        return BotScaffold(
+          body: AppbarScaffold(
+            homeScreen: ColoredBox(
+              color: AppTheme.colors.white,
+              child: IndexedStack(
+                index: controller.selectedIndex.value,
+                children: const [
+                  SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            PlanATripButton(),
+                            FavoritesButton(),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CurrentTripButton(),
+                            WeatherButton(),
+                          ],
+                        ),
+                        SizedBox(height: 8),
+                        RecommendedTripPlans(),
+                        PopularDestinations(),
+                        PreviousTrips(),
+                      ],
+                    ),
                   ),
-                ),
-                NewsFeed(),
-                Marketplace(),
-                VoiceAssistant(),
-                EmergencyServices(),
-              ],
-            ),
+                  NewsFeed(),
+                  Marketplace(),
+                  VoiceAssistant(),
+                  EmergencyServices(),
+                ],
+              ),
+            ), currentIndex: controller.selectedIndex.value,
           ),
           currentIndex: controller.selectedIndex.value,
           bottomNavBar: const BottomNavBar(),

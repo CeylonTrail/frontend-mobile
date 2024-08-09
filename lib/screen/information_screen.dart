@@ -1,3 +1,4 @@
+import 'package:ceylontrailapp/widgets/bot_scaffold.dart';
 import 'package:ceylontrailapp/widgets/custom_info_appbar.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
@@ -80,44 +81,46 @@ class _InformationScreenState extends State<InformationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomInfoAppbar(
-      isEditMode: isEditMode,
-      onEditModeToggle: toggleEditMode,
-      content: SingleChildScrollView(
-        child: Column(
-          children: [
-            // General Information
-            _buildSectionTitle("General Information"),
-            _buildInfoContainer(
-              children: [
-                _buildTextFormField("First Name", _firstNameController, isEditable: isEditMode),
-                _buildTextFormField("Last Name", _lastNameController, isEditable: isEditMode),
-                _buildTextFormField("Username", _usernameController, isEditable: isEditMode),
-                const SizedBox(height: 10), // Add this line
-              ],
-            ),
-            // Security Information
-            _buildSectionTitle("Security Information"),
-            _buildInfoContainer(
-              children: [
-                _buildTextFormField("E-mail", _emailController, isEditable: false),
-                _buildTextFormField("Password", _passwordController, isEditable: false, obscureText: true),
-                if (isEditMode) _buildChangePasswordLink(),
-                const SizedBox(height: 10),
-              ],
-            ),
-            if (isChangePasswordMode) ...[
-              _buildSectionTitle("Change Password"),
+    return BotScaffold(
+      body: CustomInfoAppbar(
+        isEditMode: isEditMode,
+        onEditModeToggle: toggleEditMode,
+        content: SingleChildScrollView(
+          child: Column(
+            children: [
+              // General Information
+              _buildSectionTitle("General Information"),
               _buildInfoContainer(
                 children: [
-                  _buildTextFormFieldWithVisibility("Current Password", _currentPasswordController, isEditable: true, obscureText: !isCurrentPasswordVisible, index: 0),
-                  _buildTextFormFieldWithVisibility("New Password", _newPasswordController, isEditable: true, obscureText: !isNewPasswordVisible, index: 1, hintText: "Enter new password"),
-                  _buildTextFormFieldWithVisibility("Confirm New Password", _confirmNewPasswordController, isEditable: true, obscureText: !isConfirmNewPasswordVisible, index: 2, hintText: "Confirm new password"),
+                  _buildTextFormField("First Name", _firstNameController, isEditable: isEditMode),
+                  _buildTextFormField("Last Name", _lastNameController, isEditable: isEditMode),
+                  _buildTextFormField("Username", _usernameController, isEditable: isEditMode),
+                  const SizedBox(height: 10), // Add this line
+                ],
+              ),
+              // Security Information
+              _buildSectionTitle("Security Information"),
+              _buildInfoContainer(
+                children: [
+                  _buildTextFormField("E-mail", _emailController, isEditable: false),
+                  _buildTextFormField("Password", _passwordController, isEditable: false, obscureText: true),
+                  if (isEditMode) _buildChangePasswordLink(),
                   const SizedBox(height: 10),
                 ],
               ),
+              if (isChangePasswordMode) ...[
+                _buildSectionTitle("Change Password"),
+                _buildInfoContainer(
+                  children: [
+                    _buildTextFormFieldWithVisibility("Current Password", _currentPasswordController, isEditable: true, obscureText: !isCurrentPasswordVisible, index: 0),
+                    _buildTextFormFieldWithVisibility("New Password", _newPasswordController, isEditable: true, obscureText: !isNewPasswordVisible, index: 1, hintText: "Enter new password"),
+                    _buildTextFormFieldWithVisibility("Confirm New Password", _confirmNewPasswordController, isEditable: true, obscureText: !isConfirmNewPasswordVisible, index: 2, hintText: "Confirm new password"),
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );

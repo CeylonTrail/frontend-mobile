@@ -65,17 +65,19 @@ class _SideBarState extends State<SideBar> {
                     ),
                   ),
                   ListTile(
-                    leading: SizedBox(
-                      height: 48,
-                      width: 200,
-                      child: Column(
-                        children: [
-                          GestureDetector(
-                            onTap: _navigateToProfile,
-                            child: Row(
+                    leading: GestureDetector(
+                      onTap: _navigateToProfile,
+                      child: SizedBox(
+                        height: 48,
+                        width: 200,
+                        child: Column(
+                          children: [
+                            Row(
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.to(() => const MyProfileScreen());
+                                  },
                                   icon: SvgPicture.asset(
                                     'assets/icons/bx-user-circle.svg',
                                     width: 28,
@@ -93,116 +95,123 @@ class _SideBarState extends State<SideBar> {
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   ListTile(
-                    leading: SizedBox(
-                      height: double.infinity,
-                      width: 200,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  _closeSideBar();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                                  );
-                                },
-                                icon: SvgPicture.asset(
-                                  'assets/icons/bx-home.svg',
-                                  width: 28,
-                                  height: 28,
+                    leading: GestureDetector(
+                      // onTap: ,
+                      child: SizedBox(
+                        height: double.infinity,
+                        width: 200,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    _closeSideBar();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                                    );
+                                  },
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/bx-home.svg',
+                                    width: 28,
+                                    height: 28,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                "Home",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppTheme.colors.white,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(width: 10),
+                                Text(
+                                  "Home",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppTheme.colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   // Add similar handlers for other ListTile items
                   ListTile(
-                    leading: SizedBox(
-                      height: double.infinity,
-                      width: 200,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  _closeSideBar();
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
-                                },
-                                icon: SvgPicture.asset(
-                                  'assets/icons/bx-search.svg',
-                                  width: 28,
-                                  height: 28,
+                    leading: GestureDetector(
+                      child: SizedBox(
+                        height: double.infinity,
+                        width: 200,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    _closeSideBar();
+                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
+                                  },
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/bx-search.svg',
+                                    width: 28,
+                                    height: 28,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 9.5),
-                              Text(
-                                "Search",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppTheme.colors.white,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(width: 9.5),
+                                Text(
+                                  "Search",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppTheme.colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   // Continue similarly for other ListTile items
                   // ...
                   ListTile(
-                    leading: SizedBox(
-                      height: double.infinity,
-                      width: 230,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  _closeSideBar();
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => EmergencyServicesScreen()));
-                                },
-                                icon: SvgPicture.asset(
-                                  'assets/icons/bx-phone.svg',
-                                  width: 28,
-                                  height: 28,
+                    leading: GestureDetector(
+                      child: SizedBox(
+                        height: double.infinity,
+                        width: 230,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    _closeSideBar();
+                                    // Navigator.push(context, MaterialPageRoute(builder: (context) => EmergencyServicesScreen()));
+                                  },
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/bx-phone.svg',
+                                    width: 28,
+                                    height: 28,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                "Emergency Services",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppTheme.colors.white,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(width: 10),
+                                Text(
+                                  "Emergency Services",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppTheme.colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -214,36 +223,38 @@ class _SideBarState extends State<SideBar> {
                     ),
                   ),
                   ListTile(
-                    leading: SizedBox(
-                      height: double.infinity,
-                      width: 230,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  _closeSideBar();
-                                 Get.to(()=> const SignInScreen());
-                                },
-                                icon: SvgPicture.asset(
-                                  'assets/icons/bx-log-out-circle.svg',
-                                  width: 28,
-                                  height: 28,
+                    leading: GestureDetector(
+                      child: SizedBox(
+                        height: double.infinity,
+                        width: 230,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    _closeSideBar();
+                                   Get.to(()=> const SignInScreen());
+                                  },
+                                  icon: SvgPicture.asset(
+                                    'assets/icons/bx-log-out-circle.svg',
+                                    width: 28,
+                                    height: 28,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                "Log Out",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppTheme.colors.white,
-                                  fontWeight: FontWeight.w500,
+                                const SizedBox(width: 10),
+                                Text(
+                                  "Log Out",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: AppTheme.colors.white,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

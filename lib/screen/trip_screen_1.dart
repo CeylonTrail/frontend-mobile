@@ -1,3 +1,4 @@
+import 'package:ceylontrailapp/widgets/bot_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/app_theme.dart';
@@ -38,25 +39,27 @@ class TripScreen1State extends State<TripScreen1> {
 
   @override
   Widget build(BuildContext context) {
-    return TripAppbar(
-      content: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: [
-          _buildFirstPage(),
-          const TripScreen2(),
-          const TripScreen3(),  // Add the third screen here
-        ],
-        onPageChanged: (index) {
-          setState(() {
-            _currentPageIndex = index;
-          });
-        },
+    return BotScaffold(
+      body: TripAppbar(
+        content: PageView(
+          controller: _pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            _buildFirstPage(),
+            const TripScreen2(),
+            const TripScreen3(),  // Add the third screen here
+          ],
+          onPageChanged: (index) {
+            setState(() {
+              _currentPageIndex = index;
+            });
+          },
+        ),
+        isEditMode: isEditMode,
+        onEditModeToggle: toggleEditMode,
+        onNextPressed: _onNextPressed,
+        currentPageIndex: _currentPageIndex, pageController: _pageController,
       ),
-      isEditMode: isEditMode,
-      onEditModeToggle: toggleEditMode,
-      onNextPressed: _onNextPressed,
-      currentPageIndex: _currentPageIndex, pageController: _pageController,
     );
   }
 

@@ -83,7 +83,7 @@ class _TripAppbarState extends State<TripAppbar> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text(
+            child: Text (
               'Yes',
               style: TextStyle(color: AppTheme.colors.warning_light),
             ),
