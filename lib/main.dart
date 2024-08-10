@@ -14,6 +14,7 @@ import 'package:ceylontrailapp/screen/sign_in_screen.dart';
 import 'package:ceylontrailapp/screen/sign_up_screen.dart';
 
 import 'controllers/newsfeed_controller.dart';
+import 'controllers/trip_plan_controller.dart';
 
 void main() {
   // Set the status bar and navigation bar color
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(TripPlanController());
     Get.put(NewsfeedController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

@@ -1,7 +1,9 @@
-import 'package:ceylontrailapp/widgets/bot_scaffold.dart';
+import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/trip_plan_controller.dart';
 import '../theme/app_theme.dart';
+import '../widgets/bot_scaffold.dart';
 import '../widgets/trip_appbar.dart';
 import 'trip_screen_2.dart';
 import 'trip_screen_3.dart';
@@ -18,6 +20,15 @@ class TripScreen1State extends State<TripScreen1> {
   bool isEditMode = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   int _currentPageIndex = 0;
+  final TextEditingController _destinationController = TextEditingController();
+  final TextEditingController _daysController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Ensure the TripPlanController is initialized
+    Get.put(TripPlanController());
+  }
 
   void toggleEditMode() {
     setState(() {
@@ -27,6 +38,12 @@ class TripScreen1State extends State<TripScreen1> {
 
   void _onNextPressed() {
     if (_formKey.currentState?.validate() ?? false) {
+      final numberOfDays = int.tryParse(_daysController.text) ?? 0;
+      print("Number of days entered: $numberOfDays"); // Debug print
+      Get.find<TripPlanController>().goToNextPage(
+        _destinationController.text,
+        numberOfDays,
+      );
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -35,6 +52,26 @@ class TripScreen1State extends State<TripScreen1> {
         _currentPageIndex += 1;
       });
     }
+  }
+
+  void _onDiscard() {
+    // Clear text controllers
+    _destinationController.clear();
+    _daysController.clear();
+
+    // Reset the form state
+    _formKey.currentState?.reset();
+
+    // Reset page controller to the first page
+    _pageController.jumpToPage(0);
+
+    // Reset the current page index
+    setState(() {
+      _currentPageIndex = 0;
+    });
+
+    // Reset the TripPlanController state
+    Get.find<TripPlanController>().reset();
   }
 
   @override
@@ -47,7 +84,7 @@ class TripScreen1State extends State<TripScreen1> {
           children: [
             _buildFirstPage(),
             const TripScreen2(),
-            const TripScreen3(),  // Add the third screen here
+            const TripScreen3(), // Add the third screen here
           ],
           onPageChanged: (index) {
             setState(() {
@@ -58,7 +95,9 @@ class TripScreen1State extends State<TripScreen1> {
         isEditMode: isEditMode,
         onEditModeToggle: toggleEditMode,
         onNextPressed: _onNextPressed,
-        currentPageIndex: _currentPageIndex, pageController: _pageController,
+        currentPageIndex: _currentPageIndex,
+        pageController: _pageController,
+        onDiscard: _onDiscard, // Ensure this is correctly assigned
       ),
     );
   }
@@ -87,6 +126,7 @@ class TripScreen1State extends State<TripScreen1> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  controller: _destinationController,
                   decoration: InputDecoration(
                     hintText: 'Ex:- Ella',
                     hintStyle: TextStyle(
@@ -139,6 +179,7 @@ class TripScreen1State extends State<TripScreen1> {
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
+                  controller: _daysController,
                   decoration: InputDecoration(
                     hintText: 'Ex:- 2',
                     hintStyle: TextStyle(
@@ -170,12 +211,11 @@ class TripScreen1State extends State<TripScreen1> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter the number of days';
                     }
-                    // Check if the value is a valid number
                     final number = num.tryParse(value);
                     if (number == null) {
                       return 'Please enter a valid number';
                     }
-                    return null; // Return null if validation passes
+                    return null;
                   },
                 ),
                 const SizedBox(height: 15),

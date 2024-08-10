@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import '../controllers/trip_plan_controller.dart';
 import '../theme/app_theme.dart';
 
 class VisitingPlaces extends StatelessWidget {
-  const VisitingPlaces({super.key});
+  final String placeName;
+
+  const VisitingPlaces({super.key, required this.placeName});
 
   @override
   Widget build(BuildContext context) {
-    return   Row(
+    final controller = Get.find<TripPlanController>();
+
+    return Row(
       children: [
         Column(
           children: [
@@ -16,12 +22,13 @@ class VisitingPlaces extends StatelessWidget {
               width: 200,
               height: 25,
               child: Text(
-                '9 Arch Bridge',
+                placeName,
                 style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    color: AppTheme.colors.secondary_light_3,
-                    fontSize: 18,
-                    overflow: TextOverflow.ellipsis),
+                  fontWeight: FontWeight.w500,
+                  color: AppTheme.colors.secondary_light_3,
+                  fontSize: 18,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             Padding(
@@ -52,14 +59,15 @@ class VisitingPlaces extends StatelessWidget {
             height: 125,
             width: 60,
             decoration: BoxDecoration(
-                color: AppTheme.colors.secondary_light_1,
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    bottomRight: Radius.circular(10))
+              color: AppTheme.colors.secondary_light_1,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10),
+                bottomRight: Radius.circular(10),
+              ),
             ),
             child: GestureDetector(
-              onTap: (){
-                // method
+              onTap: () {
+                controller.addPlaceToDay(placeName);
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -68,16 +76,16 @@ class VisitingPlaces extends StatelessWidget {
                   Text(
                     'Add',
                     style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme
-                            .colors.secondary_light_3),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: AppTheme.colors.secondary_light_3,
+                    ),
                   ),
                   SvgPicture.asset(
                     'assets/icons/bxs-plus-circle-grey.svg',
                     width: 35,
                     height: 35,
-                  )
+                  ),
                 ],
               ),
             ),
