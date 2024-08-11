@@ -31,6 +31,8 @@ class Assets {
   static const String iconsBxWorld = 'assets/icons/bx-world.svg';
   static const String iconsBxX = 'assets/icons/bx-x.svg';
   static const String iconsBxsBell = 'assets/icons/bxs-bell.svg';
+  static const String iconsBxsBot = 'assets/icons/bxs-bot.svg';
+  static const String iconsBxsCamera = 'assets/icons/bxs-camera.svg';
   static const String iconsBxsCloud = 'assets/icons/bxs-cloud.svg';
   static const String iconsBxsEqualizer = 'assets/icons/bxs-equalizer.svg';
   static const String iconsBxsGroup = 'assets/icons/bxs-group.svg';
@@ -38,10 +40,15 @@ class Assets {
   static const String iconsBxsHome = 'assets/icons/bxs-home.svg';
   static const String iconsBxsLockAlt = 'assets/icons/bxs-lock-alt.svg';
   static const String iconsBxsMessageRounded = 'assets/icons/bxs-message-rounded.svg';
+  static const String iconsBxsMicrophone = 'assets/icons/bxs-microphone.svg';
+  static const String iconsBxsMicrophoneOff = 'assets/icons/bxs-microphone-off.svg';
+  static const String iconsBxsMinusCircleGrey = 'assets/icons/bxs-minus-circle-grey.svg';
   static const String iconsBxsNews = 'assets/icons/bxs-news.svg';
   static const String iconsBxsPhone = 'assets/icons/bxs-phone.svg';
   static const String iconsBxsPhotoAlbum = 'assets/icons/bxs-photo-album.svg';
   static const String iconsBxsPlusCircle = 'assets/icons/bxs-plus-circle.svg';
+  static const String iconsBxsPlusCircleGrey = 'assets/icons/bxs-plus-circle-grey.svg';
+  static const String iconsBxsSend = 'assets/icons/bxs-send.svg';
   static const String iconsBxsStarHalf = 'assets/icons/bxs-star-half.svg';
   static const String iconsBxsStoreAlt = 'assets/icons/bxs-store-alt.svg';
   static const String iconsBxsUserVoice = 'assets/icons/bxs-user-voice.svg';
@@ -50,7 +57,9 @@ class Assets {
   static const String iconsGoogle = 'assets/icons/google.svg';
   static const String iconsPhotoGallery = 'assets/icons/photo-gallery.svg';
   static const String iconsSoundWave = 'assets/icons/sound-wave.svg';
+  static const String images0 = 'assets/images/0.jpg';
   static const String images1 = 'assets/images/1.jpg';
+  static const String images2 = 'assets/images/2.jpg';
   static const String images3 = 'assets/images/3.jpg';
   static const String images4 = 'assets/images/4.jpg';
   static const String images5 = 'assets/images/5.jpg';

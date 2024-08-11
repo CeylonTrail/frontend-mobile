@@ -31,14 +31,22 @@ class TripPlanParentState extends State<TripPlanParent> {
         _currentPageIndex,
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
-      ).then((_) {
-        // Debugging: Check if the page index is correct
-        print("Navigated to page: $_currentPageIndex");
-      });
+      );
     } else {
       // Save functionality can be added here
       print("Save button pressed");
     }
+  }
+
+  void _onDiscard() {
+    setState(() {
+      // Reset the page index and edit mode
+      _currentPageIndex = 0;
+      _isEditMode = false;
+      // Reset the PageController to the first page
+      _pageController.jumpToPage(0);
+    });
+    // You can also reset any other state variables or data associated with the trip here
   }
 
   @override
@@ -65,6 +73,7 @@ class TripPlanParentState extends State<TripPlanParent> {
             onEditModeToggle: _onEditModeToggle,
             onNextPressed: _onNextPressed,
             currentPageIndex: _currentPageIndex,
+            onDiscard: _onDiscard, // Pass the discard callback
           ),
         ],
       ),

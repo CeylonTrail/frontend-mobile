@@ -13,7 +13,8 @@ class TripAppbar extends StatefulWidget {
     required this.onEditModeToggle,
     required this.onNextPressed,
     required this.currentPageIndex,
-    required this.pageController, // Add this line
+    required this.pageController,
+    required this.onDiscard, // Add this line
   });
 
   final Widget content;
@@ -22,7 +23,8 @@ class TripAppbar extends StatefulWidget {
   final VoidCallback onEditModeToggle;
   final VoidCallback onNextPressed;
   final int currentPageIndex;
-  final PageController pageController; // Add this line
+  final PageController pageController;
+  final VoidCallback onDiscard; // Add this line
 
   @override
   State<TripAppbar> createState() => _TripAppbarState();
@@ -82,7 +84,9 @@ class _TripAppbarState extends State<TripAppbar> {
             ),
           ),
           TextButton(
-            onPressed: () => Navigator.pop(context, true),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
             child: Text(
               'Yes',
               style: TextStyle(color: AppTheme.colors.warning_light),
@@ -93,6 +97,7 @@ class _TripAppbarState extends State<TripAppbar> {
     );
 
     if (result == true) {
+      widget.onDiscard(); // Call the discard callback
       Navigator.pop(context);
     }
   }
