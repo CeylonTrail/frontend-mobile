@@ -1,5 +1,6 @@
 import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../controllers/trip_plan_controller.dart';
 import '../theme/app_theme.dart';
@@ -37,6 +38,9 @@ class TripScreen1State extends State<TripScreen1> {
   }
 
   void _onNextPressed() {
+    if(_currentPageIndex == 0){
+      SystemChannels.textInput.invokeMethod('TextInput.hide');
+    }
     if (_formKey.currentState?.validate() ?? false) {
       final numberOfDays = int.tryParse(_daysController.text) ?? 0;
       print("Number of days entered: $numberOfDays"); // Debug print

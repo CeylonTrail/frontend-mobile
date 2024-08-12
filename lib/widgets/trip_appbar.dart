@@ -185,7 +185,7 @@ class _TripAppbarState extends State<TripAppbar> {
                             borderRadius: BorderRadius.circular(22.0),
                           ),
                           child: Text(
-                            widget.currentPageIndex == 2 ? 'Save' : 'Next',
+                            widget.currentPageIndex >= 2 ? 'Save' : 'Next',
                             style: TextStyle(
                               fontSize: 16.0,
                               color: AppTheme.colors.white,

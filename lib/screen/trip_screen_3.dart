@@ -1,3 +1,4 @@
+import 'package:ceylontrailapp/widgets/trip_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../theme/app_theme.dart';
@@ -8,6 +9,7 @@ class TripScreen3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Obx(() {
       final controller = Get.find<TripPlanController>();
       final selectedDay = controller.selectedDay.value;
@@ -16,7 +18,7 @@ class TripScreen3 extends StatelessWidget {
 
       return SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,26 +35,60 @@ class TripScreen3 extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(
-                height: 2,
-                color: AppTheme.colors.primary_dark_3,
-              ),
-              Row(
-                children: [
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
+              // Divider(
+              //   height: 2,
+              //   color: AppTheme.colors.primary_dark_3,
+              // ),
 
+              SizedBox(
+                height: size.height * 0.79,
+                width: size.width * 1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Container(
+                          color: Colors.green,
+                          width: double.infinity,
+                          height: 300,
+                        ),
+                      ),
+                      Container(
+                        height: size.height * 0.388,
+                        color: Colors.red,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0, left: 8),
+                          child: Row(
+                            children: [
+                              SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Column(
+                                  children: [
+                                    TripTimeline(isFirst: true, isLast: false, isPast: true),
+                                    TripTimeline(isFirst: false, isLast: false, isPast: true),
+                                    TripTimeline(isFirst: false, isLast: true, isPast: false),
+                                    TripTimeline(isFirst: true, isLast: false, isPast: true),
+                                    TripTimeline(isFirst: false, isLast: false, isPast: true),
+                                    TripTimeline(isFirst: false, isLast: true, isPast: false),
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                children: [
+
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )
                     ],
-                  )
-                ],
-              )
+                  ),
+                ),
+              ),
+
+
             ],
           ),
         ),
