@@ -19,7 +19,7 @@ class FollowerFollowingUser extends StatelessWidget {
           width: double.infinity,
           height: 60,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(10),
               color: AppTheme.colors.secondary_light_1),
           child: Row(
             children: [

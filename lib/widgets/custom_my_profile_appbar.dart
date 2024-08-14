@@ -5,11 +5,15 @@ import 'package:get/get.dart';
 import '../theme/app_theme.dart';
 
 class CustomMyProfileAppbar extends StatefulWidget {
-  const CustomMyProfileAppbar({super.key, required this.content, this.bottomNavBar});
+  const CustomMyProfileAppbar(
+      {super.key,
+      required this.content,
+      this.bottomNavBar,
+      this.showMoreButton = true});
 
   final Widget content;
   final Widget? bottomNavBar;
-
+  final bool showMoreButton;
 
   @override
   State<CustomMyProfileAppbar> createState() => _CustomProfileAppbarState();
@@ -49,8 +53,9 @@ class _CustomProfileAppbarState extends State<CustomMyProfileAppbar> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color: AppTheme.colors.white // Explicitly setting to white
-                  ),
+                      color:
+                          AppTheme.colors.white // Explicitly setting to white
+                      ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -59,8 +64,8 @@ class _CustomProfileAppbarState extends State<CustomMyProfileAppbar> {
                           Get.back();
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0,
-                              vertical: 10.0),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10.0),
                           decoration: BoxDecoration(
                             color: AppTheme.colors.primary,
                             borderRadius: BorderRadius.circular(22.0),
@@ -82,40 +87,44 @@ class _CustomProfileAppbarState extends State<CustomMyProfileAppbar> {
                           ),
                         ),
                       ),
-                      Text('Profile',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: AppTheme.colors.primary_dark_3
-                      ),),
-                      GestureDetector(
-                        onTap: (){
-                          Get.to(()=> const InformationScreen());
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0,
-                              vertical: 10.0),
-                          decoration: BoxDecoration(
-                            color: AppTheme.colors.primary,
-                            borderRadius: BorderRadius.circular(22.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            // mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'More',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: AppTheme.colors.white,
-                                  fontWeight: FontWeight.bold,
+                      Text(
+                        'Profile',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: AppTheme.colors.primary_dark_3),
+                      ),
+                      if (widget.showMoreButton)
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() => const InformationScreen());
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 10.0),
+                            decoration: BoxDecoration(
+                              color: AppTheme.colors.primary,
+                              borderRadius: BorderRadius.circular(22.0),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              // mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'More',
+                                  style: TextStyle(
+                                    fontSize: 16.0,
+                                    color: AppTheme.colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      )
+                      if(!widget.showMoreButton)
+                       const SizedBox(width: 82,)
                     ],
                   ),
                 ),

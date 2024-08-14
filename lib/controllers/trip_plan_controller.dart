@@ -8,7 +8,7 @@ class TripPlanController extends GetxController {
 
   // Map to keep track of places added for each day
   var addedPlaces = <int, List<String>>{}.obs;
-  var remainingPlaces = ['Place 1', 'Place 2', 'Place 3'].obs;
+  var remainingPlaces = ['Place 1', 'Place 2', 'Place 3', 'Place 4', 'Place 5', 'Place 6'].obs;
 
   void goToNextPage(String destination, int days) {
     isOnSecondPage.value = true;
@@ -44,6 +44,6 @@ class TripPlanController extends GetxController {
     numberOfDays.value = 0;
     selectedDay.value = 1;
     addedPlaces.clear();
-    remainingPlaces.value = ['Place 1', 'Place 2', 'Place 3']; // Reset to initial state if needed
+    remainingPlaces.value = ['Place 1', 'Place 2', 'Place 3', 'Place 4', 'Place 5', 'Place 6']; // Reset to initial state if needed
   }
 }
