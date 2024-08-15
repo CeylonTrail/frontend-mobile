@@ -19,6 +19,7 @@ class AppbarScaffold extends StatefulWidget {
   @override
   AppbarScaffoldState createState() => AppbarScaffoldState();
 }
+
 class AppbarScaffoldState extends State<AppbarScaffold> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -72,13 +73,6 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                         ),
                         Row(
                           children: [
-                            if (showSearchIcon)
-                              IconButton(
-                                icon: SvgPicture.asset('assets/icons/bx-search.svg'),
-                                onPressed: () {
-                                  // Handle search icon press
-                                },
-                              ),
                             IconButton(
                               icon: SvgPicture.asset('assets/icons/bx-message-rounded.svg'),
                               onPressed: () {
