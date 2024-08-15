@@ -66,7 +66,8 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'), // Use default icon to test
+                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'),
+                          // Use default icon to test
                           onPressed: () {
                             _scaffoldKey.currentState?.openDrawer();
                           },
@@ -74,13 +75,15 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                         Row(
                           children: [
                             IconButton(
-                              icon: SvgPicture.asset('assets/icons/bx-message-rounded.svg'),
+                              icon: SvgPicture.asset(
+                                  'assets/icons/bx-message-rounded.svg'),
                               onPressed: () {
                                 // Handle chat icon press
                               },
                             ),
                             IconButton(
-                              icon: SvgPicture.asset('assets/icons/bx-bell.svg'),
+                              icon:
+                                  SvgPicture.asset('assets/icons/bx-bell.svg'),
                               onPressed: () {
                                 // Handle notifications icon press
                               },
