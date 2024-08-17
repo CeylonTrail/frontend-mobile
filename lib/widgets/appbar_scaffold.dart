@@ -66,7 +66,7 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'),
+                          icon: SvgPicture.asset('assets  /icons/bx-menu.svg'),
                           // Use default icon to test
                           onPressed: () {
                             _scaffoldKey.currentState?.openDrawer();
