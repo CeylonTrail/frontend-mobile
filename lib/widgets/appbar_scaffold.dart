@@ -1,7 +1,9 @@
+import 'package:ceylontrailapp/screen/messages.dart';
 import 'package:ceylontrailapp/widgets/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import '../theme/app_theme.dart';
 
 class AppbarScaffold extends StatefulWidget {
@@ -66,7 +68,7 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: SvgPicture.asset('assets  /icons/bx-menu.svg'),
+                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'),
                           // Use default icon to test
                           onPressed: () {
                             _scaffoldKey.currentState?.openDrawer();
@@ -77,8 +79,8 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                             IconButton(
                               icon: SvgPicture.asset(
                                   'assets/icons/bx-message-rounded.svg'),
-                              onPressed: () {
-                                // Handle chat icon press
+                              onPressed: (){
+                                Get.to(() => Messages());
                               },
                             ),
                             IconButton(

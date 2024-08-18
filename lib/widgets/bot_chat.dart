@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
-import 'package:speech_to_text/speech_to_text.dart';
-
+import '../models/chat_bot_model.dart'; // Ensure this import is correct
 import '../theme/app_theme.dart';
+import 'dart:async'; // For handling the 10-second delay
+import 'package:speech_to_text/speech_to_text.dart'; // Import SpeechToText package
 
 class BotChat extends StatefulWidget {
   final TextEditingController messageController;
   final VoidCallback onSend;
   final VoidCallback onClose;
-  final List<String> messages;
+  final List<BotMessage> messages; // Accept List<BotMessage>
 
   const BotChat({
     required this.messageController,
@@ -51,8 +52,7 @@ class BotChatState extends State<BotChat> {
     await _speechToText.stop();
     setState(() {
       if (widget.messageController.text.isNotEmpty) {
-        widget.messages.add(widget.messageController.text);
-        widget.onSend();
+        _sendMessage(widget.messageController.text);
         widget.messageController.clear();
       }
     });
@@ -66,8 +66,7 @@ class BotChatState extends State<BotChat> {
 
   void _scrollToBottom() {
     if (_focusNode.hasFocus) {
-      Future.delayed(
-          const Duration(milliseconds: 100), () {
+      Future.delayed(const Duration(milliseconds: 100), () {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 200),
@@ -75,6 +74,31 @@ class BotChatState extends State<BotChat> {
         );
       });
     }
+  }
+
+  void _sendMessage(String text) {
+    final userMessage = BotMessage(
+      text: text,
+      isUserMessage: true,
+      timestamp: DateTime.now(), // Ensure this is non-nullable
+    );
+    setState(() {
+      widget.messages.add(userMessage);
+    });
+    _scrollToBottom();
+
+    // Simulate automatic reply after a 10-second delay
+    Future.delayed(const Duration(seconds: 10), () {
+      final botReply = BotMessage(
+        text: 'Received',
+        isUserMessage: false,
+        timestamp: DateTime.now(), // Ensure this is non-nullable
+      );
+      setState(() {
+        widget.messages.add(botReply);
+      });
+      _scrollToBottom();
+    });
   }
 
   @override
@@ -88,17 +112,16 @@ class BotChatState extends State<BotChat> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: AppTheme.colors.white
+              color: AppTheme.colors.white,
             ),
           ),
         ),
         backgroundColor: AppTheme.colors.primary,
-        // elevation: 4.0,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8),
             child: IconButton(
-              icon: SvgPicture.asset(('assets/icons/bx-minus.svg')),
+              icon: SvgPicture.asset('assets/icons/bx-minus.svg'),
               onPressed: widget.onClose,
             ),
           ),
@@ -114,24 +137,42 @@ class BotChatState extends State<BotChat> {
                 reverse: true,
                 itemCount: widget.messages.length,
                 itemBuilder: (context, index) {
+                  final message = widget.messages[widget.messages.length - 1 - index];
                   return Align(
-                    alignment: Alignment.centerRight,
+                    alignment: message.isUserMessage
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft,
                     child: Container(
                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                       decoration: BoxDecoration(
-                        color: AppTheme.colors.primary.withOpacity(0.8),
+                        color: message.isUserMessage
+                            ? AppTheme.colors.primary.withOpacity(0.8)
+                            : AppTheme.colors.secondary,
                         borderRadius: BorderRadius.circular(22),
                       ),
                       constraints: BoxConstraints(
                         maxWidth: MediaQuery.of(context).size.width * 0.75,
                       ),
-                      child: Text(
-                        widget.messages[widget.messages.length - 1 - index],
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: AppTheme.colors.white
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            message.text,
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppTheme.colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            _formatTimestamp(message.timestamp),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: AppTheme.colors.white.withOpacity(0.7),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -156,9 +197,7 @@ class BotChatState extends State<BotChat> {
                                 color: AppTheme.colors.secondary_light_1.withOpacity(0.9),
                                 borderRadius: BorderRadius.circular(30),
                                 border: Border.all(
-                                    color: AppTheme.colors.primary.withOpacity(0.6)
-                                )
-                            ),
+                                    color: AppTheme.colors.primary.withOpacity(0.6))),
                             child: TextField(
                               maxLines: null,
                               minLines: 1,
@@ -203,8 +242,12 @@ class BotChatState extends State<BotChat> {
                           ),
                           child: IconButton(
                             icon: SvgPicture.asset('assets/icons/bxs-send.svg'),
-                            onPressed: widget.onSend,
-                            // color: AppTheme.colors.white,
+                            onPressed: () {
+                              if (widget.messageController.text.isNotEmpty) {
+                                _sendMessage(widget.messageController.text);
+                                widget.messageController.clear();
+                              }
+                            },
                             iconSize: 24.0,
                           ),
                         ),
@@ -213,12 +256,15 @@ class BotChatState extends State<BotChat> {
                   ),
                 ],
               ),
-            )
-
+            ),
           ],
         ),
       ),
     );
+  }
+
+  String _formatTimestamp(DateTime timestamp) {
+    return '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}';
   }
 
   @override

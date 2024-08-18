@@ -10,6 +10,7 @@ class Assets {
   static const String iconsBxCommentDetail = 'assets/icons/bx-comment-detail.svg';
   static const String iconsBxDotsHorizontalRounded = 'assets/icons/bx-dots-horizontal-rounded.svg';
   static const String iconsBxDotsVerticalRounded = 'assets/icons/bx-dots-vertical-rounded.svg';
+  static const String iconsBxDotsVerticalWhite = 'assets/icons/bx-dots-vertical-white.svg';
   static const String iconsBxEqualizer = 'assets/icons/bx-equalizer.svg';
   static const String iconsBxHeart = 'assets/icons/bx-heart.svg';
   static const String iconsBxHeartOutline = 'assets/icons/bx-heart-outline.svg';
@@ -18,11 +19,13 @@ class Assets {
   static const String iconsBxMapAlt = 'assets/icons/bx-map-alt.svg';
   static const String iconsBxMenu = 'assets/icons/bx-menu.svg';
   static const String iconsBxMessageRounded = 'assets/icons/bx-message-rounded.svg';
+  static const String iconsBxMinus = 'assets/icons/bx-minus.svg';
   static const String iconsBxNews = 'assets/icons/bx-news.svg';
   static const String iconsBxPhone = 'assets/icons/bx-phone.svg';
   static const String iconsBxPlusCircle = 'assets/icons/bx-plus-circle.svg';
   static const String iconsBxSearch = 'assets/icons/bx-search.svg';
   static const String iconsBxSearchAlt2 = 'assets/icons/bx-search-alt-2.svg';
+  static const String iconsBxSearchBlack = 'assets/icons/bx-search-black.svg';
   static const String iconsBxShare = 'assets/icons/bx-share.svg';
   static const String iconsBxStoreAlt = 'assets/icons/bx-store-alt.svg';
   static const String iconsBxTrip = 'assets/icons/bx-trip.svg';
@@ -39,6 +42,7 @@ class Assets {
   static const String iconsBxsHeart = 'assets/icons/bxs-heart.svg';
   static const String iconsBxsHome = 'assets/icons/bxs-home.svg';
   static const String iconsBxsLockAlt = 'assets/icons/bxs-lock-alt.svg';
+  static const String iconsBxsMap = 'assets/icons/bxs-map.svg';
   static const String iconsBxsMessageRounded = 'assets/icons/bxs-message-rounded.svg';
   static const String iconsBxsMicrophone = 'assets/icons/bxs-microphone.svg';
   static const String iconsBxsMicrophoneOff = 'assets/icons/bxs-microphone-off.svg';
