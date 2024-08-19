@@ -2,6 +2,7 @@ import 'package:ceylontrailapp/screen/forgot_password_screen.dart';
 import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/screen/messages.dart';
 import 'package:ceylontrailapp/screen/newsfeed.dart';
+import 'package:ceylontrailapp/screen/notifications.dart';
 import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
 import 'package:ceylontrailapp/screen/reset_password_screen.dart';
 import 'package:ceylontrailapp/screen/splash_screen.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/myprofile', page: () => const HomeScreen()),
         GetPage(name: '/newsfeed', page: () => const NewsFeed()),
         GetPage(name: '/messages', page: () => const Messages()),
+        GetPage(name: '/notifications', page: () => const Notifications()),
       ],
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

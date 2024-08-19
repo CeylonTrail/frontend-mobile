@@ -88,7 +88,6 @@ class _MarketplaceState extends State<Marketplace> {
       description: 'This is the item description',
       location: 'Colombo',
     ),
-
     // Add more items here...
   ];
 
@@ -276,17 +275,16 @@ class _MarketplaceState extends State<Marketplace> {
                                 children: [
                                   Expanded(
                                     child: Hero(
-                                      tag: item.imageUrls.first,
+                                      tag: '${item.title}-${item.imageUrls.first}',// change this later to an id or some unique value
                                       child: CachedNetworkImage(
                                         imageUrl: item.imageUrls.first,
-                                        placeholder: (context, url) =>
-                                        const Center(child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
+                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) => const Icon(Icons.error),
                                         fit: BoxFit.cover,
                                         width: double.infinity,
                                       ),
                                     ),
+
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),

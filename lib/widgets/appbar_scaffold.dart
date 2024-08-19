@@ -1,4 +1,5 @@
 import 'package:ceylontrailapp/screen/messages.dart';
+import 'package:ceylontrailapp/screen/notifications.dart';
 import 'package:ceylontrailapp/widgets/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -87,7 +88,7 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                               icon:
                                   SvgPicture.asset('assets/icons/bx-bell.svg'),
                               onPressed: () {
-                                // Handle notifications icon press
+                                Get.to(() => Notifications());
                               },
                             ),
                           ],

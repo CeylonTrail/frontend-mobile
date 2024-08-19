@@ -30,7 +30,7 @@ class MarketplaceItemDetailPageState extends State<MarketplaceItemDetailPage> {
         backgroundColor: Colors.white, // Set the AppBar background to white
         elevation: 2, // Adds a subtle shadow to the AppBar
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Customize the back button icon
+          icon: const Icon(Icons.arrow_back), // Customize the back button icon
           color: Colors.black, // Set the back button color to black
           onPressed: () =>
               Navigator.of(context).pop(), // Go back to the previous screen
