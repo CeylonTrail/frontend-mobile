@@ -1,7 +1,10 @@
+import 'package:ceylontrailapp/screen/messages.dart';
+import 'package:ceylontrailapp/screen/notifications.dart';
 import 'package:ceylontrailapp/widgets/side_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import '../theme/app_theme.dart';
 
 class AppbarScaffold extends StatefulWidget {
@@ -19,6 +22,7 @@ class AppbarScaffold extends StatefulWidget {
   @override
   AppbarScaffoldState createState() => AppbarScaffoldState();
 }
+
 class AppbarScaffoldState extends State<AppbarScaffold> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -65,30 +69,26 @@ class AppbarScaffoldState extends State<AppbarScaffold> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         IconButton(
-                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'), // Use default icon to test
+                          icon: SvgPicture.asset('assets/icons/bx-menu.svg'),
+                          // Use default icon to test
                           onPressed: () {
                             _scaffoldKey.currentState?.openDrawer();
                           },
                         ),
                         Row(
                           children: [
-                            if (showSearchIcon)
-                              IconButton(
-                                icon: SvgPicture.asset('assets/icons/bx-search.svg'),
-                                onPressed: () {
-                                  // Handle search icon press
-                                },
-                              ),
                             IconButton(
-                              icon: SvgPicture.asset('assets/icons/bx-message-rounded.svg'),
-                              onPressed: () {
-                                // Handle chat icon press
+                              icon: SvgPicture.asset(
+                                  'assets/icons/bx-message-rounded.svg'),
+                              onPressed: (){
+                                Get.to(() => Messages());
                               },
                             ),
                             IconButton(
-                              icon: SvgPicture.asset('assets/icons/bx-bell.svg'),
+                              icon:
+                                  SvgPicture.asset('assets/icons/bx-bell.svg'),
                               onPressed: () {
-                                // Handle notifications icon press
+                                Get.to(() => Notifications());
                               },
                             ),
                           ],

@@ -59,8 +59,10 @@ class BotScaffoldState extends State<BotScaffold> {
         _messages.add(BotMessage(
           text: _messageController.text,
           isUserMessage: true,
+          timestamp: DateTime.now(),
         ));
         _messageController.clear();
+        // Optionally, you could also handle automatic replies here if needed
       });
     }
   }
@@ -81,7 +83,7 @@ class BotScaffoldState extends State<BotScaffold> {
                 messageController: _messageController,
                 onSend: _sendMessage,
                 onClose: _toggleChatVisibility,
-                messages: _messages.map((msg) => msg.text).toList(), // Convert to List<String>
+                messages: _messages, // Pass the list of BotMessage
               ),
             ),
           if (!_isChatVisible)

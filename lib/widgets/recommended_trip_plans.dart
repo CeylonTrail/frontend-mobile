@@ -1,11 +1,30 @@
+import 'package:ceylontrailapp/screen/recommended_trip_plans_screen.dart';
+import 'package:ceylontrailapp/screen/trip_plan_details.dart'; // Import the details page
+import 'package:ceylontrailapp/widgets/trip_plan_card.dart';
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
+import 'package:get/get.dart';
+import '../models/recommended_trip_plan_model.dart'; // Import the model
 
 class RecommendedTripPlans extends StatelessWidget {
   const RecommendedTripPlans({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Create a sample plan to pass into TripPlanCard
+    RecommendedTripPlan plan = RecommendedTripPlan(
+      title: "Ella",
+      imageUrls: [
+        "https://via.placeholder.com/150",
+        "https://via.placeholder.com/200",
+        "https://via.placeholder.com/250",
+        "https://via.placeholder.com/300",
+      ],
+      days: '2',
+      description: 'A 2 days trip to Ella',
+      location: 'Badulla',
+    );
+
     return SizedBox(
       child: Column(
         children: [
@@ -22,17 +41,9 @@ class RecommendedTripPlans extends StatelessWidget {
                       fontWeight: FontWeight.w900),
                 ),
                 TextButton(
-                  style: ButtonStyle(
-                    overlayColor: WidgetStateProperty.resolveWith<Color?>(
-                          (Set<WidgetState> states) {
-                        if (states.contains(WidgetState.pressed)) {
-                          return Colors.white; // Change this to your desired color and opacity
-                        }
-                        return null; // Defer to the default overlay color
-                      },
-                    ),
-                  ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => const RecommendedTripPlansScreen());
+                  },
                   child: Text(
                     "View All",
                     style: TextStyle(
@@ -48,342 +59,22 @@ class RecommendedTripPlans extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/ella-9.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Ella",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                SizedBox(
+                  width: 180,
+                  height: 240,
+                  child: TripPlanCard(
+                    plan: plan,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TripPlanDetailsPage(item: plan),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/ella-9.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Ella",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/ella-9.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Ella",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/ella-9.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Ella",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/ella-9.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Ella",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/ella-9.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Ella",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                // You can add more TripPlanCards here if needed
               ],
             ),
           )

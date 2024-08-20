@@ -18,9 +18,7 @@ class MyProfileScreen extends StatefulWidget {
 }
 
 class MyProfileScreenState extends State<MyProfileScreen> {
-  final NewsfeedController newsFeedController = Get.put(NewsfeedController());
-  final ValueNotifier<int> selectedIndex =
-      ValueNotifier<int>(0); // 0: Posts, 1: Photos, 2: Trips
+  final ValueNotifier<int> selectedIndex = ValueNotifier<int>(0); // 0: Posts, 1: Photos, 2: Trips
   final ImagePicker _picker = ImagePicker();
   String _imagePath = 'assets/images/img.png';
   bool _showOverlay = false;
@@ -29,17 +27,17 @@ class MyProfileScreenState extends State<MyProfileScreen> {
   Widget build(BuildContext context) {
     return BotScaffold(
       body: CustomMyProfileAppbar(
+        showMoreButton: true,
         content: ValueListenableBuilder<int>(
           valueListenable: selectedIndex,
           builder: (context, value, child) {
-            return ColoredBox(
-              color: AppTheme.colors.white,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Row(
@@ -89,7 +87,7 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                         ),
                                         child: Column(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                           children: [
                                             TextButton(
                                               onPressed: () {
@@ -98,19 +96,21 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProfileFullScreenImageView(
-                                                      imagePath: _imagePath,
-                                                    ),
+                                                            imagePath:
+                                                            _imagePath),
                                                   ),
                                                 );
                                               },
                                               child: Text(
                                                 'View',
                                                 style: TextStyle(
-                                                    color: AppTheme.colors.white),
+                                                    color:
+                                                    AppTheme.colors.white),
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(
+                                              padding:
+                                              const EdgeInsets.symmetric(
                                                   horizontal: 12.0),
                                               child: Divider(
                                                 color: AppTheme.colors.white,
@@ -120,12 +120,13 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                             TextButton(
                                               onPressed: () async {
                                                 final pickedFile =
-                                                    await _picker.pickImage(
-                                                        source:
-                                                            ImageSource.gallery);
+                                                await _picker.pickImage(
+                                                    source: ImageSource
+                                                        .gallery);
                                                 if (pickedFile != null) {
                                                   setState(() {
-                                                    _imagePath = pickedFile.path;
+                                                    _imagePath =
+                                                        pickedFile.path;
                                                     _showOverlay = false;
                                                   });
                                                 }
@@ -133,7 +134,8 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                               child: Text(
                                                 'Change',
                                                 style: TextStyle(
-                                                    color: AppTheme.colors.white),
+                                                    color:
+                                                    AppTheme.colors.white),
                                               ),
                                             ),
                                           ],
@@ -189,7 +191,8 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                                 '200',
                                                 style: TextStyle(
                                                   fontSize: 16,
-                                                  color: AppTheme.colors.primary,
+                                                  color:
+                                                  AppTheme.colors.primary,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -230,7 +233,8 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                                 '200',
                                                 style: TextStyle(
                                                   fontSize: 16,
-                                                  color: AppTheme.colors.primary,
+                                                  color:
+                                                  AppTheme.colors.primary,
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -253,15 +257,27 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                               ],
                             ),
                           ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _SliverPersistentHeaderDelegate(
+                    child: Container(
+                      color: AppTheme.colors.white,
+                      child: Column(
+                        children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 1),
+                                const EdgeInsets.symmetric(horizontal: 1),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     TextButton(
                                       onPressed: () {
@@ -269,14 +285,16 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                       },
                                       style: TextButton.styleFrom(
                                         overlayColor: Colors.transparent,
-                                        backgroundColor: selectedIndex.value == 0
+                                        backgroundColor: selectedIndex.value ==
+                                            0
                                             ? AppTheme.colors.white
                                             : AppTheme.colors.primary_dark_3,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                           side: BorderSide(
-                                            color: AppTheme.colors.primary_dark_3,
+                                            color:
+                                            AppTheme.colors.primary_dark_3,
                                             width: 2.3,
                                           ),
                                         ),
@@ -289,7 +307,8 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                             'Posts',
                                             style: TextStyle(
                                               color: selectedIndex.value == 0
-                                                  ? AppTheme.colors.primary_dark_3
+                                                  ? AppTheme
+                                                  .colors.primary_dark_3
                                                   : AppTheme.colors.white,
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.w600,
@@ -305,14 +324,16 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                       },
                                       style: TextButton.styleFrom(
                                         overlayColor: Colors.transparent,
-                                        backgroundColor: selectedIndex.value == 1
+                                        backgroundColor: selectedIndex.value ==
+                                            1
                                             ? AppTheme.colors.white
                                             : AppTheme.colors.primary_dark_3,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                           side: BorderSide(
-                                            color: AppTheme.colors.primary_dark_3,
+                                            color:
+                                            AppTheme.colors.primary_dark_3,
                                             width: 2.3,
                                           ),
                                         ),
@@ -325,7 +346,8 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                             'Photos',
                                             style: TextStyle(
                                               color: selectedIndex.value == 1
-                                                  ? AppTheme.colors.primary_dark_3
+                                                  ? AppTheme
+                                                  .colors.primary_dark_3
                                                   : AppTheme.colors.white,
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.w600,
@@ -341,14 +363,16 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                       },
                                       style: TextButton.styleFrom(
                                         overlayColor: Colors.transparent,
-                                        backgroundColor: selectedIndex.value == 2
+                                        backgroundColor: selectedIndex.value ==
+                                            2
                                             ? AppTheme.colors.white
                                             : AppTheme.colors.primary_dark_3,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          BorderRadius.circular(10.0),
                                           side: BorderSide(
-                                            color: AppTheme.colors.primary_dark_3,
+                                            color:
+                                            AppTheme.colors.primary_dark_3,
                                             width: 2.3,
                                           ),
                                         ),
@@ -361,7 +385,8 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                                             'Trips',
                                             style: TextStyle(
                                               color: selectedIndex.value == 2
-                                                  ? AppTheme.colors.primary_dark_3
+                                                  ? AppTheme
+                                                  .colors.primary_dark_3
                                                   : AppTheme.colors.white,
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.w600,
@@ -378,87 +403,102 @@ class MyProfileScreenState extends State<MyProfileScreen> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Divider(
-                              color: AppTheme.colors.black,
-                              thickness: 2.0,
+                              color: AppTheme.colors.primary_dark_3,
+                              thickness: 1,
                             ),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: IndexedStack(
-                      index: value,
-                      children: [
-                        // Posts Tab
-                        Obx(() {
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Column(
-                              children: newsFeedController.posts.map((post) {
-                                return NewsfeedPost(post: post);
-                              }).toList(),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height,
+                    child: ValueListenableBuilder<int>(
+                      valueListenable: selectedIndex,
+                      builder: (context, value, child) {
+                        return IndexedStack(
+                          index: value,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(bottom: 70),
+                              child: ListView.builder(
+                                itemCount: 10, // Number of dummy posts
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    title: Text('Post #$index'),
+                                    subtitle: Text(
+                                        'This is the content of post #$index.'),
+                                  );
+                                },
+                              ),
                             ),
-                          );
-                        }),
-                        // Photos Tab
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            children: List.generate(5, (index) {
-                              return Container(
-                                margin: const EdgeInsets.all(10.0),
-                                color: AppTheme.colors.white,
-                                width: double.infinity,
-                                child: Center(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.asset(
-                                      'assets/images/$index.jpg',
-                                      fit: BoxFit.fill,
-                                      // errorBuilder: (context, error, stackTrace) {
-                                      //   return Center(child: Text('Image not found', style: TextStyle(color: Colors.red)));
-                                      // },
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
-                          ),
-                        ),
-
-                        // Trips Tab
-                        SingleChildScrollView(
-                          scrollDirection: Axis.vertical,
-                          child: Column(
-                            children: List.generate(3, (index) {
-                              return Container(
-                                margin: const EdgeInsets.all(10.0),
-                                color: AppTheme.colors.primary_dark_3,
-                                height: 150.0,
-                                width: double.infinity,
-                                child: Center(
-                                  child: Text(
-                                    'Trip $index',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      color: AppTheme.colors.white,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
-                          ),
-                        ),
-                      ],
+                            Container(
+                              padding: const EdgeInsets.only(bottom: 70),
+                              child: ListView.builder(
+                                itemCount: 10, // Number of dummy photos
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    leading: Icon(Icons.image),
+                                    title: Text('Photo #$index'),
+                                    subtitle: Text(
+                                        'This is the description of photo #$index.'),
+                                  );
+                                },
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.only(bottom: 70),
+                              child: ListView.builder(
+                                itemCount: 10, // Number of dummy trips
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    leading: Icon(Icons.map),
+                                    title: Text('Trip #$index'),
+                                    subtitle: Text(
+                                        'This is the summary of trip #$index.'),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           },
         ),
       ),
     );
+  }
+}
+
+class _SliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _SliverPersistentHeaderDelegate({required this.child});
+
+  @override
+  double get minExtent => 100;
+
+  @override
+  double get maxExtent => 100;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset,
+      bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

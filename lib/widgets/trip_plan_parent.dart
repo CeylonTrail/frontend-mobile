@@ -23,6 +23,7 @@ class TripPlanParentState extends State<TripPlanParent> {
   }
 
   void _onNextPressed() {
+
     if (_currentPageIndex < 2) {
       setState(() {
         _currentPageIndex++;
