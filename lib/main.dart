@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/notifications', page: () => const Notifications()),
       ],
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.black87),
         useMaterial3: true,
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,
