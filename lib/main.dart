@@ -8,7 +8,7 @@ import 'package:ceylontrailapp/screen/reset_password_screen.dart';
 import 'package:ceylontrailapp/screen/splash_screen.dart';
 import 'package:ceylontrailapp/screen/trip_screen_1.dart';
 import 'package:ceylontrailapp/screen/trip_screen_2.dart';
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
