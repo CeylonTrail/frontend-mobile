@@ -9,7 +9,6 @@ class AppTheme{
   static ThemeData define() {
     return ThemeData(
      fontFamily: GoogleFonts.openSans.toString(),
-
     );
   }
 }
