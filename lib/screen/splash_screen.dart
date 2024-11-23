@@ -1,7 +1,6 @@
 import 'package:ceylontrailapp/screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../theme/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +16,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
         builder: (_) => const OnboardingScreen(),

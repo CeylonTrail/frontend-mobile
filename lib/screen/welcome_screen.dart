@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
-  Widget build(BuildContext co   ntext) {
+  Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return CustomScaffoldLoading(
       loadingScreen: Column(
