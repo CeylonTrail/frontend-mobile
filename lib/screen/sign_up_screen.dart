@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ceylontrailapp/widgets/custom_scaffold_loading.dart';
 import 'package:ceylontrailapp/widgets/user_sign_up_button.dart';
+import '../controllers/sign_up_controller.dart';
 import '../theme/app_theme.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,6 +14,9 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formSignUpKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool rememberPassword = true;
@@ -34,20 +38,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
+    _emailController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  void _submitForm() {
+
+  void _submitForm() async {
     if (_formSignUpKey.currentState!.validate()) {
-      // Form is valid, proceed with sign-up logic
-      // You can handle your sign-up logic here
-      print("Form is valid, proceed with sign-up");
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+      final firstname = _firstnameController.text.trim();
+      final lastname = _lastnameController.text.trim();
+
+      final controller = SignUpController();
+      final response = await controller.signUp(
+        email: email,
+        password: password,
+        firstname: firstname,
+        lastname: lastname,
+      );
+
+      if (response['code'] == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response['message'])),
+        );
+        Navigator.pushReplacementNamed(context, '/login'); // Navigate to login screen.
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response['message'])),
+        );
+      }
     } else {
       print("Form is not valid");
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -208,6 +237,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               validator: (value) {
                                 if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
                                   return "Enter a valid e-mail address";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Enter E-mail',
+                                hintStyle: TextStyle(
+                                  color: AppTheme.colors.secondary_light_2,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.colors.secondary_light_3,
+                                    width: 2,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.colors.primary_dark_3,
+                                    width: 2,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.colors.primary_dark_3,
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                textAlign: TextAlign.start,
+                                'Username',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppTheme.colors.primary_dark_3,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormField(
+                              validator: (value) {
+                                if (value!.isEmpty || !RegExp(r'^[a-z0-9_]{1,32}$').hasMatch(value)) {
+                                  return "Enter a valid username. Username must be 1 to 32 characters long and can only contain lowercase letters, numbers, and underscores.";
                                 }
                                 return null;
                               },

@@ -1,63 +1,42 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../utils/api_endpoints.dart';
 
+class SignUpController {
+  final String apiUrl = 'https://your-api-url.com/signup'; // Replace with the actual API URL.
 
-class SignUpController extends GetxController {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  Future<void> registerWithEmail() async {
+  Future<Map<String, dynamic>> signUp({
+    required String email,
+    required String password,
+    required String firstname,
+    required String lastname,
+  }) async {
     try {
-      var headers = {'Content-Type': 'application/json'};
-      var url = Uri.parse(
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.signUpEmail);
-      Map body = {
-        'firstName': firstNameController.text,
-        'lastName': lastNameController.text,
-        'email': emailController.text.trim(),
-        'password': passwordController.text
-      };
-
-      http.Response response =
-          await http.post(url, body: jsonEncode(body), headers: headers);
+      final username = generateUsername();
+      final response = await http.post(
+        Uri.parse('http://localhost:8083/api/v1/auth/register-traveller'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'username': username,
+          'email': email,
+          'password': password,
+          'firstname': firstname,
+          'lastname': lastname,
+        }),
+      );
 
       if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
-        if (json['code'] == 0) {
-          var token = json['data']['token'];
-          print(token);
-          final SharedPreferences? prefs = await _prefs;
-
-          await prefs?.setString('token', token);
-          firstNameController.clear();
-          lastNameController.clear();
-          emailController.clear();
-          passwordController.clear();
-        } else {
-          throw jsonDecode(response.body)["message"] ?? "An Error Occurred";
-        }
+        return jsonDecode(response.body);
       } else {
-        throw jsonDecode(response.body)["message"] ?? "An Error Occurred";
+        return {'code': response.statusCode, 'message': 'Something went wrong'};
       }
     } catch (e) {
-      Get.back();
-      showDialog(
-          context: Get.context!,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text("Error"),
-              contentPadding: EdgeInsets.all(20),
-              children: [Text(e.toString())],
-            );
-          });
+      return {'code': 500, 'message': 'An error occurred: $e'};
     }
+  }
+
+  String generateUsername() {
+    final timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    return 'user_$timestamp'; // Example username generation logic.
   }
 }

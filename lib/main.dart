@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home:  const HomeScreen(),
+      home:  const SplashScreen(),
     );
   }
 }

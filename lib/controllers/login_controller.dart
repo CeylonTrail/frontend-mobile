@@ -22,7 +22,7 @@ class LoginController extends GetxController {
 
     try {
       final response = await http.post(
-        Uri.parse('http://192.168.56.1:8083/api/v1/auth/login'),
+        Uri.parse('http://localhost:8083/api/v1/auth/login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
