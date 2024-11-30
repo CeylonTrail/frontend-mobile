@@ -1,6 +1,8 @@
+import 'package:ceylontrailapp/screen/reset_password_screen.dart';
 import 'package:ceylontrailapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 class VerifyOtpButton extends StatelessWidget {
   const VerifyOtpButton({super.key, this.onTap});
@@ -10,7 +12,9 @@ class VerifyOtpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: onTap,
+      onTap: (){
+        Get.to(ResetPasswordScreen());
+      },
       child: Center(
         child: Container(
           height: 50,

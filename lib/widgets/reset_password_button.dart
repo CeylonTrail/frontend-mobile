@@ -1,6 +1,9 @@
+import 'package:ceylontrailapp/screen/otp_verification_screen.dart';
 import 'package:ceylontrailapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class ResetPasswordButton extends StatelessWidget {
   const ResetPasswordButton({super.key, this.onTap});
@@ -10,7 +13,9 @@ class ResetPasswordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: onTap,
+      onTap: (){
+        Get.to(OtpVerificationScreen());
+      },
       child: Center(
         child: Container(
           height: 50,
@@ -21,7 +26,7 @@ class ResetPasswordButton extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              "Send OTP",
+              "Reset Password",
               style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
