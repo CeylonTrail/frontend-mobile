@@ -52,6 +52,9 @@ dependencies:
   back_button_interceptor: ^7.0.3
   speech_to_text: ^6.6.2
   timeline_tile: ^2.0.0
+  dio: ^5.7.0
+  flutter_polyline_points: ^2.1.0
+  google_maps_flutter: ^2.10.0
 
 
 dev_dependencies:
