@@ -5,6 +5,7 @@ import 'package:ceylontrailapp/widgets/appbar_scaffold.dart';
 import 'package:ceylontrailapp/widgets/bottom_nav_bar.dart';
 import 'package:ceylontrailapp/widgets/current_trip_button.dart';
 import 'package:ceylontrailapp/widgets/favorites_button.dart';
+import 'package:ceylontrailapp/widgets/my_trips_widget.dart';
 import 'package:ceylontrailapp/widgets/plan_a_trip_button.dart';
 import 'package:ceylontrailapp/widgets/popular_destinations.dart';
 import 'package:ceylontrailapp/widgets/previous_trips.dart';
@@ -42,27 +43,30 @@ class HomeScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             PlanATripButton(),
-                            FavoritesButton(),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
+
                             CurrentTripButton(),
-                            WeatherButton(),
                           ],
                         ),
+                        // SizedBox(height: 8),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //   children: [
+                        //     FavoritesButton(),
+                        //     WeatherButton(),
+                        //   ],
+                        // ),
                         SizedBox(height: 8),
                         RecommendedTripPlans(),
                         PopularDestinations(),
+                        MyTripsWidget(),
                         PreviousTrips(),
+
                       ],
                     ),
                   ),
                   NewsFeed(),
                   Marketplace(),
-                  VoiceAssistant(),
+                  // VoiceAssistant(),
                   EmergencyServices(),
                 ],
               ),

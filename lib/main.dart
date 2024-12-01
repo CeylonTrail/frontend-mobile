@@ -1,3 +1,4 @@
+import 'package:ceylontrailapp/screen/current_trip_screen.dart';
 import 'package:ceylontrailapp/screen/forgot_password_screen.dart';
 import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/screen/messages.dart';
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home:  const SplashScreen(),
+      home:  const CurrentTripScreen(),
     );
   }
 }

@@ -156,14 +156,14 @@ class _SideBarState extends State<SideBar> {
                                     // Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
                                   },
                                   icon: SvgPicture.asset(
-                                    'assets/icons/bx-search.svg',
+                                    'assets/icons/bx-store-alt.svg',
                                     width: 28,
                                     height: 28,
                                   ),
                                 ),
                                 const SizedBox(width: 9.5),
                                 Text(
-                                  "Search",
+                                  "Marketplace",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: AppTheme.colors.white,
@@ -227,31 +227,27 @@ class _SideBarState extends State<SideBar> {
                       child: SizedBox(
                         height: double.infinity,
                         width: 230,
-                        child: Column(
+                        child: Row(
                           children: [
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    _closeSideBar();
-                                   Get.to(()=> const SignInScreen());
-                                  },
-                                  icon: SvgPicture.asset(
-                                    'assets/icons/bx-log-out-circle.svg',
-                                    width: 28,
-                                    height: 28,
-                                  ),
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  "Log Out",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.white,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
+                            IconButton(
+                              onPressed: () {
+                                _closeSideBar();
+                               Get.to(()=> const SignInScreen());
+                              },
+                              icon: SvgPicture.asset(
+                                'assets/icons/bx-log-out-circle.svg',
+                                width: 28,
+                                height: 28,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              "Log Out",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: AppTheme.colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),

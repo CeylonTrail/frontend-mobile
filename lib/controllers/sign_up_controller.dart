@@ -12,7 +12,7 @@ class SignUpController extends GetxController {
     required String firstname,
     required String lastname,
   }) async {
-    final url = Uri.parse('http://192.168.1.3:8083/api/v1/auth/register-traveller');
+    final url = Uri.parse('http://192.168.1.4:8083/api/v1/auth/register-traveller');
 
     try {
       final response = await http.post(

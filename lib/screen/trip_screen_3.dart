@@ -1,11 +1,19 @@
 import 'package:ceylontrailapp/widgets/trip_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../theme/app_theme.dart';
 import '../controllers/trip_plan_controller.dart';
 
-class TripScreen3 extends StatelessWidget {
+class TripScreen3 extends StatefulWidget {
   const TripScreen3({super.key});
+
+  @override
+  State<TripScreen3> createState() => _TripScreen3State();
+}
+
+class _TripScreen3State extends State<TripScreen3> {
+  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
 
   @override
   Widget build(BuildContext context) {
@@ -46,48 +54,72 @@ class TripScreen3 extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.82,
-              width: size.width,
+            Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0, vertical: 10),
+                padding:
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                 child: Column(
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: 300,
-                      decoration: BoxDecoration(
+                    // Map Container
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
                           color: AppTheme.colors.primary_dark_1,
                           borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10))),
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                        ),
+                        child: const ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                          ),
+                          child: SizedBox(
+                            height: double.infinity,
+                            child: GoogleMap(
+                              initialCameraPosition: CameraPosition(
+                                target: _pGooglePlex,
+                                zoom: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
-                    Container(
-                      height: size.height * 0.42,
-                      decoration: BoxDecoration(
+                    // Places List Container
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        decoration: BoxDecoration(
                           color: AppTheme.colors.secondary_light_1,
                           borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10))),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: Column(
-                          children: List.generate(
-                            allPlaces.length,
-                                (index) {
-                              final isPast = index <= allPlaces.length - 1;
-                              final placeName = allPlaces[index]['place'];
-                              final completed = allPlaces[index]['completed'];
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                          ),
+                        ),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(
+                            children: List.generate(
+                              allPlaces.length,
+                                  (index) {
+                                final isPast = index <= allPlaces.length - 1;
+                                final placeName = allPlaces[index]['place'];
+                                final completed =
+                                allPlaces[index]['completed'];
 
-                              return TripTimeline(
-                                isFirst: index == 0,
-                                isLast: index == allPlaces.length - 1,
-                                isPast: isPast,
-                                placeName: '$placeName',
-                                completed: completed,
-                              );
-                            },
+                                return TripTimeline(
+                                  isFirst: index == 0,
+                                  isLast: index == allPlaces.length - 1,
+                                  isPast: isPast,
+                                  placeName: '$placeName',
+                                  completed: completed,
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),
