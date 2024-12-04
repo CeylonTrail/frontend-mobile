@@ -10,6 +10,7 @@ import 'package:ceylontrailapp/widgets/plan_a_trip_button.dart';
 import 'package:ceylontrailapp/widgets/popular_destinations.dart';
 import 'package:ceylontrailapp/widgets/previous_trips.dart';
 import 'package:ceylontrailapp/widgets/recommended_trip_plans.dart';
+import 'package:ceylontrailapp/widgets/saved_trip_widget.dart';
 import 'package:ceylontrailapp/widgets/weather_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,8 +35,8 @@ class HomeScreen extends StatelessWidget {
               color: AppTheme.colors.white,
               child: IndexedStack(
                 index: controller.selectedIndex.value,
-                children: const [
-                  SingleChildScrollView(
+                children: [
+                  const SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     child: Column(
                       children: [
@@ -59,14 +60,15 @@ class HomeScreen extends StatelessWidget {
                         RecommendedTripPlans(),
                         PopularDestinations(),
                         MyTripsWidget(),
-                        PreviousTrips(),
+                        //
+                        // PreviousTrips(),
 
                       ],
                     ),
                   ),
-                  NewsFeed(),
-                  Marketplace(),
-                  // VoiceAssistant(),
+                  const NewsFeed(),
+                  const Marketplace(),
+                  VoiceAssistant(),
                   EmergencyServices(),
                 ],
               ),

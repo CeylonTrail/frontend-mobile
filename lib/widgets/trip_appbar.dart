@@ -1,3 +1,4 @@
+import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:ceylontrailapp/screen/trip_screen_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -131,33 +132,27 @@ class _TripAppbarState extends State<TripAppbar> {
         );
       } else {
         widget.onNextPressed();
-
       }
+    } else if (widget.currentPageIndex >= 2) {
+      // Show a snackbar and navigate to HomeScreen
+      Get.snackbar(
+        'Success',
+        'Trip saved successfully!',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 2),
+      );
+
+      // Navigate to HomeScreen
+      Future.delayed(const Duration(seconds: 2), () {
+        Get.to(HomeScreen());
+      });
     } else {
       widget.onNextPressed();
-
     }
-
-    // Check if the list of destinations is empty
-    // if(widget.currentPageIndex == 1){
-    //   if (controller.addedPlaces[controller.selectedDay.value]?.isEmpty ?? true) {
-    //     // Show error message if no destinations are selected
-    //     Get.snackbar(
-    //       'Error',
-    //       'Please select 1 or more destinations.',
-    //       snackPosition: SnackPosition.TOP,
-    //       backgroundColor: Colors.red,
-    //       colorText: Colors.white,
-    //
-    //     );
-    //   } else {
-    //     widget.onNextPressed();
-    //   }
-    // }else{
-    //   widget.onNextPressed();
-    // }
-
   }
+
 
   @override
   Widget build(BuildContext context) {

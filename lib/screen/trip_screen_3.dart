@@ -13,7 +13,41 @@ class TripScreen3 extends StatefulWidget {
 }
 
 class _TripScreen3State extends State<TripScreen3> {
-  static const LatLng _pGooglePlex = LatLng(37.4223, -122.0848);
+  static const LatLng _pGooglePlex = LatLng(6.8768, 81.0608);
+
+  // List of markers
+  final List<Marker> _markers = [
+    Marker(
+      markerId: MarkerId('9ArchBridge'),
+      position: LatLng(6.8768, 81.0608),
+      infoWindow: InfoWindow(title: '9 Arch Bridge'),
+    ),
+    Marker(
+      markerId: MarkerId('EllaRock'),
+      position: LatLng(6.86, 81.04),
+      infoWindow: InfoWindow(title: 'Ella Rock'),
+    ),
+    Marker(
+      markerId: MarkerId('FlyingRavana'),
+      position: LatLng(6.8661, 81.0621),
+      infoWindow: InfoWindow(title: 'Flying Ravana'),
+    ),
+    Marker(
+      markerId: MarkerId('RavanaElla'),
+      position: LatLng(6.8625, 81.0441),
+      infoWindow: InfoWindow(title: 'Ravana Ella'),
+    ),
+    Marker(
+      markerId: MarkerId('LittleAdamsPeak'),
+      position: LatLng(6.8692, 81.0602),
+      infoWindow: InfoWindow(title: 'Little Adams Peak'),
+    ),
+    Marker(
+      markerId: MarkerId('RavanaCave'),
+      position: LatLng(6.8645, 81.0486),
+      infoWindow: InfoWindow(title: 'Ravana Cave'),
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +90,7 @@ class _TripScreen3State extends State<TripScreen3> {
             ),
             Expanded(
               child: Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
                 child: Column(
                   children: [
                     // Map Container
@@ -72,19 +105,17 @@ class _TripScreen3State extends State<TripScreen3> {
                             topRight: Radius.circular(10),
                           ),
                         ),
-                        child: const ClipRRect(
-                          borderRadius: BorderRadius.only(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10),
                           ),
-                          child: SizedBox(
-                            height: double.infinity,
-                            child: GoogleMap(
-                              initialCameraPosition: CameraPosition(
-                                target: _pGooglePlex,
-                                zoom: 12,
-                              ),
+                          child: GoogleMap(
+                            initialCameraPosition: CameraPosition(
+                              target: _pGooglePlex,
+                              zoom: 14,
                             ),
+                            markers: Set<Marker>.of(_markers),
                           ),
                         ),
                       ),
@@ -108,8 +139,7 @@ class _TripScreen3State extends State<TripScreen3> {
                                   (index) {
                                 final isPast = index <= allPlaces.length - 1;
                                 final placeName = allPlaces[index]['place'];
-                                final completed =
-                                allPlaces[index]['completed'];
+                                final completed = allPlaces[index]['completed'];
 
                                 return TripTimeline(
                                   isFirst: index == 0,

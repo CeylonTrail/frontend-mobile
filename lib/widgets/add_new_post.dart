@@ -43,7 +43,7 @@ class AddNewPost extends StatelessWidget {
                 ),
                 child: ClipOval(
                   child: Image.asset(
-                    'assets/images/img.png',
+                    'assets/images/traveller.jpg',
                     width: 50,
                     height: 50,
                     fit: BoxFit.cover,

@@ -37,7 +37,7 @@ class MyTripsWidget extends StatelessWidget {
                   ),
                   child: GestureDetector(
                     onTap: (){
-                      Get.to(const MyTrips());
+                      Get.to( MyTrips());
                     },
                     child: Text(
                       "View All",
@@ -55,291 +55,171 @@ class MyTripsWidget extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:
-                      Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/galle.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Galle",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child:
+                  Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          'assets/images/9_arch_bridge.jpg',
+                          width: 180,
+                          height: 240,
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Ella",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: AppTheme.colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+
+
+                            // const SizedBox(
+                            //   width: 100,
+                            // ),
+                            // Row(
+                            //   children: [
+                            //     SvgPicture.asset(
+                            //       'assets/icons/bxs-star-half.svg',
+                            //       height: 20,
+                            //       width: 20,
+                            //     ),
+                            //     const SizedBox(width: 10),
+                            //     Text(
+                            //       "4.7",
+                            //       style: TextStyle(
+                            //           fontSize: 14,
+                            //           color: AppTheme.colors.black,
+                            //           fontWeight: FontWeight.normal),
+                            //     ),
+                            //   ],
+                            // )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:
-                      Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/galle.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Galle",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child:
+                  Column(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.asset(
+                          'assets/images/kandy_1.jpg',
+                          width: 180,
+                          height: 240,
+                          fit: BoxFit.fitHeight,
+                        ),
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Kandy",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: AppTheme.colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+
+
+                            // const SizedBox(
+                            //   width: 100,
+                            // ),
+                            // Row(
+                            //   children: [
+                            //     SvgPicture.asset(
+                            //       'assets/icons/bxs-star-half.svg',
+                            //       height: 20,
+                            //       width: 20,
+                            //     ),
+                            //     const SizedBox(width: 10),
+                            //     Text(
+                            //       "4.7",
+                            //       style: TextStyle(
+                            //           fontSize: 14,
+                            //           color: AppTheme.colors.black,
+                            //           fontWeight: FontWeight.normal),
+                            //     ),
+                            //   ],
+                            // )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:
-                      Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/galle.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Galle",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:
-                      Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/galle.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Galle",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child:
-                      Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              'assets/images/galle.jpg',
-                              width: 180,
-                              height: 240,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Galle",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppTheme.colors.black,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                // const SizedBox(
-                                //   width: 100,
-                                // ),
-                                // Row(
-                                //   children: [
-                                //     SvgPicture.asset(
-                                //       'assets/icons/bxs-star-half.svg',
-                                //       height: 20,
-                                //       width: 20,
-                                //     ),
-                                //     const SizedBox(width: 10),
-                                //     Text(
-                                //       "4.7",
-                                //       style: TextStyle(
-                                //           fontSize: 14,
-                                //           color: AppTheme.colors.black,
-                                //           fontWeight: FontWeight.normal),
-                                //     ),
-                                //   ],
-                                // )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                //   child:
+                //   Column(
+                //     children: [
+                //       ClipRRect(
+                //         borderRadius: BorderRadius.circular(12),
+                //         child: Image.asset(
+                //           'assets/images/anuradhapura_1.jpg',
+                //           width: 180,
+                //           height: 240,
+                //           fit: BoxFit.fitHeight,
+                //         ),
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.all(4.0),
+                //         child: Column(
+                //           crossAxisAlignment: CrossAxisAlignment.center,
+                //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //           children: [
+                //             Text(
+                //               "Anuradhapura",
+                //               style: TextStyle(
+                //                   fontSize: 16,
+                //                   color: AppTheme.colors.black,
+                //                   fontWeight: FontWeight.bold),
+                //             ),
+                //
+                //
+                //             // const SizedBox(
+                //             //   width: 100,
+                //             // ),
+                //             // Row(
+                //             //   children: [
+                //             //     SvgPicture.asset(
+                //             //       'assets/icons/bxs-star-half.svg',
+                //             //       height: 20,
+                //             //       width: 20,
+                //             //     ),
+                //             //     const SizedBox(width: 10),
+                //             //     Text(
+                //             //       "4.7",
+                //             //       style: TextStyle(
+                //             //           fontSize: 14,
+                //             //           color: AppTheme.colors.black,
+                //             //           fontWeight: FontWeight.normal),
+                //             //     ),
+                //             //   ],
+                //             // )
+                //           ],
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
 
               ],
             ),

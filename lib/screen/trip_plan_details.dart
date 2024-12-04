@@ -1,6 +1,9 @@
-import 'package:ceylontrailapp/models/recommended_trip_plan_model.dart';
+import 'package:ceylontrailapp/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ceylontrailapp/models/recommended_trip_plan_model.dart';
+import 'package:ceylontrailapp/theme/app_theme.dart';
+import 'package:get/get.dart';
 
 class TripPlanDetailsPage extends StatefulWidget {
   final RecommendedTripPlan item;
@@ -8,8 +11,7 @@ class TripPlanDetailsPage extends StatefulWidget {
   const TripPlanDetailsPage({super.key, required this.item});
 
   @override
-  TripPlanDetailsPageState createState() =>
-      TripPlanDetailsPageState();
+  TripPlanDetailsPageState createState() => TripPlanDetailsPageState();
 }
 
 class TripPlanDetailsPageState extends State<TripPlanDetailsPage> {
@@ -27,13 +29,12 @@ class TripPlanDetailsPageState extends State<TripPlanDetailsPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.white, // Set the AppBar background to white
-        elevation: 2, // Adds a subtle shadow to the AppBar
+        backgroundColor: Colors.white,
+        elevation: 2,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back), // Customize the back button icon
-          color: Colors.black, // Set the back button color to black
-          onPressed: () =>
-              Navigator.of(context).pop(), // Go back to the previous screen
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.black,
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
       body: Column(
@@ -43,6 +44,7 @@ class TripPlanDetailsPageState extends State<TripPlanDetailsPage> {
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
+                // PageView for displaying images
                 PageView.builder(
                   controller: _pageController,
                   itemCount: widget.item.imageUrls.length,
@@ -54,24 +56,32 @@ class TripPlanDetailsPageState extends State<TripPlanDetailsPage> {
                   itemBuilder: (context, index) {
                     return Hero(
                       tag: widget.item.imageUrls[index],
-                      child: CachedNetworkImage(
-                        imageUrl: widget.item.imageUrls[index],
-                        placeholder: (context, url) =>
-                            Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        fit: BoxFit.cover,
+                      child: Container(
                         width: double.infinity,
                         height: double.infinity,
+                        child: widget.item.imageUrls[index].startsWith('http')
+                            ? CachedNetworkImage(
+                          imageUrl: widget.item.imageUrls[index],
+                          placeholder: (context, url) =>
+                              Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                          fit: BoxFit.cover,
+                        )
+                            : Image.asset(
+                          widget.item.imageUrls[index],
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     );
                   },
                 ),
+                // Page indicator
                 Positioned(
                   bottom: 16.0,
                   child: Container(
                     alignment: Alignment.center,
-                    padding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                     decoration: BoxDecoration(
                       color: Colors.black54,
                       borderRadius: BorderRadius.circular(20.0),
@@ -85,6 +95,7 @@ class TripPlanDetailsPageState extends State<TripPlanDetailsPage> {
               ],
             ),
           ),
+          // Description section
           Container(
             padding: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
@@ -99,11 +110,6 @@ class TripPlanDetailsPageState extends State<TripPlanDetailsPage> {
                 ),
                 SizedBox(height: 8.0),
                 Text(
-                  widget.item.location,
-                  style: TextStyle(fontSize: 20.0, color: Colors.green),
-                ),
-                SizedBox(height: 8.0),
-                Text(
                   "Location: ${widget.item.location ?? 'Unknown Location'}",
                   style: TextStyle(fontSize: 16.0, color: Colors.grey[700]),
                 ),
@@ -115,23 +121,36 @@ class TripPlanDetailsPageState extends State<TripPlanDetailsPage> {
                 SizedBox(height: 8.0),
                 Text(
                   widget.item.description ?? 'No description available.',
-                  style: TextStyle(fontSize: 16.0),
+                  style: TextStyle(fontSize: 14.0),
                 ),
                 SizedBox(height: 24.0),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Implement navigation to chat or messaging screen here
+                    onPressed: () async {
+                      // Show a loading indicator for 1 second before showing the Snackbar
+                      await Future.delayed(Duration(seconds: 1));
+
+                      // Show Snackbar message
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(backgroundColor: Colors.green,
+                          content: Text('Trip saved successfully'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+
+                      // Navigate to HomeScreen after showing the Snackbar
+                      Get.to(HomeScreen());
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 24.0, vertical: 12.0),
+                      backgroundColor: AppTheme.colors.primary,
+                      foregroundColor: Colors.white,
+                      padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
                     child: Text(
-                      "Message Seller",
+                      "Save",
                       style: TextStyle(fontSize: 16.0),
                     ),
                   ),

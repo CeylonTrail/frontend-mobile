@@ -132,7 +132,7 @@ class TripScreen1State extends State<TripScreen1> {
                 TextFormField(
                   controller: _destinationController,
                   decoration: InputDecoration(
-                    hintText: 'Ex:- Ella',
+                    hintText: 'Ex:- Kandy',
                     hintStyle: TextStyle(
                       color: AppTheme.colors.secondary_light_2,
                     ),
@@ -185,7 +185,7 @@ class TripScreen1State extends State<TripScreen1> {
                 TextFormField(
                   controller: _daysController,
                   decoration: InputDecoration(
-                    hintText: 'Ex:- 2',
+                    hintText: 'Ex:- 3',
                     hintStyle: TextStyle(
                       color: AppTheme.colors.secondary_light_2,
                     ),
@@ -264,48 +264,7 @@ class TripScreen1State extends State<TripScreen1> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    textAlign: TextAlign.start,
-                    'Add Travel Buddies (Optional)',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.colors.primary_dark_3,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Ex:- @leodicap',
-                    hintStyle: TextStyle(
-                      color: AppTheme.colors.secondary_light_2,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        color: AppTheme.colors.secondary_light_3,
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        color: AppTheme.colors.primary_dark_3,
-                        width: 2,
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      borderSide: BorderSide(
-                        color: AppTheme.colors.primary_dark_3,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                ),
+
               ],
             ),
           ),

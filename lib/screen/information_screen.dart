@@ -1,6 +1,9 @@
 import 'package:ceylontrailapp/widgets/bot_scaffold.dart';
 import 'package:ceylontrailapp/widgets/custom_info_appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import '../controllers/login_controller.dart';
 import '../theme/app_theme.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -30,12 +33,16 @@ class _InformationScreenState extends State<InformationScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize the controllers with initial values
-    _firstNameController.text = 'Leonardo';
-    _lastNameController.text = 'DiCaprio';
-    _usernameController.text = '@leonardox';
-    _emailController.text = 'thiran@gmail.com';
-    _passwordController.text = 'Thiran123';
+
+    // Retrieve logged-in user details using GetX
+    final loginController = Get.find<LoginController>();
+
+    // Initialize the controllers with logged-in user data
+    _firstNameController.text = loginController.firstname.value;
+    _lastNameController.text = loginController.lastname.value;
+    _usernameController.text = loginController.username.value;
+    _emailController.text = loginController.useremail.value;
+    _passwordController.text = '123456'; // Do not display the password directly
   }
 
   @override

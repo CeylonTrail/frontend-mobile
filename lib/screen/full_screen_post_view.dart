@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../controllers/login_controller.dart';
 import '../models/post_model.dart';
 import '../controllers/newsfeed_controller.dart';
 import '../theme/app_theme.dart';
+import '../widgets/utils.dart';
 
 class FullScreenPostView extends StatefulWidget {
   final Post post;
@@ -10,12 +12,24 @@ class FullScreenPostView extends StatefulWidget {
   const FullScreenPostView({super.key, required this.post});
 
   @override
-  _FullScreenPostViewState createState() => _FullScreenPostViewState();
+  FullScreenPostViewState createState() => FullScreenPostViewState();
 }
 
-class _FullScreenPostViewState extends State<FullScreenPostView> {
+class FullScreenPostViewState extends State<FullScreenPostView> {
   final TextEditingController _commentController = TextEditingController();
   final NewsfeedController _controller = Get.find<NewsfeedController>();
+
+  final TextEditingController _usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Retrieve logged-in user details using GetX
+    final loginController = Get.find<LoginController>();
+
+    _usernameController.text = loginController.username.value;
+  }
 
   void _addComment() {
     if (_commentController.text.isNotEmpty) {
@@ -24,7 +38,7 @@ class _FullScreenPostViewState extends State<FullScreenPostView> {
         widget.post.comments.add(
           Comment(
             commentId: widget.post.comments.length + 1,
-            user: User(userId: 1, username: 'Current User'), // Replace with actual user data
+            user: User(userId: 1, username: '${_usernameController.text}',), // Replace with actual user data
             content: _commentController.text,
             createdAt: DateTime.now(),
             updatedAt: DateTime.now(),
@@ -62,9 +76,10 @@ class _FullScreenPostViewState extends State<FullScreenPostView> {
                         itemCount: widget.post.images.length,
                         itemBuilder: (context, index) {
                           return Image.network(
-                            widget.post.images[index],
+                            replaceLocalhostWithIP(widget.post.images[index]), // Updated line
                             fit: BoxFit.cover,
                           );
+
                         },
                       ),
                     ),
@@ -86,7 +101,14 @@ class _FullScreenPostViewState extends State<FullScreenPostView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CircleAvatar(
-                                  child: Text(comment.user.username[0]),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/traveller.jpg',
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                                 const SizedBox(width: 8),
                                 Expanded(

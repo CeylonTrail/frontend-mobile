@@ -1,22 +1,61 @@
 import 'package:ceylontrailapp/theme/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-// Create a new stateless widget class
-class TripStartButton extends StatelessWidget {
-  // Def ine a constructor to potentially accept on click functionality
-  const TripStartButton({super.key, this.onPressed});
+import '../screen/home_screen.dart';
 
-  // Define an optional onPressed callback function
-  final VoidCallback? onPressed;
+class TripStartButton extends StatefulWidget {
+  const TripStartButton({super.key});
+
+  @override
+  State<TripStartButton> createState() => _TripStartButtonState();
+}
+
+class _TripStartButtonState extends State<TripStartButton> {
+  // Button state: true = "Start", false = "Finish"
+  bool isStart = true;
 
   @override
   Widget build(BuildContext context) {
-    // Return a TextButton with rounded corners
     return TextButton(
-      onPressed: onPressed,
+      onPressed: () {
+        if (isStart) {
+          // Show snackbar
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('Click on "Current Trip" to start your journey.'),
+              duration: Duration(seconds: 3),
+            ),
+          );
+
+          // Navigate to HomeScreen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
+
+          // Change button state
+          setState(() {
+            isStart = false;
+          });
+        } else {
+          // When "Finish" is clicked, perform actions accordingly
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Text('Your trip has finished!'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+
+          // Reset button state or navigate back
+          setState(() {
+            isStart = true;
+          });
+        }
+      },
       style: TextButton.styleFrom(
-        backgroundColor: AppTheme.colors.primary,
+        backgroundColor: isStart ? AppTheme.colors.primary : Colors.red,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.0),
         ),
@@ -29,11 +68,11 @@ class TripStartButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Start',
+              isStart ? 'Start' : 'Finish',
               style: TextStyle(
-                  color: AppTheme.colors.white,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600// Set the font size to 16
+                color: AppTheme.colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
@@ -42,3 +81,5 @@ class TripStartButton extends StatelessWidget {
     );
   }
 }
+
+// Dummy HomeScreen to navigate to

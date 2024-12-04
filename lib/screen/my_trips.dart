@@ -3,7 +3,34 @@ import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
 class MyTrips extends StatelessWidget {
-  const MyTrips({super.key});
+   MyTrips({super.key});
+
+  // List of trips with different images, titles, and dates
+  final List<Map<String, String>> trips = [
+    {
+      'image': 'assets/images/9_arch_bridge.jpg', // Image path for trip 1
+      'title': 'Ella',
+      'duration': '2 Days',
+      'date': '2024/12/03',
+    },
+
+    {
+      'image': 'assets/images/kandy_1.jpg', // Image path for trip 2
+      'title': 'Kandy',
+      'duration': '3 Days',
+      'date': '2024/12/03',
+    },
+
+    // {
+    //   'image': 'assets/images/anuradhpura_1.jpg', // Image path for trip 2
+    //   'title': 'Anuradhapura',
+    //   'duration': '3 Days',
+    //   'date': '2024/12/03',
+    // },
+
+
+    // Add more trips as needed
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +62,9 @@ class MyTrips extends StatelessWidget {
               crossAxisSpacing: 10,
               mainAxisSpacing: 8.0,
             ),
-            itemCount: 6, // Total number of items
+            itemCount: trips.length, // Dynamically set the number of items based on the list
             itemBuilder: (context, index) {
+              final trip = trips[index]; // Get the trip data for the current index
               return Card(
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -48,8 +76,8 @@ class MyTrips extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 3, // Allocate a portion of space for the image
-                      child: Image.network(
-                        'https://via.placeholder.com/150', // Replace with your image URL
+                      child: Image.asset(
+                        trip['image']!, // Use the image path from the trip data
                         fit: BoxFit.cover,
                         width: double.infinity,
                       ),
@@ -57,11 +85,11 @@ class MyTrips extends StatelessWidget {
                     Expanded(
                       flex: 2, // Allocate a portion of space for text and background
                       child: Container(
-                        child: const Column(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Trip Title',
+                              trip['title']!, // Use the title from the trip data
                               style: TextStyle(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.bold,
@@ -69,11 +97,31 @@ class MyTrips extends StatelessWidget {
                             ),
                             SizedBox(height: 4),
                             Text(
-                              '5 Days', // Replace with dynamic number of days
+                              trip['duration']!, // Use the duration from the trip data
                               style: TextStyle(
                                 fontSize: 14.0,
                                 color: Colors.grey,
                               ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Created on: ",
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: AppTheme.colors.black,
+                                  ),
+                                ),
+                                Text(
+                                  trip['date']!, // Use the date from the trip data
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: AppTheme.colors.secondary,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

@@ -32,26 +32,51 @@ class _RecommendedTripPlansScreenState
     RecommendedTripPlan(
         title: "Ella",
         imageUrls: [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/200",
-          "https://via.placeholder.com/250",
-          "https://via.placeholder.com/300",
+          "assets/images/ella_1.jpg",
+          "assets/images/ella_2.jpg",
+          "assets/images/ella_3.jpg",
+          "assets/images/ella_4.jpg",
         ],
         days: '2',
         description: 'A 2 days trip to Ella',
-        location: 'Badulla'),
+        location: 'Badulla', coordinates: []),
+
     RecommendedTripPlan(
         title: "Kandy",
         imageUrls: [
-          "https://via.placeholder.com/150",
-          "https://via.placeholder.com/200",
-          "https://via.placeholder.com/250",
-          "https://via.placeholder.com/300",
+          "assets/images/kandy_1.jpg",
+          "assets/images/kandy_2.jpg",
+          "assets/images/kandy_3.jpg",
+          "assets/images/kandy_4.jpg",
         ],
         days: '3',
-        description: 'A 2 days trip to Kandy',
-        location: 'Kandy'),
-    // Add more items here
+        description: 'A 3 days trip to Kandy',
+        location: 'Kandy', coordinates: []),
+
+    RecommendedTripPlan(
+        title: "Anuradhapura",
+        imageUrls: [
+          "assets/images/anuradhapura_1.jpg",
+          "assets/images/anuradhapura_2.jpg",
+          "assets/images/anuradhapura_3.jpg",
+          "assets/images/anuradhapura_4.jpg",
+        ],
+        days: '3',
+        description: 'A 3 days trip to Anuradhapura',
+        location: 'Anuradhapura', coordinates: []),
+
+    RecommendedTripPlan(
+        title: "Galle",
+        imageUrls: [
+          "assets/images/galle_1.png",
+          "assets/images/galle_2.jpg",
+          "assets/images/galle_3.jpg",
+          "assets/images/galle_4.jpg",
+        ],
+        days: '1',
+        description: 'A 1 day trip to Galle',
+        location: 'Galle', coordinates: []),
+
   ];
 
   bool isSearching = false;

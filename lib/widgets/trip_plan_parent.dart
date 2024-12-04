@@ -64,10 +64,10 @@ class TripPlanParentState extends State<TripPlanParent> {
                   _currentPageIndex = index;
                 });
               },
-              children: const [
+              children: [
                 TripScreen1(),
-                TripScreen2(),
-                TripScreen3(),
+                 TripScreen2(),
+                 TripScreen3(),
               ],
             ),
             isEditMode: _isEditMode,

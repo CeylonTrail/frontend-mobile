@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';  // Import the intl package
 import '../models/marketplace_model.dart';
+import '../theme/app_theme.dart';
+import '../widgets/utils.dart';
 
 class MarketplaceItemDetailPage extends StatefulWidget {
   final MarketplaceItem item;
@@ -22,120 +26,139 @@ class MarketplaceItemDetailPageState extends State<MarketplaceItemDetailPage> {
     _pageController = PageController(initialPage: _currentPage);
   }
 
+  // Function to format date to only show the date (year, month, day)
+  String _formatDate(String date) {
+    try {
+      final parsedDate = DateTime.parse(date);
+      final formatter = DateFormat('yyyy-MM-dd'); // Format as yyyy-MM-dd
+      return formatter.format(parsedDate);
+    } catch (e) {
+      return 'Unknown Date'; // Fallback if parsing fails
+    }
+  }
+
+  // Function to display the rate with proper format
+  String _getRateDisplay(dynamic rate, String rateType) {
+    double rateValue = rate is double ? rate : double.tryParse(rate.toString()) ?? 0.0;
+
+    if (rateType == 'per day') {
+      return "\ Rs.$rateValue / Day";
+    } else if (rateType == 'per week') {
+      return "\ Rs.$rateValue / Week";
+    } else if (rateType == 'per month') {
+      return "\ Rs.$rateValue / Month";
+    } else {
+      return "\ Rs.$rateValue"; // For fixed price or other rates
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final item = widget.item;
+
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.white, // Set the AppBar background to white
-        elevation: 2, // Adds a subtle shadow to the AppBar
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back), // Customize the back button icon
-          color: Colors.black, // Set the back button color to black
-          onPressed: () =>
-              Navigator.of(context).pop(), // Go back to the previous screen
-        ),
+        title: const Text("Item Details"),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                PageView.builder(
-                  controller: _pageController,
-                  itemCount: widget.item.imageUrls.length,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _currentPage = index;
-                    });
-                  },
-                  itemBuilder: (context, index) {
-                    return Hero(
-                      tag: widget.item.imageUrls[index],
-                      child: CachedNetworkImage(
-                        imageUrl: widget.item.imageUrls[index],
-                        placeholder: (context, url) =>
-                            Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    );
-                  },
-                ),
-                Positioned(
-                  bottom: 16.0,
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    child: Text(
-                      "${_currentPage + 1}/${widget.item.imageUrls.length}",
-                      style: TextStyle(color: Colors.white, fontSize: 16.0),
-                    ),
+          // Image carousel
+          SizedBox(
+            height: 300,
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: item.images.isNotEmpty ? item.images.length : 1, // Ensure at least one item is shown
+              onPageChanged: (index) {
+                setState(() {
+                  _currentPage = index;
+                });
+              },
+              itemBuilder: (context, index) {
+                // Check if imageUrls is not empty and if it contains valid data
+                final imageUrl = item.images.isNotEmpty
+                    ? replaceLocalhostWithIP(item.images[0]) // Access the image URL
+                    : 'assets/images/no_image.jpg'; // Fallback image if empty or invalid
+
+                // Debugging: Print the URL to check its value
+                print("Image URL: $imageUrl");
+
+                return Hero(
+                  tag: imageUrl, // Ensure the tag is unique
+                  child: CachedNetworkImage(
+                    imageUrl: imageUrl,
+                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-            ),
+
+          // Details
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.item.title,
-                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  widget.item.price,
-                  style: TextStyle(fontSize: 20.0, color: Colors.green),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  "Location: ${widget.item.location ?? 'Unknown Location'}",
-                  style: TextStyle(fontSize: 16.0, color: Colors.grey[700]),
-                ),
-                SizedBox(height: 16.0),
-                Text(
-                  "Description",
-                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  widget.item.description ?? 'No description available.',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                SizedBox(height: 24.0),
-                Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Implement navigation to chat or messaging screen here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 24.0, vertical: 12.0),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                      ),
-                    ),
-                    child: Text(
-                      "Message Seller",
-                      style: TextStyle(fontSize: 16.0),
-                    ),
+                  item.title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
+                const SizedBox(height: 8),
+                Text(
+                  item.description,
+                  style: const TextStyle(fontSize: 16),
+                ),
+
+                const SizedBox(height: 8),
+                // Show the formatted date
+                Text(
+                  'Posted on: ${_formatDate(item.createdAt)}',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Price: ${_getRateDisplay(item.rate, item.rateType)}',
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold,
+                  color: Colors.green),
+                ),
+                const SizedBox(height: 16),
+            TextButton(
+              onPressed: (){},
+              style: TextButton.styleFrom(
+                backgroundColor: AppTheme.colors.secondary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+              child: SizedBox(
+                width: 160,
+                height: 30,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/bxs-chat.svg',
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Message Seller',
+                      style: TextStyle(
+                          color: AppTheme.colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600// Set the font size to 16
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )
               ],
             ),
           ),

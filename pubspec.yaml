@@ -44,7 +44,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   image_picker: ^1.1.2
   http: ^1.2.2
-  shared_preferences: ^2.2.3
+  shared_preferences: ^2.3.3
   flutter_staggered_grid_view: ^0.7.0
   cached_network_image: ^3.3.1
   intl: ^0.19.0
@@ -57,6 +57,8 @@ dependencies:
   google_maps_flutter: ^2.10.0
   location: ^6.0.2
   flutter_map: ^7.0.2
+  url_launcher: ^6.3.1
+
 
 
 dev_dependencies:
@@ -83,8 +85,28 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .dart_tool/
+    - .dart_tool/chrome-device/
+    - .dart_tool/chrome-device/Default/
+    - .dart_tool/chrome-device/Default/Asset Store/
+    - .dart_tool/chrome-device/Default/Asset Store/assets.db/
+    - .dart_tool/flutter_build/
+    - .dart_tool/flutter_build/45c9506062a880b543efe9e1bcebfdaa/
+    - .dart_tool/flutter_build/d6125d77ef1a44c151129e69a617f1cc/
+    - .dart_tool/extension_discovery/
+    - assets/images/intro_page_1.png
+    - assets/images/intro_page_2.png
+    - assets/images/intro_page_3.png
     - assets/images/
     - assets/icons/
+    - assets/images/galle_1.png
+    - assets/images/galle_2.jpg
+    - assets/images/galle_3.jpg
+    - assets/images/galle_4.jpg
+    - assets/images/ravana_ella.jpg
+    - assets/images/ravana_cave.jpg
+    - lib/generated/assets.dart
+    - lib/generated/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

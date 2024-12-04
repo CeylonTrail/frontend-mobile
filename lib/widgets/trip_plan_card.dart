@@ -26,12 +26,18 @@ class TripPlanCard extends StatelessWidget {
             Expanded(
               child: Hero(
                 tag: '${plan.title}-${plan.imageUrls.first}',
-                child: CachedNetworkImage(
+                child: plan.imageUrls.first.startsWith('http')
+                    ? CachedNetworkImage(
                   imageUrl: plan.imageUrls.first,
                   placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) =>
                   const Icon(Icons.error),
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                )
+                    : Image.asset(
+                  plan.imageUrls.first,
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),

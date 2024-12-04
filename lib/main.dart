@@ -16,8 +16,10 @@ import 'package:get/get.dart';
 import 'package:ceylontrailapp/screen/sign_in_screen.dart';
 import 'package:ceylontrailapp/screen/sign_up_screen.dart';
 
+import 'controllers/marketplace_controller.dart';
 import 'controllers/newsfeed_controller.dart';
 import 'controllers/trip_plan_controller.dart';
+import 'controllers/user_controller.dart';
 
 void main() {
   // Set the status bar and navigation bar color
@@ -27,6 +29,8 @@ void main() {
     systemNavigationBarColor: Colors.white, // Set the navigation bar color
     systemNavigationBarIconBrightness: Brightness.dark, // Set the navigation bar icons to dark
   ));
+
+  // Get.lazyPut(() => UserController());
   runApp(const MyApp());
 }
 
@@ -37,6 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(TripPlanController());
     Get.put(NewsfeedController());
+    Get.put(MarketplaceItemController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'CeylonTrail',
@@ -48,8 +53,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/forgot_password', page: () => const ForgotPasswordScreen()),
         GetPage(name: '/otp_verification', page: () => const OtpVerificationScreen()),
         GetPage(name: '/reset_password', page: () => const ResetPasswordScreen()),
-        GetPage(name: '/home', page: () => const HomeScreen()),
-        GetPage(name: '/myprofile', page: () => const HomeScreen()),
+        // GetPage(name: '/home', page: () => const HomeScreen()),
+        // GetPage(name: '/myprofile', page: () => const HomeScreen()),
         GetPage(name: '/newsfeed', page: () => const NewsFeed()),
         GetPage(name: '/messages', page: () => const Messages()),
         GetPage(name: '/notifications', page: () => const Notifications()),
@@ -61,7 +66,7 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home:  const CurrentTripScreen(),
+      home:  const SplashScreen(),
     );
   }
 }

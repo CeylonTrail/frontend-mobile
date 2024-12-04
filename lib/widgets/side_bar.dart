@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import '../controllers/login_controller.dart';
 import '../screen/home_screen.dart';
 import '../screen/myprofile_screen.dart';
 import '../screen/sign_in_screen.dart';
@@ -18,6 +19,20 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   void _closeSideBar() {
     Navigator.of(context).pop();
+  }
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+
+    // Retrieve logged-in user details using GetX
+    final loginController = Get.find<LoginController>();
+
+    // Initialize the controllers with logged-in user data
+    _firstNameController.text = loginController.firstname.value;
+    _lastNameController.text = loginController.lastname.value;
+
   }
 
   void _navigateToProfile() {
@@ -49,10 +64,10 @@ class _SideBarState extends State<SideBar> {
                   const SizedBox(height: 10),
                   GestureDetector(
                     onTap: _navigateToProfile,
-                    child: const SizedBox(
+                    child:  SizedBox(
                       child: InfoCard(
-                        imagePath: 'assets/images/img.png',
-                        name: 'Leonardo DiCaprio',
+                        imagePath: 'assets/images/traveller.jpg',
+                        name: '${_firstNameController.text} ${_lastNameController.text}',
                       ),
                     ),
                   ),

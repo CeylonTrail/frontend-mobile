@@ -67,7 +67,7 @@ void _showPopup(BuildContext context) {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    splashColor: AppTheme.colors.secondary_light_1,
+                    splashColor: AppTheme.colors.warning_light,
                     onTap: () {
                       Navigator.pop(context);
                       // Handle Option 2

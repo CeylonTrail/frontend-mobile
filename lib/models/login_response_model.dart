@@ -1,29 +1,53 @@
-import 'package:ceylontrailapp/models/user.dart';
-
 class LoginResponse {
   final int code;
   final String message;
-  final UserData data;
+  final Data data;
 
-  LoginResponse({
-    required this.code,
-    required this.message,
-    required this.data,
-  });
+  LoginResponse({required this.code, required this.message, required this.data});
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
     return LoginResponse(
       code: json['code'],
       message: json['message'],
-      data: UserData.fromJson(json['data']),
+      data: Data.fromJson(json['data']),
     );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    return {
-      'code': code,
-      'message': message,
-      'data': data.toJson(),
-    };
+class Data {
+  final String accessToken;
+  final String role;
+  final int userId;
+  final String username;
+  final String email;
+  final String firstname;
+  final String lastname;
+  final bool accountState;
+  final String? profilePictureUrl;
+
+  Data({
+    required this.accessToken,
+    required this.role,
+    required this.userId,
+    required this.username,
+    required this.email,
+    required this.firstname,
+    required this.lastname,
+    required this.accountState,
+    this.profilePictureUrl,
+  });
+
+  factory Data.fromJson(Map<String, dynamic> json) {
+    return Data(
+      accessToken: json['accessToken'],
+      role: json['role'],
+      userId: json['userId'],
+      username: json['username'],
+      email: json['email'],
+      firstname: json['firstname'],
+      lastname: json['lastname'],
+      accountState: json['accountState'],
+      profilePictureUrl: json['profilePictureUrl'],
+    );
   }
 }

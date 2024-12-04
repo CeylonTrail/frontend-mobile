@@ -18,17 +18,25 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
   final Completer<GoogleMapController> _mapController =
   Completer<GoogleMapController>();
 
-  static const LatLng _pUoc = LatLng(6.900777, 79.860133);
-  static const LatLng _pPettah = LatLng(6.9368, 79.8525);
   LatLng? _currentP = null;
 
+  // New locations
+  static const LatLng _p9ArchBridge = LatLng(6.8768, 81.0608);
+  static const LatLng _pEllaRock = LatLng(6.86, 81.04);
+  static const LatLng _pFlyingRavana = LatLng(6.8661, 81.0621);
+  static const LatLng _pRavanaElla = LatLng(6.8625, 81.0441);
+  static const LatLng _pLittleAdamsPeak = LatLng(6.8692, 81.0602);
+  static const LatLng _pRavanaCave = LatLng(6.8645, 81.0486);
+
+  // Polyline data
   Map<PolylineId, Polyline> polylines = {};
 
   @override
   void initState() {
     super.initState();
     getLocationUpdates().then((_) => {
-      getPolylinePoints().then((coordinates) => {generatePolyLineFromPoints(coordinates)}),
+      getPolylinePoints().then((coordinates) =>
+      {generatePolyLineFromPoints(coordinates)}),
     });
   }
 
@@ -67,8 +75,8 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
           onMapCreated: ((GoogleMapController controller) =>
               _mapController.complete(controller)),
           initialCameraPosition: CameraPosition(
-            target: _pUoc,
-            zoom: 12,
+            target: _p9ArchBridge,
+            zoom: 14,
           ),
           markers: {
             Marker(
@@ -76,13 +84,29 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
                 icon: BitmapDescriptor.defaultMarker,
                 position: _currentP!),
             Marker(
-                markerId: MarkerId("_sourceLocation"),
+                markerId: MarkerId("_9ArchBridge"),
                 icon: BitmapDescriptor.defaultMarker,
-                position: _pUoc),
+                position: _p9ArchBridge),
             Marker(
-                markerId: MarkerId("_destination"),
+                markerId: MarkerId("_EllaRock"),
                 icon: BitmapDescriptor.defaultMarker,
-                position: _pPettah),
+                position: _pEllaRock),
+            Marker(
+                markerId: MarkerId("_FlyingRavana"),
+                icon: BitmapDescriptor.defaultMarker,
+                position: _pFlyingRavana),
+            Marker(
+                markerId: MarkerId("_RavanaElla"),
+                icon: BitmapDescriptor.defaultMarker,
+                position: _pRavanaElla),
+            Marker(
+                markerId: MarkerId("_LittleAdamsPeak"),
+                icon: BitmapDescriptor.defaultMarker,
+                position: _pLittleAdamsPeak),
+            Marker(
+                markerId: MarkerId("_RavanaCave"),
+                icon: BitmapDescriptor.defaultMarker,
+                position: _pRavanaCave),
           },
           polylines: Set<Polyline>.of(polylines.values),
         ),
@@ -92,7 +116,7 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
 
   Future<void> _cameraToPosition(LatLng pos) async {
     final GoogleMapController controller = await _mapController.future;
-    CameraPosition _newCameraPosition = CameraPosition(target: pos, zoom: 12);
+    CameraPosition _newCameraPosition = CameraPosition(target: pos, zoom: 14);
 
     await controller
         .animateCamera(CameraUpdate.newCameraPosition(_newCameraPosition));
@@ -122,10 +146,11 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
     _locationController.onLocationChanged.listen((LocationData currentLocation) {
       if (currentLocation.latitude != null && currentLocation.longitude != null) {
         setState(() {
-          _currentP = LatLng(currentLocation.latitude!, currentLocation.longitude!);
+          _currentP =
+              LatLng(currentLocation.latitude!, currentLocation.longitude!);
         });
 
-        // Once the current location is updated, get the polyline
+        // Update polyline points
         getPolylinePoints().then((coordinates) {
           generatePolyLineFromPoints(coordinates);
         });
@@ -139,22 +164,27 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
     List<LatLng> polylineCoordinates = [];
     PolylinePoints polylinePoints = PolylinePoints();
 
-    // Create waypoints as PolylineWayPoint using String format for location
-    List<PolylineWayPoint> waypoints = [
-      PolylineWayPoint(
-        location: "${_pUoc.latitude},${_pUoc.longitude}", // Using String format
-      ),
-    ];
-
-    // Request route with multiple waypoints
+    // Request route with waypoints
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       request: PolylineRequest(
         origin: PointLatLng(_currentP!.latitude, _currentP!.longitude),
-        destination: PointLatLng(_pPettah.latitude, _pPettah.longitude),
-        wayPoints: waypoints, // Using PolylineWayPoint here
+        destination: PointLatLng(_pRavanaCave.latitude, _pRavanaCave.longitude),
+        wayPoints: [
+          PolylineWayPoint(
+              location: "${_p9ArchBridge.latitude},${_p9ArchBridge.longitude}"),
+          PolylineWayPoint(
+              location: "${_pEllaRock.latitude},${_pEllaRock.longitude}"),
+          PolylineWayPoint(
+              location: "${_pFlyingRavana.latitude},${_pFlyingRavana.longitude}"),
+          PolylineWayPoint(
+              location: "${_pRavanaElla.latitude},${_pRavanaElla.longitude}"),
+          PolylineWayPoint(
+              location:
+              "${_pLittleAdamsPeak.latitude},${_pLittleAdamsPeak.longitude}"),
+        ],
         mode: TravelMode.driving,
       ),
-      googleApiKey: GOOGLE_MAPS_API, // Use your actual Google Maps API key
+      googleApiKey: GOOGLE_MAPS_API, // Replace with your actual API key
     );
 
     if (result.points.isNotEmpty) {
@@ -168,13 +198,11 @@ class _CurrentTripScreenState extends State<CurrentTripScreen> {
     return polylineCoordinates;
   }
 
-
-
   void generatePolyLineFromPoints(List<LatLng> polylineCoordinates) async {
     PolylineId id = PolylineId("poly");
     Polyline polyline = Polyline(
       polylineId: id,
-      color: AppTheme.colors.secondary,
+      color: AppTheme.colors.secondary_dark_2,
       points: polylineCoordinates,
       width: 8,
     );

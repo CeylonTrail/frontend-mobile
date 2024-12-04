@@ -16,8 +16,8 @@ class PostResponse {
     List<Post> posts = postsData.map((post) => Post.fromJson(post)).toList();
 
     return PostResponse(
-      code: json['code'] ?? 0, // Provide a default value if null
-      message: json['message'] ?? '', // Provide a default value if null
+      code: json['code'] ?? 0, // Default value if null
+      message: json['message'] ?? '', // Default value if null
       data: posts,
     );
   }
@@ -54,15 +54,15 @@ class Post {
     List<Comment> comments = commentsList.map((i) => Comment.fromJson(i)).toList();
 
     return Post(
-      postId: json['postId'] ?? 0, // Provide a default value if null
-      user: User.fromJson(json['user'] ?? {}), // Provide a default empty map if null
-      content: json['content'] ?? '', // Provide a default value if null
-      privacy: json['privacy'], // Handle if this can be null
+      postId: json['postId'] ?? 0, // Default value if null
+      user: User.fromJson(json['user'] ?? {}),
+      content: json['content'] ?? '',
+      privacy: json['privacy'], // Can be null
       likes: likes,
       comments: comments,
-      images: List<String>.from(json['images'] ?? []), // Provide a default empty list if null
-      createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toString()), // Handle if this can be null
-      updatedAt: DateTime.parse(json['updatedAt'] ?? DateTime.now().toString()), // Handle if this can be null
+      images: List<String>.from(json['images'] ?? []), // Empty list if null
+      createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toString()), // Default if null
+      updatedAt: DateTime.parse(json['updatedAt'] ?? DateTime.now().toString()), // Default if null
     );
   }
 }
@@ -80,9 +80,9 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      userId: json['userId'] ?? 0, // Provide a default value if null
-      username: json['username'] ?? '', // Provide a default value if null
-      profilePictureUrl: json['profilePictureUrl'], // Handle if this can be null
+      userId: json['userId'] ?? 0, // Default value if null
+      username: json['username'] ?? '', // Default value if null
+      profilePictureUrl: json['profilePictureUrl'], // Can be null
     );
   }
 }
@@ -104,11 +104,11 @@ class Comment {
 
   factory Comment.fromJson(Map<String, dynamic> json) {
     return Comment(
-      commentId: json['commentId'] ?? 0, // Provide a default value if null
-      user: User.fromJson(json['user'] ?? {}), // Provide a default empty map if null
-      content: json['content'] ?? '', // Provide a default value if null
-      createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toString()), // Handle if this can be null
-      updatedAt: DateTime.parse(json['updatedAt'] ?? DateTime.now().toString()), // Handle if this can be null
+      commentId: json['commentId'] ?? 0, // Default value if null
+      user: User.fromJson(json['user'] ?? {}),
+      content: json['content'] ?? '',
+      createdAt: DateTime.parse(json['createdAt'] ?? DateTime.now().toString()),
+      updatedAt: DateTime.parse(json['updatedAt'] ?? DateTime.now().toString()),
     );
   }
 }
