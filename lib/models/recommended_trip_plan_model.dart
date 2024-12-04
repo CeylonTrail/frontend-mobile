@@ -1,15 +1,17 @@
-class RecommendedTripPlan{
+class RecommendedTripPlan {
   final String title;
-  final List<String> imageUrls; // Change from single image to a list of images
+  final List<String> imageUrls;
   final String days;
   final String description;
   final String location;
+  final List<double> coordinates;
 
   RecommendedTripPlan({
     required this.title,
-    required this.imageUrls, // Update constructor
+    required this.imageUrls,
     required this.days,
     required this.description,
     required this.location,
+    required this.coordinates,
   });
 }

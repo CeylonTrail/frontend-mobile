@@ -96,59 +96,67 @@ class NotificationsState extends State<Notifications> {
                       topRight: Radius.circular(25),
                     ),
                   ),
-                  child: ListView.builder(
-                    itemCount: 1, // Adjust the item count as needed
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 10.0, top: 10),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  // go to the relevant post
-                                },
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Full Name',
-                                      style: TextStyle(
-                                        color: AppTheme.colors.primary_dark_3,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Container(
-                                      constraints: BoxConstraints(
-                                        maxWidth: size.width * 0.73
-                                      ),
-                                      child: Text(
-                                        'Notification liked, commentedddddddd',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: AppTheme.colors.primary_dark_3,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: const Text("Noticifation List Empty",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold
+                    ),),
                   ),
+                  // child: ListView.builder(
+                  //   itemCount: 1, // Adjust the item count as needed
+                  //   itemBuilder: (context, index) {
+                  //     return Padding(
+                  //       padding: const EdgeInsets.only(left: 10.0, top: 10),
+                  //       child: Row(
+                  //         children: [
+                  //           Container(
+                  //             width: 60,
+                  //             height: 60,
+                  //             decoration: BoxDecoration(
+                  //               color: Colors.red,
+                  //               borderRadius: BorderRadius.circular(50),
+                  //             ),
+                  //           ),
+                  //           Padding(
+                  //             padding: const EdgeInsets.only(left: 10.0),
+                  //             child: GestureDetector(
+                  //               onTap: () {
+                  //                 // go to the relevant post
+                  //               },
+                  //               child: Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Text(
+                  //                     'Full Name',
+                  //                     style: TextStyle(
+                  //                       color: AppTheme.colors.primary_dark_3,
+                  //                       fontSize: 16,
+                  //                       fontWeight: FontWeight.bold,
+                  //                     ),
+                  //                   ),
+                  //                   Container(
+                  //                     constraints: BoxConstraints(
+                  //                       maxWidth: size.width * 0.73
+                  //                     ),
+                  //                     child: Text(
+                  //                       'Notification liked, commentedddddddd',
+                  //                       style: TextStyle(
+                  //                         fontSize: 14,
+                  //                         color: AppTheme.colors.primary_dark_3,
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ),
               ),
             ],

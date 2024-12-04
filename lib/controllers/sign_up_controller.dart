@@ -1,63 +1,78 @@
+import 'package:ceylontrailapp/screen/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../utils/api_endpoints.dart';
-
+import 'dart:convert';
 
 class SignUpController extends GetxController {
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  Future<Map<String, dynamic>> signUp({
+    required String username,
+    required String email,
+    required String password,
+    required String firstname,
+    required String lastname,
+  }) async {
+    final url = Uri.parse('http://10.22.162.199:8083/api/v1/auth/register-traveller');
 
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  Future<void> registerWithEmail() async {
     try {
-      var headers = {'Content-Type': 'application/json'};
-      var url = Uri.parse(
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndPoints.signUpEmail);
-      Map body = {
-        'firstName': firstNameController.text,
-        'lastName': lastNameController.text,
-        'email': emailController.text.trim(),
-        'password': passwordController.text
-      };
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
 
-      http.Response response =
-          await http.post(url, body: jsonEncode(body), headers: headers);
+        body: jsonEncode({
+          'username': username,
+          'email': email,
+          'password': password,
+          'firstname': firstname,
+          'lastname': lastname,
+        }),
+
+      );
 
       if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
-        if (json['code'] == 0) {
-          var token = json['data']['token'];
-          print(token);
-          final SharedPreferences? prefs = await _prefs;
 
-          await prefs?.setString('token', token);
-          firstNameController.clear();
-          lastNameController.clear();
-          emailController.clear();
-          passwordController.clear();
-        } else {
-          throw jsonDecode(response.body)["message"] ?? "An Error Occurred";
-        }
+        _showMessage('Sign Up Successful ', 'Please Sign In now', Colors.white, Colors.green);
+        // Get.to(() => const SignInScreen());
+        final data = jsonDecode(response.body);
+        return {
+          'code': 200,
+          'message': data['message'] ?? 'Sign up successful',
+        };
+
       } else {
-        throw jsonDecode(response.body)["message"] ?? "An Error Occurred";
+        print(response.statusCode);
+        print('Username: $username');
+        print('Email: $email');
+        print('Password: $password');
+        print('Firstname: $firstname');
+        print('Lastname: $lastname');
+
+        final error = jsonDecode(response.body);
+        return {
+          'code': response.statusCode,
+          'message': error['error'] ?? 'Something went wrong',
+        };
       }
     } catch (e) {
-      Get.back();
-      showDialog(
-          context: Get.context!,
-          builder: (context) {
-            return SimpleDialog(
-              title: Text("Error"),
-              contentPadding: EdgeInsets.all(20),
-              children: [Text(e.toString())],
-            );
-          });
+      return {
+        'code': 500,
+        'message': 'Failed to connect to the server',
+      };
     }
   }
+}
+
+void _showMessage(String title, String message, Color colorText, Color background) {
+  Get.snackbar(
+    title,
+    message,
+    colorText: colorText,
+    snackPosition: SnackPosition.BOTTOM,
+    borderRadius: 10,
+    margin: const EdgeInsets.all(10),
+    backgroundColor: background, // Semi-transparent background color
+    duration: const Duration(seconds: 2), // Duration to show the snackbar
+  );
 }

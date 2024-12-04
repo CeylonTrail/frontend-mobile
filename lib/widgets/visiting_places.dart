@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import '../controllers/trip_plan_controller.dart';
 import '../theme/app_theme.dart';
-
 class VisitingPlaces extends StatelessWidget {
   final String placeName;
 
@@ -12,6 +11,9 @@ class VisitingPlaces extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<TripPlanController>();
+
+    // Get the image for the place
+    final placeImage = controller.placeImages[placeName];
 
     return Row(
       children: [
@@ -44,10 +46,12 @@ class VisitingPlaces extends StatelessWidget {
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10)),
-                  child: Image.asset(
-                    'assets/images/9_arch_bridge.jpg',
+                  child: placeImage != null
+                      ? Image.asset(
+                    placeImage,
                     fit: BoxFit.fitWidth,
-                  ),
+                  )
+                      : Container(), // Default to an empty container if the image is missing
                 ),
               ),
             ),

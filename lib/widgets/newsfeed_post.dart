@@ -1,5 +1,8 @@
+import 'package:ceylontrailapp/widgets/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import '../screen/full_screen_post_view.dart';
 import '../theme/app_theme.dart';
 import '../models/post_model.dart';
 
@@ -58,6 +61,10 @@ class NewsfeedPostState extends State<NewsfeedPost> {
   //     initialIndex: initialIndex,
   //   ));
   // }
+
+  void _openFullScreenPostView() {
+    Get.to(() => FullScreenPostView(post: widget.post));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,11 +141,12 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                              widget.post.images[index], // Use the actual image URLs
+                              replaceLocalhostWithIP(widget.post.images[index]), // Updated line
                               fit: BoxFit.cover,
                               width: imageWidth,
                               height: imageWidth,
                             ),
+
                           ),
                         );
                       },
@@ -184,7 +192,7 @@ class NewsfeedPostState extends State<NewsfeedPost> {
                   _buildActionButton(
                     icon: 'assets/icons/bx-comment-detail.svg',
                     label: _formatCount(widget.post.comments.length),
-                    onPressed: () {},
+                    onPressed: _openFullScreenPostView,
                   ),
                   // _buildActionButton(
                   //   icon: 'assets/icons/bx-share.svg',

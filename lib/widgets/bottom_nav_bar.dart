@@ -50,15 +50,15 @@ class BottomNavBar extends StatelessWidget {
                       : 'assets/icons/bx-store-alt.svg',
                 ),
               ),
-              const SizedBox(width: 10),
-              IconButton(
-                onPressed: () => controller.changeIndex(3),
-                icon: SvgPicture.asset(
-                  controller.selectedIndex.value == 3
-                      ? 'assets/icons/bxs-user-voice.svg'
-                      : 'assets/icons/bx-user-voice.svg',
-                ),
-              ),
+              // const SizedBox(width: 10),
+              // IconButton(
+              //   onPressed: () => controller.changeIndex(3),
+              //   icon: SvgPicture.asset(
+              //     controller.selectedIndex.value == 3
+              //         ? 'assets/icons/bxs-user-voice.svg'
+              //         : 'assets/icons/bx-user-voice.svg',
+              //   ),
+              // ),
               const SizedBox(width: 10),
               IconButton(
                 onPressed: () => controller.changeIndex(4),

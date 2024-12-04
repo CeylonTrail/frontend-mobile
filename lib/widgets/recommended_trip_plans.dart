@@ -12,17 +12,53 @@ class RecommendedTripPlans extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Create a sample plan to pass into TripPlanCard
-    RecommendedTripPlan plan = RecommendedTripPlan(
+    RecommendedTripPlan plan1 = RecommendedTripPlan(
       title: "Ella",
       imageUrls: [
-        "https://via.placeholder.com/150",
-        "https://via.placeholder.com/200",
-        "https://via.placeholder.com/250",
-        "https://via.placeholder.com/300",
+        "assets/images/ella_1.jpg",
+        "assets/images/ella_2.jpg",
+        "assets/images/ella_3.jpg",
+        "assets/images/ella_4.jpg",
       ],
       days: '2',
-      description: 'A 2 days trip to Ella',
-      location: 'Badulla',
+      description: 'A 2 days trip to Ella Rock, Ravana Cave, Flying Ravana, Little Adams peak',
+      location: 'Badulla', coordinates: [],
+    );
+    RecommendedTripPlan plan2 = RecommendedTripPlan(
+      title: "Kandy",
+      imageUrls: [
+        "assets/images/kandy_1.jpg",
+        "assets/images/kandy_2.jpg",
+        "assets/images/kandy_3.jpg",
+        "assets/images/kandy_4.jpg",
+      ],
+      days: '3',
+      description: 'A 3 days trip to Temple of Relic, Kandy Lake, Udawatta Kele Sanctuary, Royal Botanical Gardens, Embekke Dewalaya, Ambuluwawa Tower, Sri Natha Dewalaya, Royal Palace Park',
+      location: 'Kandy', coordinates: [],
+    );
+    RecommendedTripPlan plan3 = RecommendedTripPlan(
+      title: "Anuradhapura",
+      imageUrls: [
+        "assets/images/anuradhapura_1.jpg",
+        "assets/images/anuradhapura_2.jpg",
+        "assets/images/anuradhapura_3.jpg",
+        "assets/images/anuradhapura_4.jpg",
+      ],
+      days: '3',
+      description: 'A 3 days trip to Anuradhapura',
+      location: 'Anuradhapura', coordinates: [],
+    );
+    RecommendedTripPlan plan4 = RecommendedTripPlan(
+      title: "Galle",
+      imageUrls: [
+        "assets/images/galle_1.jpg",
+        "assets/images/galle_2.jpg",
+        "assets/images/galle_3.jpg",
+        "assets/images/galle_4.jpg",
+      ],
+      days: '1',
+      description: 'A 1 day trip to Galle',
+      location: 'Galle', coordinates: [],
     );
 
     return SizedBox(
@@ -63,12 +99,57 @@ class RecommendedTripPlans extends StatelessWidget {
                   width: 180,
                   height: 240,
                   child: TripPlanCard(
-                    plan: plan,
+                    plan: plan1,
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TripPlanDetailsPage(item: plan),
+                          builder: (context) => TripPlanDetailsPage(item: plan1),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 180,
+                  height: 240,
+                  child: TripPlanCard(
+                    plan: plan2,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TripPlanDetailsPage(item: plan2),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 180,
+                  height: 240,
+                  child: TripPlanCard(
+                    plan: plan3,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TripPlanDetailsPage(item: plan3),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 180,
+                  height: 240,
+                  child: TripPlanCard(
+                    plan: plan4,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TripPlanDetailsPage(item: plan4),
                         ),
                       );
                     },

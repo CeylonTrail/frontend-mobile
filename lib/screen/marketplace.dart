@@ -1,9 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import '../models/marketplace_model.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../models/marketplace_model.dart';  // Correct import for MarketplaceItem
 import '../theme/app_theme.dart';
+import '../widgets/utils.dart';
 import 'marketplace_item_details.dart';
 
 class Marketplace extends StatefulWidget {
@@ -12,100 +14,71 @@ class Marketplace extends StatefulWidget {
   @override
   State<Marketplace> createState() => _MarketplaceState();
 }
-class _MarketplaceState extends State<Marketplace> {
-  String? _selectedItem;
-  final List<String> _items = ['Equipments', 'Accommodation', 'Food & Restaurants', 'Vehicle'];
-  final List<MarketplaceItem> items = [
-    MarketplaceItem(
-      title: "Item 1",
-      imageUrls: [
-        "https://via.placeholder.com/150",
-        "https://via.placeholder.com/200",
-        "https://via.placeholder.com/250",
-        "https://via.placeholder.com/300",
-      ],
-      price: "\$100",
-      description: 'This is the item description',
-      location: 'Colombo',
-    ),
-    MarketplaceItem(
-      title: "Item 12",
-      imageUrls: [
-        "https://via.placeholder.com/150",
-        "https://via.placeholder.com/200",
-        "https://via.placeholder.com/250",
-        "https://via.placeholder.com/300",
-      ],
-      price: "\$400",
-      description: 'This is the item description',
-      location: 'Colombo',
-    ),
-    MarketplaceItem(
-      title: "Item 4",
-      imageUrls: [
-        "https://via.placeholder.com/150",
-        "https://via.placeholder.com/200",
-        "https://via.placeholder.com/250",
-        "https://via.placeholder.com/300",
-      ],
-      price: "\$900",
-      description: 'This is the item description',
-      location: 'Colombo',
-    ),
-    MarketplaceItem(
-      title: "Item 5",
-      imageUrls: [
-        "https://via.placeholder.com/150",
-        "https://via.placeholder.com/200",
-        "https://via.placeholder.com/250",
-        "https://via.placeholder.com/300",
-      ],
-      price: "\$100",
-      description: 'This is the item description',
-      location: 'Colombo',
-    ),
-    MarketplaceItem(
-      title: "Item 9",
-      imageUrls: [
-        "https://via.placeholder.com/150",
-        "https://via.placeholder.com/200",
-        "https://via.placeholder.com/250",
-        "https://via.placeholder.com/300",
-      ],
-      price: "\$1000",
-      description: 'This is the item description',
-      location: 'Colombo',
-    ),
-    MarketplaceItem(
-      title: "Item 11",
-      imageUrls: [
-        "https://via.placeholder.com/150",
-        "https://via.placeholder.com/200",
-        "https://via.placeholder.com/250",
-        "https://via.placeholder.com/300",
-      ],
-      price: "\$1010",
-      description: 'This is the item description',
-      location: 'Colombo',
-    ),
-    // Add more items here...
-  ];
 
-  // Add a TextEditingController and a list for filtered items
-  final TextEditingController _searchController = TextEditingController();
+class _MarketplaceState extends State<Marketplace> {
+  List<MarketplaceItem> _items = [];
   List<MarketplaceItem> _filteredItems = [];
+  final TextEditingController _searchController = TextEditingController();
+  String? _selectedItem;
+  final List<String> _categories = [
+    ''
+    'Equipments',
+    'Accommodation',
+    'Food & Restaurants',
+    'Vehicle'
+  ];
 
   @override
   void initState() {
     super.initState();
-    _filteredItems = items; // Initially show all items
+    _fetchData();
     _searchController.addListener(_filterItems);
+  }
+
+  // Retrieve the token from SharedPreferences
+  Future<String?> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
+  }
+
+  // Fetch the marketplace data using the token
+  Future<void> _fetchData() async {
+    try {
+      final String? token = await getToken();
+
+      if (token == null) {
+        print("Token missing");
+        throw Exception('Token is missing');
+      }
+
+      final response = await http.get(
+        Uri.parse('http://10.22.162.199:8083/api/v1/sp/advertisement/public'),
+        headers: {
+          'accept': '*/*',
+          'Authorization': 'Bearer $token',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body)['data'];
+        final items = data.map((item) => MarketplaceItem.fromJson(item)).toList();
+        setState(() {
+          _items = items;
+          _filteredItems = _items;
+        });
+      } else {
+        throw Exception('Failed to load marketplace items');
+      }
+    } catch (e) {
+      print(e);
+      // Handle error appropriately
+    }
   }
 
   void _filterItems() {
     final query = _searchController.text.toLowerCase();
     setState(() {
-      _filteredItems = items.where((item) {
+      _filteredItems = _items.where((item) {
         return item.title.toLowerCase().contains(query) ||
             item.description.toLowerCase().contains(query) ||
             item.location.toLowerCase().contains(query);
@@ -122,12 +95,13 @@ class _MarketplaceState extends State<Marketplace> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
+        height: double.infinity,
         width: double.infinity,
         color: AppTheme.colors.white,
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
           child: Column(
             children: [
               Padding(
@@ -142,7 +116,6 @@ class _MarketplaceState extends State<Marketplace> {
                       color: AppTheme.colors.secondary_light_2,
                       fontSize: 16,
                     ),
-
                     filled: true,
                     fillColor: AppTheme.colors.secondary_light_1.withOpacity(0.3),
                     border: OutlineInputBorder(
@@ -150,7 +123,6 @@ class _MarketplaceState extends State<Marketplace> {
                       borderSide: BorderSide.none,
                     ),
                     contentPadding: const EdgeInsets.symmetric(vertical: 15.0),
-
                   ),
                   style: TextStyle(
                     color: AppTheme.colors.primary_dark_3,
@@ -159,162 +131,101 @@ class _MarketplaceState extends State<Marketplace> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Container(
-                      height: 20,
-                      width: 150,
-                      decoration: BoxDecoration(
-                        color: AppTheme.colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: Row(
-                              children: [
-                                SvgPicture.asset('assets/icons/bxs-map.svg'),
-                                Text(
-                                  'Location',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: AppTheme.colors.primary_dark_3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: _selectedItem,
-                        hint: Text(
-                          'Select Category',
-                          style: TextStyle(
-                            color: AppTheme.colors.primary_dark_3,
-                          ),
-                        ),
-                        items: _items.map((String item) {
-                          return DropdownMenuItem<String>(
-                            value: item,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppTheme.colors.primary.withOpacity(0.1),
-                              ),
-                              padding: EdgeInsets.all(10),
-                              child: Text(
-                                item,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: AppTheme.colors.primary,
-                                ),
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedItem = newValue;
-                          });
-                        },
-                        dropdownColor: Colors.white,
-                        elevation: 0,
-                        style: TextStyle(
-                          color: AppTheme.colors.black,
-                          fontSize: 18,
-                        ),
-                        icon: Icon(Icons.arrow_drop_down, color: AppTheme.colors.primary),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                    padding: const EdgeInsets.only(left: 16),
+                    child: DropdownButton<String>(
+                      value: _selectedItem,
+                      hint: Text('Category'),
+                      items: _categories.map((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedItem = newValue;
+                        });
+                      },
                     ),
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      alignment: Alignment.topCenter,
-                      height: size.height * 0.68,
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.75,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 8.0,
-                        ),
-                        itemCount: _filteredItems.length,
-                        itemBuilder: (context, index) {
-                          final item = _filteredItems[index];
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MarketplaceItemDetailPage(item: item),
-                                ),
-                              );
-                            },
-                            child: Card(
-                              color: AppTheme.colors.secondary_light_1,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
+              ListView.builder(
+                itemCount: _filteredItems.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  final item = _filteredItems[index];
+                  // Check if imageUrls is not empty and if it contains valid data
+                  final imageUrl = item.images.isNotEmpty
+                      ? replaceLocalhostWithIP(item.images[0]) // Access the first image URL
+                      : 'assets/images/no_image.jpg'; // Fallback image if empty
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MarketplaceItemDetailPage(
+                              item: item, // Correct MarketplaceItem being passed
+                            ),
+                          ),
+                        );
+                      },
+                      child: Card(
+                        color: AppTheme.colors.secondary_light_1,
+                        child: Row(
+                          children: [
+                            // Make sure the image is sized properly and doesn't overflow
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10), // Optional: for rounded corners
+                              child: CachedNetworkImage(
+                                imageUrl: item.images.isNotEmpty
+                                    ? replaceLocalhostWithIP(item.images[0]) // Get the first image if available
+                                    : 'assets/images/no_image.jpg', // Fallback image if empty
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => const CircularProgressIndicator(),
                               ),
-                              clipBehavior: Clip.antiAlias,
+                            ),
+
+                            const SizedBox(width: 16),
+                            Expanded( // Wrap the column with Expanded to prevent overflow
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Hero(
-                                      tag: '${item.title}-${item.imageUrls.first}',// change this later to an id or some unique value
-                                      child: CachedNetworkImage(
-                                        imageUrl: item.imageUrls.first,
-                                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                      ),
-                                    ),
-
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      item.title,
-                                      style: const TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  Text(
+                                    item.title,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0, bottom: 8),
-                                    child: Text(
-                                      item.price,
-                                      style: TextStyle(
-                                        fontSize: 14.0,
-                                        color: AppTheme.colors.primary_light_1,
-                                      ),
-                                    ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                    item.description,
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                      "Rs.${item.rate.toString()}",
+                                    style: const TextStyle(fontSize: 14),
                                   ),
                                 ],
                               ),
                             ),
-                          );
-                        },
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
             ],
           ),

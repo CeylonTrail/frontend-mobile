@@ -1,7 +1,13 @@
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ceylontrailapp/screen/home_screen.dart';
+import 'package:ceylontrailapp/screen/newsfeed.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../controllers/add_post_controller.dart';
+import '../controllers/login_controller.dart';
 import '../theme/app_theme.dart';
 import '../widgets/post_image_full_screen_view.dart';
 
@@ -24,11 +30,19 @@ class PostPopupState extends State<PostPopup> {
     {'icon': Icons.lock, 'text': 'Only Me'},
   ];
 
+  final TextEditingController _usernameController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
+
     _controller = TextEditingController();
+    // Retrieve logged-in user details using GetX
+    final loginController = Get.find<LoginController>();
+
+    _usernameController.text = loginController.username.value;
   }
+
 
   @override
   void dispose() {
@@ -80,6 +94,65 @@ class PostPopupState extends State<PostPopup> {
     return shouldDiscard ?? false;
   }
 
+  // void _submitPost() {
+  //   // Here you would usually submit the post to your backend or database
+  //
+  //   // Show Snackbar with success message
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: const Text('Post created successfully!'),
+  //       backgroundColor: Colors.green,
+  //       duration: const Duration(seconds: 2),
+  //     ),
+  //   );
+  //
+  //   // After the Snackbar, navigate to the feed screen
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => HomeScreen()), // Adjust to your actual Feed screen
+  //     );
+  //   });
+  // }
+
+  void _submitPost() {
+    if (_controller.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Post content cannot be empty!'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    final postController = AddPostController();
+
+    postController.createPost(
+      content: _controller.text,
+      tripId: '12345', // Replace with actual trip ID
+      privacy: _selectedPrivacyOption,
+      images: _photos,
+    );
+
+    // Show Snackbar with success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Posting...'),
+        backgroundColor: Colors.blue,
+      ),
+    );
+
+    // Navigate to the feed screen after 2 seconds
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -129,7 +202,7 @@ class PostPopupState extends State<PostPopup> {
                         ),
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/img.png',
+                            'assets/images/traveller.jpg',
                             width: 50,
                             height: 50,
                             fit: BoxFit.cover,
@@ -138,7 +211,7 @@ class PostPopupState extends State<PostPopup> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        'Leonardo DiCaprio',
+                        '${_usernameController.text}',
                         style: TextStyle(
                           color: AppTheme.colors.primary_dark_3,
                           fontWeight: FontWeight.bold,
@@ -148,10 +221,7 @@ class PostPopupState extends State<PostPopup> {
                     ],
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      String postContent = _controller.text;
-                      print("Post Content: $postContent");
-                    },
+                    onPressed: _submitPost,
                     style: ElevatedButton.styleFrom(
                       elevation: 0,
                       backgroundColor: AppTheme.colors.secondary_dark_2,
@@ -307,17 +377,10 @@ class PostPopupState extends State<PostPopup> {
                             right: 0,
                             child: GestureDetector(
                               onTap: () => _removePhoto(photo),
-                              child: Container(
-                                padding: const EdgeInsets.all(4.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(22),
-                                ),
-                                child: const Icon(
-                                  Icons.close,
-                                  color: Colors.white,
-                                  size: 15,
-                                ),
+                              child: Icon(
+                                Icons.cancel,
+                                size: 18,
+                                color: Colors.red,
                               ),
                             ),
                           ),
@@ -326,7 +389,6 @@ class PostPopupState extends State<PostPopup> {
                     }).toList(),
                   ),
                 ),
-              const Spacer(),
             ],
           ),
         ),

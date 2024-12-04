@@ -43,7 +43,7 @@ class ChatScreen extends StatelessWidget {
                       alignment: Alignment.center,
                       width: 200,
                       child: Text(
-                        'Full Name',
+                        'Thiran Sasanka',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

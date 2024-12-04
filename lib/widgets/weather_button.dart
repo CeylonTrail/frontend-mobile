@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 // Create a new stateless widget class
 class WeatherButton extends StatelessWidget {
-  // Define a constructor to potentially accept on click functionality
+  // Def ine a constructor to potentially accept on click functionality
   const WeatherButton({super.key, this.onPressed});
 
   // Define an optional onPressed callback function

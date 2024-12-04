@@ -1,7 +1,10 @@
+import 'package:ceylontrailapp/screen/sign_in_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ceylontrailapp/widgets/custom_scaffold_loading.dart';
 import 'package:ceylontrailapp/widgets/user_sign_up_button.dart';
+import '../controllers/sign_up_controller.dart';
 import '../theme/app_theme.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -13,6 +16,10 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formSignUpKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool rememberPassword = true;
@@ -34,20 +41,89 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  void _submitForm() {
-    if (_formSignUpKey.currentState!.validate()) {
-      // Form is valid, proceed with sign-up logic
-      // You can handle your sign-up logic here
-      print("Form is valid, proceed with sign-up");
-    } else {
-      print("Form is not valid");
+
+  Future<void> _submitForm() async {
+    // Ensure the form fields are valid
+    if (!_formSignUpKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Please correct the errors in the form.')),
+      );
+      return;
+    }
+
+    // Ensure the user agrees to the terms
+    if (!rememberPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('You must agree to the terms and conditions.')),
+      );
+      return;
+    }
+
+    // Show a loading indicator while processing the request
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      // Collect the input values
+      final username = _usernameController.text.trim();
+      final email = _emailController.text.trim();
+      final password = _passwordController.text.trim();
+      final firstname = _firstnameController.text.trim();
+      final lastname = _lastnameController.text.trim();
+
+      // Call the sign-up method from your controller
+      final controller = SignUpController();
+      final response = await controller.signUp(
+        username: username,
+        email: email,
+        password: password,
+        firstname: firstname,
+        lastname: lastname,
+      );
+
+      // Close the loading indicator
+      Navigator.of(context).pop();
+
+      // Handle the response
+      if (response['code'] == 200) {
+        Get.to(() => const SignInScreen());
+      } else {
+        // Failure: Show the error message from the API
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(response['message'] ?? 'Sign-up failed.')),
+        );
+      }
+    } catch (error) {
+      // Close the loading indicator
+      Navigator.of(context).pop();
+
+      // Log the error (for debugging purposes)
+      debugPrint('Error during sign-up: $error');
+
+      // Show a generic error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred. Please try again later.')),
+      );
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +183,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             const SizedBox(height: 5),
                             TextFormField(
+                              controller: _firstnameController,
                               validator: (value) {
                                 if (value!.isEmpty || !RegExp(r'[a-zA-Z]+$').hasMatch(value)) {
                                   return "Enter a valid first name";
@@ -156,6 +233,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             const SizedBox(height: 5),
                             TextFormField(
+                              controller: _lastnameController,
                               validator: (value) {
                                 if (value!.isEmpty || !RegExp(r'[a-zA-Z]+$').hasMatch(value)) {
                                   return "Enter a valid last name";
@@ -205,6 +283,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                             const SizedBox(height: 5),
                             TextFormField(
+                              controller: _emailController,
                               validator: (value) {
                                 if (value!.isEmpty || !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
                                   return "Enter a valid e-mail address";
@@ -213,6 +292,59 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               },
                               decoration: InputDecoration(
                                 hintText: 'Enter E-mail',
+                                hintStyle: TextStyle(
+                                  color: AppTheme.colors.secondary_light_2,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.colors.secondary_light_3,
+                                    width: 2,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.colors.primary_dark_3,
+                                    width: 2,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                    color: AppTheme.colors.primary_dark_3,
+                                    width: 2,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: size.height * 0.03),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                textAlign: TextAlign.start,
+                                'Username',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppTheme.colors.primary_dark_3,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            TextFormField(
+                              controller: _usernameController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "Please enter a username.";
+                                }
+                                if (value.isEmpty || !RegExp(r'^[a-z0-9_]{1,32}$').hasMatch(value)) {
+                                  return "Enter a valid username. Username must be 1 to 32 characters long and can only contain lowercase letters, numbers, and underscores.";
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Enter a username',
                                 hintStyle: TextStyle(
                                   color: AppTheme.colors.secondary_light_2,
                                 ),
@@ -409,7 +541,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    // Navigate to sign in screen
+                                    Get.offNamed('/login');
+
                                   },
                                   child: Text(
                                     "Sign In",

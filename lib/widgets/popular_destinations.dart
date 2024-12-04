@@ -110,7 +110,7 @@ class PopularDestinations extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
-                              'assets/images/ambuluwawa.jpg',
+                              'assets/images/galle_fort.jpg',
                               width: 180,
                               height: 240,
                               fit: BoxFit.fitHeight,
@@ -123,7 +123,7 @@ class PopularDestinations extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Ambuluwawa",
+                                  "Galle Fort",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: AppTheme.colors.black,
@@ -163,7 +163,7 @@ class PopularDestinations extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
-                              'assets/images/ambuluwawa.jpg',
+                              'assets/images/sigiriya.jpg',
                               width: 180,
                               height: 240,
                               fit: BoxFit.fitHeight,
@@ -176,7 +176,7 @@ class PopularDestinations extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Ambuluwawa",
+                                  "Sigiriya",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: AppTheme.colors.black,
@@ -216,7 +216,7 @@ class PopularDestinations extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
-                              'assets/images/ambuluwawa.jpg',
+                              'assets/images/anuradhapura.jpg',
                               width: 180,
                               height: 240,
                               fit: BoxFit.fitHeight,
@@ -229,7 +229,7 @@ class PopularDestinations extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Ambuluwawa",
+                                  "Anuradhapura",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: AppTheme.colors.black,
@@ -269,7 +269,7 @@ class PopularDestinations extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
-                              'assets/images/ambuluwawa.jpg',
+                              'assets/images/temple_of_tooth.jpg',
                               width: 180,
                               height: 240,
                               fit: BoxFit.fitHeight,
@@ -282,7 +282,7 @@ class PopularDestinations extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Ambuluwawa",
+                                  "Temple of Tooth",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: AppTheme.colors.black,
@@ -322,7 +322,7 @@ class PopularDestinations extends StatelessWidget {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(12),
                             child: Image.asset(
-                              'assets/images/ambuluwawa.jpg',
+                              'assets/images/marble-beach.jpg',
                               width: 180,
                               height: 240,
                               fit: BoxFit.fitHeight,
@@ -335,7 +335,7 @@ class PopularDestinations extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Ambuluwawa",
+                                  "Marble Beach",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: AppTheme.colors.black,

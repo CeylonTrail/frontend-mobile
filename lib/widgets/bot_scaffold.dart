@@ -73,36 +73,36 @@ class BotScaffoldState extends State<BotScaffold> {
       body: Stack(
         children: [
           widget.body,
-          if (_isChatVisible)
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: BotChat(
-                messageController: _messageController,
-                onSend: _sendMessage,
-                onClose: _toggleChatVisibility,
-                messages: _messages, // Pass the list of BotMessage
-              ),
-            ),
-          if (!_isChatVisible)
-            Positioned(
-              left: _fabX,
-              top: _fabY,
-              child: GestureDetector(
-                onPanUpdate: (details) {
-                  setState(() {
-                    _fabX += details.delta.dx;
-                    _fabY += details.delta.dy;
-                  });
-                },
-                child: FloatingActionButton(
-                  onPressed: _toggleChatVisibility,
-                  child: SvgPicture.asset('assets/icons/bxs-bot.svg'),
-                ),
-              ),
-            ),
+          // if (_isChatVisible)
+          //   Positioned(
+          //     top: 0,
+          //     left: 0,
+          //     right: 0,
+          //     bottom: 0,
+          //     child: BotChat(
+          //       messageController: _messageController,
+          //       onSend: _sendMessage,
+          //       onClose: _toggleChatVisibility,
+          //       messages: _messages, // Pass the list of BotMessage
+          //     ),
+          //   ),
+          // if (!_isChatVisible)
+          //   Positioned(
+          //     left: _fabX,
+          //     top: _fabY,
+          //     child: GestureDetector(
+          //       onPanUpdate: (details) {
+          //         setState(() {
+          //           _fabX += details.delta.dx;
+          //           _fabY += details.delta.dy;
+          //         });
+          //       },
+          //       child: FloatingActionButton(
+          //         onPressed: _toggleChatVisibility,
+          //         child: SvgPicture.asset('assets/icons/bxs-bot.svg'),
+          //       ),
+          //     ),
+          //   ),
         ],
       ),
       bottomNavigationBar: widget.bottomNavBar,

@@ -18,7 +18,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final _formSignInKey = GlobalKey<FormState>();
   bool rememberPassword = true;
-  bool _obscurePassword = true; // Track password visibility
+  bool _obscurePassword = true;
   final LoginController loginController = Get.put(LoginController());
 
   void _togglePasswordVisibility() {

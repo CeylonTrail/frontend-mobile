@@ -2,6 +2,7 @@ import 'package:ceylontrailapp/screen/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import '../controllers/login_controller.dart';
 import '../theme/app_theme.dart';
 
 class Messages extends StatefulWidget {
@@ -14,7 +15,19 @@ class Messages extends StatefulWidget {
 class MessagesState extends State<Messages> {
   bool isSearching = false;
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    // Retrieve logged-in user details using GetX
+    final loginController = Get.find<LoginController>();
+    _firstNameController.text = loginController.firstname.value;
+    _usernameController.text = loginController.username.value;
+    _lastNameController.text = loginController.lastname.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +56,8 @@ class MessagesState extends State<Messages> {
                             Get.back();
                           }
                         },
-                        icon: SvgPicture.asset('assets/icons/bx-arrow-back.svg'),
+                        icon:
+                            SvgPicture.asset('assets/icons/bx-arrow-back.svg'),
                       ),
                       if (!isSearching)
                         Text(
@@ -62,9 +76,11 @@ class MessagesState extends State<Messages> {
                             decoration: InputDecoration(
                               hintText: 'Search...',
                               border: InputBorder.none,
-                              hintStyle: TextStyle(color: AppTheme.colors.primary_dark_3),
+                              hintStyle: TextStyle(
+                                  color: AppTheme.colors.primary_dark_3),
                             ),
-                            style: TextStyle(color: AppTheme.colors.primary_dark_3),
+                            style: TextStyle(
+                                color: AppTheme.colors.primary_dark_3),
                             autofocus: true,
                             onChanged: (value) {
                               // Implement search logic here
@@ -111,16 +127,18 @@ class MessagesState extends State<Messages> {
                             padding: const EdgeInsets.all(2.5),
                             child: Column(
                               children: [
-                                Container(
-                                  width: 70,
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(50),
+                                ClipOval(
+                                  child: SizedBox(
+                                    width:80,
+                                    height: 80,
+                                    child: Image.asset(
+                                      "assets/images/traveller.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                                 Text(
-                                  'FName',
+                                  '${_firstNameController.text}',
                                   style: TextStyle(
                                     color: AppTheme.colors.primary_dark_3,
                                     fontSize: 14,
@@ -153,14 +171,16 @@ class MessagesState extends State<Messages> {
                         padding: const EdgeInsets.only(left: 10.0, top: 10),
                         child: Row(
                           children: [
-                            Container(
-                              width: 60,
-                              height: 60,
-                              decoration: BoxDecoration(
-                                color: Colors.red,
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
+                            // ClipOval(
+                            //   child: SizedBox(
+                            //     width:70,
+                            //     height: 70,
+                            //     child: Image.asset(
+                            //       "assets/images/traveller.jpg",
+                            //       fit: BoxFit.cover,
+                            //     ),
+                            //   ),
+                            // ),
                             Padding(
                               padding: const EdgeInsets.only(left: 10.0),
                               child: GestureDetector(
@@ -171,7 +191,7 @@ class MessagesState extends State<Messages> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Full Name',
+                                      'No followers or followings yet',
                                       style: TextStyle(
                                         color: AppTheme.colors.primary_dark_3,
                                         fontSize: 16,
@@ -181,7 +201,7 @@ class MessagesState extends State<Messages> {
                                     Container(
                                       width: size.width * 0.73,
                                       child: Text(
-                                        'Last Sent or received message',
+                                        '',
                                         maxLines: 1,
                                         overflow: TextOverflow.clip,
                                         style: TextStyle(
@@ -202,7 +222,6 @@ class MessagesState extends State<Messages> {
                 ),
               ),
             ],
-
           ],
         ),
       ),
